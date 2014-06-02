@@ -1,0 +1,19 @@
+GiveHelpBody(john1):
+ seeker: 1234ks
+ postdate: 25/05/2014
+ timeStart: 8:30:54
+ timeEnd: 16:30:54
+ location: Munich
+ post: I need help
+ matesRequired: 3
+ mateApplied: 2
+
+GiveHelpBody(marry1):
+ seeker: 1234ks
+ postdate: 25/04/2014
+ timeStart: 10:30:54
+ timeEnd: 12:30:54
+ location: Hamburg
+ post: I need help
+ matesRequired: 4
+ mateApplied: 1

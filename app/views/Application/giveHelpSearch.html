@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<div class="container">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>  	
+		             
+		      <th>Date</th>
+		      <th>location</th>
+		      <th>mateApplied</th>
+		      <th>matesRequired</th>		      
+		      <th>post</th> 
+		      <th>seeker</th>
+		      <th>timeEnd</th>
+		       <th>timeStart</th>
+		    
+		      
+		    </tr>
+		  </thead>
+		  <tbody id="giveHelpPostTable">
+		    #{list items:giveHelpPost, as:'p'}
+		    <tr>  		        
+		      <td>${p.postdate.format('dd/MM/yyyy')}</td>
+		      <td>${p.location}</td>
+		      <td>${p.mateApplied}</td>
+		      <td>${p.matesRequired}</td>		      
+		      <td>${p.post}</td>
+		      <td>${p.seeker}</td>
+		      <td>${p.timeEnd}</td>
+		      <td>${p.timeStart}</td>
+		      
+		    </tr>
+		    #{/list}
+		  </tbody>
+		</table>
+</div>
+#{form @GiveHelpController.giveHelpSearch(), enctype:'multipart/form-data'}
+    
+  
+    Location:<br>
+    <input type="text" name="location"/>
+    <br>
+    
+    Date:<br>
+    <input type="date" name="search_date"/>
+    <br>
+    
+    Start Time:<br>
+    <input type="text" name="time_start"/>
+    <br>
+
+    End Time:<br>
+    <input type="text" name="time_end"/>
+    <br>    
+
+    <input type="submit" value="Submit!" />
+#{/form}
+#{form @SeekHelpController.SeekHelpRedir(), enctype:'multipart/form-data'}  
+    <input type="submit" value="SeekHelp" />
+#{/form}
