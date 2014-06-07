@@ -1,8 +1,10 @@
 package models;
 
+import javax.persistence.Entity;
+
 import play.db.jpa.Model;
 
-
+@Entity
 public class Mate extends Model{
 	
 	public String ssid;

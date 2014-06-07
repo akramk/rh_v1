@@ -1,0 +1,16 @@
+Mate(mate1):
+ ssid: 1234k3254
+ firstName: John
+ lastName: Fred
+ age: 25
+ email: jeff@gmail.com
+ pass: mate1
+ 
+ 
+Mate(mate2):
+ ssid: 1234k3244
+ firstName: Alex
+ lastName: Rass
+ age: 21
+ email: alex@gmail.com
+ pass: mate2
