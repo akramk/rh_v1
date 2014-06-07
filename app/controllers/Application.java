@@ -26,7 +26,7 @@ public class Application extends Controller {
     	
     	if(location == null && search_date == null && time_start == null && time_end == null){
 			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
-			System.out.println("ALL NULL");
+			System.out.println("ALL NULL FOUND");
 			render(giveHelpPost);
     	}
     	else if((!location.equalsIgnoreCase("")) &&(search_date != null) 
