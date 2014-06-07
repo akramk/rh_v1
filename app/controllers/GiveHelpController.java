@@ -62,8 +62,7 @@ time_start and time_end string to Time variable.*/
 		else if ((!location.equalsIgnoreCase("")) && (search_date != null)&& (!time_start.equals("")) 
 				&& (!time_end.equals(""))) 
 		{
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody
-					.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+			List<GiveHelpBody> giveHelpPost = GiveHelpBody.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
 							search_date, location,
 							java.sql.Time.valueOf(time_start),
 							java.sql.Time.valueOf(time_end)).fetch();
