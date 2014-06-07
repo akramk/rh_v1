@@ -5,8 +5,10 @@ import groovyjarjarcommonscli.ParseException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import models.GiveHelpBody;
+import models.Seeker;
 import play.data.validation.Required;
 import play.mvc.Controller;
 
@@ -19,6 +21,7 @@ public class SeekHelpController extends Controller {
 	public static void seekHelp(String seeker, @Required String post_date,@Required String timeStart, @Required String timeEnd,
 			String location, int mates_Required, String post) throws ParseException, java.text.ParseException {
 
+		
 		
 		System.out.println(session.get("type"));
 		int mate_applied = 0;
