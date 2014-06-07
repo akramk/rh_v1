@@ -1,0 +1,16 @@
+Seeker(mate1):
+ ssid: 1234k3234
+ firstName: Mask
+ lastName: Rip
+ age: 50
+ email: mask@gmail.com
+ pass: seeker1
+ 
+ 
+Seeker(seeker2):
+ ssid: 1234k33545
+ firstName: Riz
+ lastName: Bon
+ age: 62
+ email: riz@gmail.com
+ pass: seeker2
