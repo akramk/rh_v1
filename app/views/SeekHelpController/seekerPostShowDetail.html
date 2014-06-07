@@ -1,0 +1,58 @@
+#{extends 'main.html' /}
+#{set title:'Seeker detail' /}
+
+    <h2 class="post-title">
+        <a href="@{SeekHelpController.seekerPostShowDetail(post.id)}">${post.title}</a>
+    </h2>
+    <div class="post-metadata">
+        <span class="post-author">by ${post.seeker}</span>,
+        <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
+    </div>
+    
+        <div class="post-content">
+            <div class="about">Detail: </div>
+            ${post.post.nl2br()}
+        </div>
+        
+    #{form @SeekHelpController.postComment(post.id)}
+	#{ifErrors}
+		<p class="error">
+			All fields required!
+		</p>
+	#{/ifErrors}
+    <p>
+        <label for="author">Your name: </label>
+        <input type="text" name="author" id="author" value="${params.author}"/>
+    </p>
+    <p>
+        <label for="content">Your message: </label>
+        <textarea name="content" id="content">${params.content}</textarea>
+    </p>
+    <p>
+        <input type="submit" value="Submit your comment" />
+    </p>
+	#{/form}
+     
+    <div class="comments">
+        <h3>
+            { ${post.comments.size() ?: 'no'}
+            comment${post.comments.size().pluralize()}}
+        </h3>
+        
+        #{list items:post.comments, as:'comment'}
+            <div class="comment">
+                <div class="comment-metadata">
+                    <span class="comment-author">by  ${comment.author} ,</span>
+                    <span class="comment-date">
+                         ${comment.postedAt.format('dd MMM yy')} 
+                    </span>
+                </div>
+                <div class="comment-content">
+                    <div class="about">Detail: </div>
+                     ${comment.content.escape().nl2br()}
+                </div>
+            </div>
+         #{/list}
+        
+    </div>
+     

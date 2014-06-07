@@ -75,5 +75,19 @@ public class SeekHelpController extends Controller {
 		}
 
 	}
-
+	
+	//this will show the detail of a seeker's post
+	public static void seekerPostShowDetail(Long id){
+		GiveHelpBody post=GiveHelpBody.findById(id);
+		render(post);
+	}
+	
+	public static void postComment(Long postId, @Required String author, @Required String content){
+		GiveHelpBody post = GiveHelpBody.findById(postId);
+        if (validation.hasErrors()) {
+            render("SeekHelpController/seekerPostShowDetail.html", post);
+        }
+        post.addComment(author, content);
+        seekerPostShowDetail(postId);
+	}
 }

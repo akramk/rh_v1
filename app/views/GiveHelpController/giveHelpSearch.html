@@ -21,7 +21,7 @@
 		  <tbody id="giveHelpPostTable">
 		    #{list items:giveHelpPost, as:'p'}
 		    <tr>
-		      <td>${p.title}</td>  		        
+		      <td><a href="@{SeekHelpController.seekerPostShowDetail(p.id)}">${p.title}</a></td>  		        
 		      <td>${p.postdate.format('dd/MM/yyyy')}</td>
 		      <td>${p.location}</td>
 		      <td>${p.mateApplied}</td>
