@@ -1,6 +1,7 @@
 package controllers;
 
 import java.awt.Panel;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,10 @@ no outputs but null.
 		if (location == null && search_date == null && time_start == null&& time_end == null) 
 		{
 			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
-			System.out.println("ALL NULL");
+			// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
+			String status ="open";
+			giveHelpPost = GiveHelpBody.find("status like ?", status).fetch();
+			System.out.println("ALL NULL and status is OPEN");
 			render(giveHelpPost);
 		} 
 		
@@ -108,13 +112,32 @@ time_start and time_end string to Time variable.*/
 							java.sql.Time.valueOf(time_end)).fetch();
 			render(giveHelpPost);
 		}
-	/*This works automaticall when all cases fail then it will fetch all the messages post from the table.*/	
+	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
 			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
 			System.out.println("Condition Final");
 			render(giveHelpPost);
 		}
 
+	}
+/*
+ * This function increments the number of mateApplied of that specific Seeker. And reload the page of the post.	
+ */
+	public static void mateIncrementer(String seeker) throws ParseException{
+		System.out.println("Ready to Help button is being clicked to help: "+seeker);
+		//fetch the specific seeker object from the table.
+		GiveHelpBody giveHelpPost = GiveHelpBody.find("seeker like ?", seeker).first();
+		//updates the number of mateApplied in each click
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
+		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
+		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
+			giveHelpPost.status = "close";
+			System.out.println(seeker+" closed ");
+		}
+		//save the object in the database
+		giveHelpPost.save();
+		System.out.println();
+		GiveHelpController.giveHelpSearch(null, null, null, null);
 	}
 
 }

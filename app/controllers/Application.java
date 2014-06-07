@@ -3,12 +3,15 @@ package controllers;
 import play.*;
 import play.data.validation.Required;
 import play.data.validation.Validation;
+import play.db.jpa.JPA;
 import play.mvc.*;
 import groovyjarjarcommonscli.ParseException;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.persistence.Query;
 
 import models.*;
 
@@ -138,5 +141,18 @@ public class Application extends Controller {
 	
 		}
 
-}
+ }
+	
+	public static void prettyprint(String seeker){
+		System.out.println("Ready to Help button is being clicked to help: "+seeker);
+		GiveHelpBody giveHelpPost = GiveHelpBody.find("seeker like ?", seeker).first();
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
+		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
+			giveHelpPost.status = "close";
+			System.out.println(seeker+" closed ");
+		}
+		giveHelpPost.save();
+		System.out.println();
+		GiveHelpController.giveHelp();
+	}
 }

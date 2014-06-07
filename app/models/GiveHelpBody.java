@@ -29,6 +29,7 @@ public class GiveHelpBody extends Model {
 	public String post;
 	public Integer matesRequired;
 	public Integer mateApplied;
+	public String status;
 
 	/**
 	 * @param seeker
@@ -51,5 +52,6 @@ public class GiveHelpBody extends Model {
 		this.post = post;
 		this.matesRequired = matesRequired;
 		this.mateApplied = mateApplied;
+		this.status = "open";
 	}
 }
