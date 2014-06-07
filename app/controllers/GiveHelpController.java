@@ -17,7 +17,9 @@ filter using the search panel. Also you can go to the SeekHelp page through pusi
 for navigation. As we dont have any navigation panel now. But those who will design the interface can followi this apporach
 to navigate the links.*/
 	public static void giveHelp() {
+		
 		render();
+		
 	}
 	
 /*
@@ -45,7 +47,9 @@ This function searches on these parameter basis. And there are different criteri
 	public static void giveHelpSearch(String location, Date search_date, String time_start, String time_end) 
 			throws java.text.ParseException {
 		System.out.println(time_start + "----" + time_end + "Location"+ location + "Date" + search_date);
-
+		
+		System.out.println(session.get("type"));
+		
 /*When the page will be reloaded from the navigation panel through clicking any link or button then this page will be reloaded.
 so then this condition will be checked. As at that time all the parameters will be null. Because search panel will return
 no outputs but null.

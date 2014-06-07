@@ -19,6 +19,8 @@ public class SeekHelpController extends Controller {
 	public static void seekHelp(String seeker, @Required String post_date,@Required String timeStart, @Required String timeEnd,
 			String location, int mates_Required, String post) throws ParseException, java.text.ParseException {
 
+		
+		System.out.println(session.get("type"));
 		int mate_applied = 0;
 		boolean all_check = false;
 		if (seeker.length() > 0 && post_date.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
