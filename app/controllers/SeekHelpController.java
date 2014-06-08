@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import models.GiveHelpBody;
+import models.SeekerPostTable;
 import models.Seeker;
 import play.data.validation.Required;
 import play.mvc.Controller;
@@ -66,7 +66,7 @@ public class SeekHelpController extends Controller {
 				timeE = java.sql.Time.valueOf("00:00:00");
 			}
 
-			GiveHelpBody giveHelpPost = new GiveHelpBody(seeker, date, timeS,
+			SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS,
 					timeE, location, title, post, mates_Required, mate_applied);
 			System.out.println("Flag" + flag);
 			if (flag == true) {
@@ -83,12 +83,12 @@ public class SeekHelpController extends Controller {
 	
 	//this will show the detail of a seeker's post
 	public static void seekerPostShowDetail(Long id){
-		GiveHelpBody post=GiveHelpBody.findById(id);
+		SeekerPostTable post=SeekerPostTable.findById(id);
 		render(post);
 	}
 	
 	public static void postComment(Long postId, @Required String author, @Required String content){
-		GiveHelpBody post = GiveHelpBody.findById(postId);
+		SeekerPostTable post = SeekerPostTable.findById(postId);
         if (validation.hasErrors()) {
             render("SeekHelpController/seekerPostShowDetail.html", post);
         }

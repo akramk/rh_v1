@@ -25,13 +25,13 @@ public class Application extends Controller {
     	System.out.println(time_start + "----"+ time_end +"Location"+location+"Date"+search_date);
     	
     	if(location == null && search_date == null && time_start == null && time_end == null){
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("ALL NULL");
 			render(giveHelpPost);
     	}
     	else if((!location.equalsIgnoreCase("")) &&(search_date != null) 
 				&& (!time_start.equals("")) && (!time_end.equals(""))){
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?", search_date, location,
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?", search_date, location,
 					java.sql.Time.valueOf(time_start), java.sql.Time.valueOf(time_end)).fetch();
 			System.out.println("ALL NOT NULL");
 			render(giveHelpPost);
@@ -39,7 +39,7 @@ public class Application extends Controller {
 		
 		else if((location == null || location.equalsIgnoreCase("")) && (search_date == null || search_date.equals(""))
 				&& (time_start == null || time_start.equals("")) && (time_end == null || time_end.equals(""))){
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition 3");
 			render(giveHelpPost);
 		}
@@ -61,11 +61,11 @@ public class Application extends Controller {
 				time_end = "00:00:00";
 			}
 			
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?", search_date, location,
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?", search_date, location,
 					java.sql.Time.valueOf(time_start),java.sql.Time.valueOf(time_end)).fetch();
 			render(giveHelpPost);
 		}else{
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition Final");
 			render(giveHelpPost);
 		}
@@ -127,7 +127,7 @@ public class Application extends Controller {
 			}
 			
 			
-			GiveHelpBody giveHelpPost = new GiveHelpBody(seeker, date, timeS, timeE, location, title, post, mates_Required, mate_applied);
+			SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS, timeE, location, title, post, mates_Required, mate_applied);
 			System.out.println("Flag"+ flag);
 			if(flag == true)
 			{
@@ -145,7 +145,7 @@ public class Application extends Controller {
 	
 	public static void prettyprint(String seeker){
 		System.out.println("Ready to Help button is being clicked to help: "+seeker);
-		GiveHelpBody giveHelpPost = GiveHelpBody.find("seeker like ?", seeker).first();
+		SeekerPostTable giveHelpPost = SeekerPostTable.find("seeker like ?", seeker).first();
 		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
 		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
 			giveHelpPost.status = "close";

@@ -20,9 +20,9 @@ public class SeekerPostComment extends Model{
     
     @ManyToOne
     @Required
-    public GiveHelpBody post;
+    public SeekerPostTable post;
     
-    public SeekerPostComment(GiveHelpBody post, String author, String content) {
+    public SeekerPostComment(SeekerPostTable post, String author, String content) {
         this.post = post;
         this.author = author;
         this.content = content;

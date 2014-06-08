@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.ivy.util.Message;
 
-import models.GiveHelpBody;
+import models.SeekerPostTable;
 import models.Mate;
 import models.Seeker;
 import play.cache.Cache;

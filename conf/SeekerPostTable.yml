@@ -1,4 +1,4 @@
-GiveHelpBody(john1):
+SeekerPostTable(john1):
  seeker: 1234ks
  postdate: 25/05/2014
  timeStart: 8:30:54
@@ -8,7 +8,7 @@ GiveHelpBody(john1):
  matesRequired: 3
  mateApplied: 2
 
-GiveHelpBody(marry1):
+SeekerPostTable(marry1):
  seeker: 1234ks
  postdate: 25/04/2014
  timeStart: 10:30:54
