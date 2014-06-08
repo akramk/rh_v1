@@ -77,7 +77,7 @@ public class Application extends Controller {
 	}
 	
 	public static void seekHelp(String seeker,  @Required String post_date, @Required String timeStart, @Required String timeEnd,
-			String location, int mates_Required,String post) throws ParseException, java.text.ParseException{
+			String location, int mates_Required,String title, String post) throws ParseException, java.text.ParseException{
 		
 		int mate_applied = 0;
 		
@@ -127,7 +127,7 @@ public class Application extends Controller {
 			}
 			
 			
-			GiveHelpBody giveHelpPost = new GiveHelpBody(seeker, date, timeS, timeE, location, post, mates_Required, mate_applied);
+			GiveHelpBody giveHelpPost = new GiveHelpBody(seeker, date, timeS, timeE, location, title, post, mates_Required, mate_applied);
 			System.out.println("Flag"+ flag);
 			if(flag == true)
 			{

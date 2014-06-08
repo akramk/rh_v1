@@ -19,7 +19,7 @@ public class SeekHelpController extends Controller {
 	}
 
 	public static void seekHelp(String seeker, @Required String post_date,@Required String timeStart, @Required String timeEnd,
-			String location, int mates_Required, String post) throws ParseException, java.text.ParseException {
+			String location, int mates_Required, String title, String post) throws ParseException, java.text.ParseException {
 
 		
 		
@@ -67,7 +67,7 @@ public class SeekHelpController extends Controller {
 			}
 
 			GiveHelpBody giveHelpPost = new GiveHelpBody(seeker, date, timeS,
-					timeE, location, post, mates_Required, mate_applied);
+					timeE, location, title, post, mates_Required, mate_applied);
 			System.out.println("Flag" + flag);
 			if (flag == true) {
 				giveHelpPost.create();
@@ -80,5 +80,19 @@ public class SeekHelpController extends Controller {
 		}
 
 	}
-
+	
+	//this will show the detail of a seeker's post
+	public static void seekerPostShowDetail(Long id){
+		GiveHelpBody post=GiveHelpBody.findById(id);
+		render(post);
+	}
+	
+	public static void postComment(Long postId, @Required String author, @Required String content){
+		GiveHelpBody post = GiveHelpBody.findById(postId);
+        if (validation.hasErrors()) {
+            render("SeekHelpController/seekerPostShowDetail.html", post);
+        }
+        post.addComment(author, content);
+        seekerPostShowDetail(postId);
+	}
 }

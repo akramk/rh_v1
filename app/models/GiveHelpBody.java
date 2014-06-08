@@ -2,9 +2,9 @@ package models;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -27,10 +27,13 @@ public class GiveHelpBody extends Model {
 	public Time timeEnd;
 	public String location;
 	public String post;
+	public String title;
 	public Integer matesRequired;
 	public Integer mateApplied;
 	public String status;
-
+	
+	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+    public List<SeekerPostComment> comments;
 	/**
 	 * @param seeker
 	 * @param date
@@ -42,16 +45,24 @@ public class GiveHelpBody extends Model {
 	 * @param mateApplied
 	 */
 	public GiveHelpBody(String seeker, Date date, Time timeStart, Time timeEnd,
-			String location, String post, Integer matesRequired,
+			String location, String title, String post, Integer matesRequired,
 			Integer mateApplied) {
 		this.seeker = seeker;
 		this.postdate = date;
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
 		this.location = location;
+		this.title=title;
 		this.post = post;
 		this.matesRequired = matesRequired;
 		this.mateApplied = mateApplied;
 		this.status = "open";
 	}
+	
+    public GiveHelpBody addComment(String author, String content) {
+    	SeekerPostComment newComment = new SeekerPostComment(this, author, content);
+        this.comments.add(newComment);
+        this.save();
+        return this;
+    }
 }
