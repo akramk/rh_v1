@@ -46,7 +46,7 @@ This function searches on these parameter basis. And there are different criteri
 			throws java.text.ParseException {
 		System.out.println(time_start + "----" + time_end + "Location"+ location + "Date" + search_date);
 		
-		System.out.println(session.get("type"));
+		//System.out.println(session.get("type"));
 		
 /*When the page will be reloaded from the navigation panel through clicking any link or button then this page will be reloaded.
 so then this condition will be checked. As at that time all the parameters will be null. Because search panel will return
