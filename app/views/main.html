@@ -11,8 +11,11 @@
         <link rel="stylesheet" href="@{'/public/stylesheets/jquery-ui.css'}">
 	    <script src="@{'/public/javascripts/jquery-1.10.2.js'}"></script>
 	    <script src="@{'/public/javascripts/jquery-ui.js'}"></script>
-	    <link rel="stylesheet" href="/resources/demos/style.css"> 
-	   
+	    <link rel="stylesheet" href="/resources/demos/style.css">
+		<link rel="stylesheet" href="@{'/public/stylesheets/rh.css'}">
+		<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.css'}">
+		<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.min.css'}">
+		<link rel="stylesheet" href="@{'/public/stylesheets/sb-admin.css'}">	    	   
         <script>
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
@@ -21,6 +24,12 @@
         #{get 'moreScripts' /}
     </head>
     <body>
+    <div id="header">
+    	
+    </div>
+    <div>
+    	
+    </div>
         #{doLayout /}
     </body>
 </html>
