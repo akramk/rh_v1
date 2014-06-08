@@ -9,7 +9,7 @@ public class Bootstrap extends Job{
 	@Override
 	public void doJob() throws Exception {
 		if(Seeker.count() == 0){
-			Fixtures.loadModels("GiveHelpBody.yml");
+			Fixtures.loadModels("SeekerPostTable.yml");
 			Fixtures.loadModels("Address.yml");
 			Fixtures.loadModels("Mate.yml");
 			Fixtures.loadModels("Seeker.yml");

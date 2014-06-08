@@ -32,7 +32,7 @@
 		      <td>${p.timeStart}</td>
 		      <td>
 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
-		      <input type="text" hidden="${p.seeker}" value=${p.seeker} name = "seeker"/>
+		      <input type="text"  value ='${p.seeker}' name = "seeker"/>
 		      <input type="submit" value="Ready To Help" />
 		      #{/form}
 		      </td>

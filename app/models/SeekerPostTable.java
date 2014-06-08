@@ -16,7 +16,7 @@ import play.db.jpa.Model;
  there will be no mate_applied variable. As for the beginning obviously there will be no mates applied.*/
 
 @Entity
-public class GiveHelpBody extends Model {
+public class SeekerPostTable extends Model {
 
 	public String seeker;
 	public @As("dd/MM/yyyy")
@@ -44,7 +44,7 @@ public class GiveHelpBody extends Model {
 	 * @param matesRequired
 	 * @param mateApplied
 	 */
-	public GiveHelpBody(String seeker, Date date, Time timeStart, Time timeEnd,
+	public SeekerPostTable(String seeker, Date date, Time timeStart, Time timeEnd,
 			String location, String title, String post, Integer matesRequired,
 			Integer mateApplied) {
 		this.seeker = seeker;
@@ -59,7 +59,7 @@ public class GiveHelpBody extends Model {
 		this.status = "open";
 	}
 	
-    public GiveHelpBody addComment(String author, String content) {
+    public SeekerPostTable addComment(String author, String content) {
     	SeekerPostComment newComment = new SeekerPostComment(this, author, content);
         this.comments.add(newComment);
         this.save();

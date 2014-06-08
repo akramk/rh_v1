@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import models.GiveHelpBody;
+import models.SeekerPostTable;
 import play.mvc.Controller;
 
 public class GiveHelpController extends Controller {
@@ -54,10 +54,10 @@ no outputs but null.
 */
 		if (location == null && search_date == null && time_start == null&& time_end == null) 
 		{
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
 			String status ="open";
-			giveHelpPost = GiveHelpBody.find("status like ?", status).fetch();
+			giveHelpPost = SeekerPostTable.find("status like ?", status).fetch();
 			System.out.println("ALL NULL and status is OPEN");
 			render(giveHelpPost);
 		} 
@@ -68,7 +68,7 @@ time_start and time_end string to Time variable.*/
 		else if ((!location.equalsIgnoreCase("")) && (search_date != null)&& (!time_start.equals("")) 
 				&& (!time_end.equals(""))) 
 		{
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
 							search_date, location,
 							java.sql.Time.valueOf(time_start),
 							java.sql.Time.valueOf(time_end)).fetch();
@@ -80,7 +80,7 @@ time_start and time_end string to Time variable.*/
 		else if ((location == null || location.equalsIgnoreCase("")) && (search_date == null || search_date.equals(""))
 				&& (time_start == null || time_start.equals("")) && (time_end == null || time_end.equals(""))) 
 		{
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition 3");
 			render(giveHelpPost);
 		}
@@ -106,7 +106,7 @@ time_start and time_end string to Time variable.*/
 				time_end = "00:00:00";
 			}
 
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable
 					.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?",
 							search_date, location,
 							java.sql.Time.valueOf(time_start),
@@ -115,7 +115,7 @@ time_start and time_end string to Time variable.*/
 		}
 	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
-			List<GiveHelpBody> giveHelpPost = GiveHelpBody.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition Final");
 			render(giveHelpPost);
 		}
@@ -127,7 +127,7 @@ time_start and time_end string to Time variable.*/
 	public static void mateIncrementer(String seeker) throws ParseException{
 		System.out.println("Ready to Help button is being clicked to help: "+seeker);
 		//fetch the specific seeker object from the table.
-		GiveHelpBody giveHelpPost = GiveHelpBody.find("seeker like ?", seeker).first();
+		SeekerPostTable giveHelpPost = SeekerPostTable.find("seeker like ?", seeker).first();
 		//updates the number of mateApplied in each click
 		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
 		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
