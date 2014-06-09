@@ -140,5 +140,23 @@ time_start and time_end string to Time variable.*/
 		System.out.println();
 		GiveHelpController.giveHelpSearch(null, null, null, null);
 	}
+	
+	public static void mateIncrementer1(Long postId) throws ParseException{
+		System.out.println("Ready to Help button is being clicked to help: "+ postId);
+		//fetch the specific seeker object from the table.
+		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
+		//updates the number of mateApplied in each click
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
+		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
+		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
+			giveHelpPost.status = "close";
+			System.out.println(giveHelpPost.seeker+" closed ");
+		}
+		//save the object in the database
+		giveHelpPost.save();
+		System.out.println();
+		SeekHelpController.seekerPostShowDetail(postId);
+	}
+	
 
 }
