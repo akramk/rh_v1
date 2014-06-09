@@ -22,7 +22,8 @@
 	background-image: url(/public/images/bnr-bg.png);
 	background-repeat: repeat-x;
 	font-family: "Lucida Calligraphy";
-	font-size: 35px;
+	font-size: 40px;
+	color: #4a4a4a;
 }
 
 .nav-mrgn{
@@ -86,6 +87,13 @@
 a{
 	text-decoration: none;
 	color: #18270a;
+}
+
+.bdy-mrgn{
+	width: 100%;
+	height: 10px;
+	position: relative;
+	float: left;
 }
 
 .footer{
