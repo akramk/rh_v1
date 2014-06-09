@@ -3,18 +3,26 @@
 	height: 125px;
 	background-image: url(/public/images/hdr-bg.png);
 	background-repeat: repeat-x;
-	text-align: center;
 	margin-top: 5px;
-	padding: 10px;
+	padding: 0px;
 	margin-bottom: 30px;
 	float: left;
 	border-radius: 10px 10px 0px 0px;
 }
 
 .banner{
-	width: 100%;
-	height: 70px;
-	background-color: #43944b;
+	width: 98.6%;
+	height: 60px;
+	margin-top: 3px;
+	position: relative;
+	float: left;
+	padding-left: 20px;
+	padding-top: 10px;
+	border-radius: 10px;
+	background-image: url(/public/images/bnr-bg.png);
+	background-repeat: repeat-x;
+	font-family: "Lucida Calligraphy";
+	font-size: 35px;
 }
 
 .nav-mrgn{
@@ -31,13 +39,31 @@
 	margin-right: 3px;
 	margin-top: 10px;
 	border-radius: 3px;
-	background-image: url(/public/images/hdr-btn.png);
 	background-repeat: repeat-x;
-	text-decoration: none;
+	font-family: arial;
+	font-weight: normal;
 	position: relative;
 	text-align: center;
 	text-indent: inherit;
 	float: right;
+}
+
+.btn:hover{
+	width: 80px;
+	height: 25px;
+	padding: 5px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 3px;
+	background-image: url(/public/images/hdr-btn-hvr.png);
+	background-repeat: repeat-x;
+	text-shadow: 2px 3px 2px #414141;
+	font-family: arial;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: right;	
 }
 
 .frm-btn {
@@ -63,9 +89,10 @@ a{
 }
 
 .footer{
-	width: 99%;
+	width: 97.5%;
 	height: 100px;
-	background-color:#122809;
+	background-image: url(/public/images/ftr-bg.png);
+	background-repeat: repeat-x;
 	position: relative;
 	margin-top: 50px;
 	padding: 10px;
