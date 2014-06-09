@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import models.Mate;
 import models.SeekerPostTable;
 import play.mvc.Controller;
 
@@ -147,6 +148,10 @@ time_start and time_end string to Time variable.*/
 		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
 		//updates the number of mateApplied in each click
 		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
+		//use this logged in mate as the helper
+		Long userId=Long.parseLong(session.get("id"));
+		Mate author=Mate.findById(userId);
+		giveHelpPost.addHelpMate(author);
 		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
 		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
 			giveHelpPost.status = "close";

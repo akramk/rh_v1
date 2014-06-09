@@ -32,8 +32,11 @@ public class SeekerPostTable extends Model {
 	public Integer mateApplied;
 	public String status;
 	
-	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
     public List<SeekerPostComment> comments;
+	
+	@ManyToMany
+    public List<Mate> matesWantToHelp;
 	/**
 	 * @param seeker
 	 * @param date
@@ -76,4 +79,11 @@ public class SeekerPostTable extends Model {
         this.save();
         return this;
     }
+    public SeekerPostTable addHelpMate(Mate mate){    	
+    	this.matesWantToHelp.add(mate);
+    	this.save();
+    	mate.addPostWantTohelp(this);
+    	return this;
+    }
+    
 }

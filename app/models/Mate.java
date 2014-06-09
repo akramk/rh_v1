@@ -1,7 +1,10 @@
 package models;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.*;
+
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
@@ -13,6 +16,9 @@ public class Mate extends User{
 	public int age;
 	public String email;
 	public String pass;
+	
+	@ManyToMany
+    public List<SeekerPostTable>postsWantTohelp;
 	/**
 	 * @param ssid
 	 * @param firstName
@@ -32,7 +38,11 @@ public class Mate extends User{
 		this.pass = pass;
 	}
 	
-	
+	public Mate addPostWantTohelp(SeekerPostTable post){
+		this.postsWantTohelp.add(post);
+		this.save();
+		return this;
+	}
 	
 	
 }
