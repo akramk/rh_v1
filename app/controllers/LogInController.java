@@ -53,7 +53,7 @@ public class LogInController extends Controller {
 								session.put("userType", "mate");
 								session.put("id", mate.get(0).id);
 //								session.put("loggedInUser",mate.get(0));
-								session.put("name", mate.get(0).firstName +" "+ mate.get(0).lastName);								
+								session.put("userName", mate.get(0).firstName +" "+ mate.get(0).lastName);								
 								GiveHelpController.giveHelpSearch(null, null, null, null);	
 								 
 							}
