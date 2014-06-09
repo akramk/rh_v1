@@ -13,9 +13,7 @@
 	    <script src="@{'/public/javascripts/jquery-ui.js'}"></script>
 	    <link rel="stylesheet" href="/resources/demos/style.css">
 		<link rel="stylesheet" href="@{'/public/stylesheets/rh.css'}">
-		<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.css'}">
-		<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.min.css'}">
-		<link rel="stylesheet" href="@{'/public/stylesheets/sb-admin.css'}">	    	   
+
         <script>
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
@@ -23,18 +21,26 @@
 	   </script>
         #{get 'moreScripts' /}
     </head>
-    <body>
+    <body bgcolor="#d5d5d5">
     <div class="header">
-    <div class="btn-outline btn-primary.btn-outline btn-success.btn-outline"><a href="http://localhost:9000/" target="_self">Home</a></div>
-    <div class="button"><a href="giveHelp.html" target="_self">Give Help</a></div>
-    <div class="button"><a href="http://localhost:9000/SeekHelp.html" target="_self">Seek Help</a></div>
-    <div class="button">Donate</div>
-    <div class="button">Contact</div>    	
+    <div class="banner">banner goes here............................</div>
+    <div class="nav-mrgn">&nbsp;</div>
+    <div class="btn"><a href="" target="_self">Contact</a></div>
+    <div class="btn"><a href="" target="_self">Donate</a></div>
+    <div class="btn"><a href="@{GiveHelpController.giveHelp}" target="_self">Give Help</a></div>
+    <div class="btn"><a href="@{SeekHelpController.seekHelpRedir}" target="_self">Seek Help</a></div>
+    <div class="btn"><a href="http://localhost:9000/" target="_self">Home</a></div>
+    
+    
+    
+    
     </div>
     
-    <div class="footer">
-    	
-    </div>
+    
         #{doLayout /}
+    
+    <div class="footer">
+    	Footer goes here......
+    </div>
     </body>
 </html>

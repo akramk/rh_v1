@@ -1,6 +1,74 @@
 .header {
+	width: 99%;
+	height: 125px;
+	background-image: url(/public/images/hdr-bg.png);
+	background-repeat: repeat-x;
+	text-align: center;
+	margin-top: 5px;
+	padding: 10px;
+	margin-bottom: 30px;
+	float: left;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.banner{
 	width: 100%;
+	height: 70px;
+	background-color: #43944b;
+}
+
+.nav-mrgn{
+	position: relative;
+	float: right;
+	width: 30px;
+}
+
+.btn {
+	width: 80px;
+	height: 25px;
+	padding: 5px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 3px;
+	background-image: url(/public/images/hdr-btn.png);
+	background-repeat: repeat-x;
+	text-decoration: none;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: right;
+}
+
+.frm-btn {
+	width: 90px;
+	height: 30px;
+	padding: 2px;
+	margin-left: 60px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 5px;
+	background-image: url(/public/images/frm-btn.png);
+	background-repeat: repeat-x;
+	text-decoration: none;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: left;
+}
+
+a{
+	text-decoration: none;
+	color: #18270a;
+}
+
+.footer{
+	width: 99%;
 	height: 100px;
-	color: #c5c5c5;
-	align: center;
+	background-color:#122809;
+	position: relative;
+	margin-top: 50px;
+	padding: 10px;
+	color: #887c77;
+	text-align: center;
 }
