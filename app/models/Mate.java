@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import play.db.jpa.Model;
 
 @Entity
-public class Mate extends Model{
+public class Mate extends User{
 	
 	public String ssid;
 	public String firstName;

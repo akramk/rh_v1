@@ -11,8 +11,8 @@ GET      /                                       LogInController.logIn
                                
 
 
-GET     /giveHelpSearch                         GiveHelpController.giveHelpSearch
-GET     /giveHelp.seekHelpRedir                 SeekHelpController.seekHelpRedir
+#GET     /giveHelpSearch                         GiveHelpController.giveHelpSearch
+#GET     /giveHelp.seekHelpRedir                 SeekHelpController.seekHelpRedir
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

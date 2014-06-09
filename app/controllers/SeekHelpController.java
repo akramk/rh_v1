@@ -87,12 +87,14 @@ public class SeekHelpController extends Controller {
 		render(post);
 	}
 	
-	public static void postComment(Long postId, @Required String author, @Required String content){
+	public static void postComment(Long postId, @Required String content){
 		SeekerPostTable post = SeekerPostTable.findById(postId);
         if (validation.hasErrors()) {
             render("SeekHelpController/seekerPostShowDetail.html", post);
         }
-        post.addComment(author, content);
+      //addComment is a function of SeekerPostTable model
+        post.addComment(session.get("userType"),Long.parseLong(session.get("id")), content);//id of SeekerPostTable is Long, but 
+        //session stores data in string so convert the id to long using Long.parseLong
         seekerPostShowDetail(postId);
 	}
 }

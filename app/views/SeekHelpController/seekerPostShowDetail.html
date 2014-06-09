@@ -20,10 +20,13 @@
 			All fields required!
 		</p>
 	#{/ifErrors}
+    
     <p>
         <label for="author">Your name: </label>
-        <input type="text" name="author" id="author" value="${params.author}"/>
+        ${session.get("userName")}
     </p>
+     
+    
     <p>
         <label for="content">Your message: </label>
         <textarea name="content" id="content">${params.content}</textarea>
@@ -42,7 +45,14 @@
         #{list items:post.comments, as:'comment'}
             <div class="comment">
                 <div class="comment-metadata">
-                    <span class="comment-author">by  ${comment.author} ,</span>
+                    <span class="comment-author">
+                    #{if comment.who=="seeker"}
+                    	by  ${comment.authorSeeker.firstName} ,	
+                    #{/if}
+                    #{if comment.who=="mate"}
+                    	by  ${comment.authorMate.firstName} ,	
+                    #{/if}
+                    </span>
                     <span class="comment-date">
                          ${comment.postedAt.format('dd MMM yy')} 
                     </span>
