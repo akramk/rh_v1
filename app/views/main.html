@@ -11,8 +11,9 @@
         <link rel="stylesheet" href="@{'/public/stylesheets/jquery-ui.css'}">
 	    <script src="@{'/public/javascripts/jquery-1.10.2.js'}"></script>
 	    <script src="@{'/public/javascripts/jquery-ui.js'}"></script>
-	    <link rel="stylesheet" href="/resources/demos/style.css"> 
-	   
+	    <link rel="stylesheet" href="/resources/demos/style.css">
+		<link rel="stylesheet" href="@{'/public/stylesheets/rh.css'}">
+
         <script>
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
@@ -20,7 +21,24 @@
 	   </script>
         #{get 'moreScripts' /}
     </head>
-    <body>
+    <body bgcolor="#f3f3f3">
+    <div class="header">
+    <div class="banner"><a href="http://localhost:9000/" target="_self"><img src="@{'/public/images/logo.png'}"/></a> Restore Humanity..............</div>
+    <div class="nav-mrgn">&nbsp;</div>
+    <a href="" target="_self"><div class="btn">Contact</div><a>
+    <a href="" target="_self"><div class="btn">Donate</div></a>
+    <a href="@{GiveHelpController.giveHelp}" target="_self"><div class="btn">Give Help</div></a>
+    <a href="@{SeekHelpController.seekHelpRedir}" target="_self"><div class="btn">Seek Help</div></a>
+    <a href="http://localhost:9000/" target="_self"><div class="btn">Home</div></a>
+       
+    
+    </div>
+    
+    
         #{doLayout /}
+    
+    <div class="footer">
+    	© All rights reserved to humanity.
+    </div>
     </body>
 </html>
