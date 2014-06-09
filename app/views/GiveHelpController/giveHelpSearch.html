@@ -31,10 +31,10 @@
 		      <td>${p.timeEnd}</td>
 		      <td>${p.timeStart}</td>
 		      <td>
-		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
-		      <input type="text"  value ='${p.seeker}' name = "seeker"/>
+<!-- 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
+		      <input type="hidden"  value ='${p.seeker}' name = "seeker"/>
 		      <input type="submit" value="Ready To Help" />
-		      #{/form}
+		      #{/form} -->
 		      </td>
 		    </tr>
 		    #{/list}
@@ -68,12 +68,12 @@
     <input type="text" name="timeEnd"/>
     <br>    
 
-    <input type="submit" value="Submit!" />
+    <input class="frm-btn" type="submit" value="Submit!" />
 </form>
 
 
 #{form @SeekHelpController.SeekHelpRedir(), enctype:'multipart/form-data'} 
-    <input type="submit" value="SeekHelp" />
+    <input class="frm-btn" type="submit" value="SeekHelp" />
 #{/form}
 
 <script language="JavaScript" type="text/javascript">

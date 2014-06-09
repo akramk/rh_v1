@@ -1,6 +1,109 @@
-#header{
+.header {
+	width: 99%;
+	height: 125px;
+	background-image: url(/public/images/hdr-bg.png);
+	background-repeat: repeat-x;
+	margin-top: 5px;
+	padding: 0px;
+	margin-bottom: 30px;
+	float: left;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.banner{
+	width: 98.6%;
+	height: 60px;
+	margin-top: 3px;
+	position: relative;
+	float: left;
+	padding-left: 20px;
+	padding-top: 10px;
+	border-radius: 10px;
+	background-image: url(/public/images/bnr-bg.png);
+	background-repeat: repeat-x;
+	font-family: "Lucida Calligraphy";
+	font-size: 40px;
+	color: #4a4a4a;
+}
+
+.nav-mrgn{
+	position: relative;
+	float: right;
+	width: 30px;
+}
+
+.btn {
+	width: 80px;
+	height: 25px;
+	padding: 5px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 3px;
+	background-repeat: repeat-x;
+	font-family: arial;
+	font-weight: normal;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: right;
+}
+
+.btn:hover{
+	width: 80px;
+	height: 25px;
+	padding: 5px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 3px;
+	background-image: url(/public/images/hdr-btn-hvr.png);
+	background-repeat: repeat-x;
+	text-shadow: 2px 3px 2px #414141;
+	font-family: arial;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: right;	
+}
+
+.frm-btn {
+	width: 90px;
+	height: 30px;
+	padding: 2px;
+	margin-left: 60px;
+	margin-right: 3px;
+	margin-top: 10px;
+	border-radius: 5px;
+	background-image: url(/public/images/frm-btn.png);
+	background-repeat: repeat-x;
+	text-decoration: none;
+	position: relative;
+	text-align: center;
+	text-indent: inherit;
+	float: left;
+}
+
+a{
+	text-decoration: none;
+	color: #18270a;
+}
+
+.bdy-mrgn{
 	width: 100%;
+	height: 10px;
+	position: relative;
+	float: left;
+}
+
+.footer{
+	width: 97.5%;
 	height: 100px;
-	color: #c5c5c5;
-	align: center;
+	background-image: url(/public/images/ftr-bg.png);
+	background-repeat: repeat-x;
+	position: relative;
+	margin-top: 50px;
+	padding: 10px;
+	color: #887c77;
+	text-align: center;
 }
