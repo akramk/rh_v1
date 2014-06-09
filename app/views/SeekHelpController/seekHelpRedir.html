@@ -10,9 +10,8 @@
 
 #{form @SeekHelpController.seekHelp(), enctype:'multipart/form-data', role:'form'}
   <div class="form-group">
-    <label for="seeker">Seeker Name:</label>
+    <label for="seeker">Seeker Name:</label> ${session.get("userName")}
   </div>
-    <input class="form-control"  type="text" name="seeker" value='${session.get("userName")}' readonly />
   <div class="form-group">
     <label for="post_date">Date:</label>
     <input class="form-control"  type="text" name="post_date" id="datepicker" value="25/05/2014" />

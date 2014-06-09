@@ -152,6 +152,8 @@ time_start and time_end string to Time variable.*/
 		Long userId=Long.parseLong(session.get("id"));
 		Mate author=Mate.findById(userId);
 		giveHelpPost.addHelpMate(author);
+		giveHelpPost = SeekerPostTable.findById(postId);
+//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
 		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
 		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
 			giveHelpPost.status = "close";
@@ -163,5 +165,28 @@ time_start and time_end string to Time variable.*/
 		SeekHelpController.seekerPostShowDetail(postId);
 	}
 	
-
+	public static void mateRevokeHelp(Long postId) throws ParseException{
+		System.out.println("Revke Help button is being clicked : "+ postId);
+		//fetch the specific seeker object from the table.
+		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
+		//updates the number of mateApplied in each click
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied -1;
+		//use this logged in mate as the helper
+		Long userId=Long.parseLong(session.get("id"));
+		Mate author=Mate.findById(userId);
+//		giveHelpPost.addHelpMate(author);
+		giveHelpPost.removeHelpMate(author);
+		giveHelpPost = SeekerPostTable.findById(postId);
+//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
+		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
+		if(giveHelpPost.matesRequired-giveHelpPost.mateApplied >=0 ){
+			giveHelpPost.status = "open";
+			System.out.println(giveHelpPost.seeker+" open ");
+		}
+		//save the object in the database
+		giveHelpPost.save();
+		System.out.println();
+		SeekHelpController.seekerPostShowDetail(postId);
+	}
+	
 }

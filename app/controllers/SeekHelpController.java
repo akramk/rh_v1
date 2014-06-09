@@ -18,7 +18,7 @@ public class SeekHelpController extends Controller {
 		render();
 	}
 
-	public static void seekHelp(String seeker, @Required String post_date,@Required String timeStart, @Required String timeEnd,
+	public static void seekHelp(@Required String post_date,@Required String timeStart, @Required String timeEnd,
 			String location, int mates_Required, String title, String post) throws ParseException, java.text.ParseException {
 
 		
@@ -26,7 +26,7 @@ public class SeekHelpController extends Controller {
 		System.out.println(session.get("type"));
 		int mate_applied = 0;
 		boolean all_check = false;
-		if (seeker.length() > 0 && post_date.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
+		if (session.get("id")!=null && post_date.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
 				&& location.length() > 0 && mates_Required > 0) 
 		{
 			all_check = true;
@@ -66,11 +66,17 @@ public class SeekHelpController extends Controller {
 				timeE = java.sql.Time.valueOf("00:00:00");
 			}
 
-			SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS,
-					timeE, location, title, post, mates_Required, mate_applied);
+			
 			System.out.println("Flag" + flag);
 			if (flag == true) {
+				//find the user who post this and save this post under this user 
+				Long seekerId=Long.parseLong(session.get("id"));
+				Seeker seeker=Seeker.findById(seekerId);
+				SeekerPostTable giveHelpPost = new SeekerPostTable(session.get("userName"),seeker, date, timeS,
+						timeE, location, title, post, mates_Required, mate_applied);
 				giveHelpPost.create();
+				
+				seeker.addPost(giveHelpPost);
 				GiveHelpController.giveHelpSearch(null, null, null, null);
 
 			} else {

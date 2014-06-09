@@ -38,11 +38,15 @@ public class Mate extends User{
 		this.pass = pass;
 	}
 	
-	public Mate addPostWantTohelp(SeekerPostTable post){
+	public Mate addPostWantTohelp(SeekerPostTable post){//help a post
 		this.postsWantTohelp.add(post);
 		this.save();
 		return this;
 	}
-	
+	public Mate removePostWantTohelp(SeekerPostTable post){//-Revoke help from where I wanted to help earlier
+		this.postsWantTohelp.remove(post);
+		this.save();
+		return this;
+	}
 	
 }

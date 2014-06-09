@@ -31,7 +31,8 @@ public class SeekerPostTable extends Model {
 	public Integer matesRequired;
 	public Integer mateApplied;
 	public String status;
-	
+	@OneToOne
+	public Seeker seekerWhoPosted;
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
     public List<SeekerPostComment> comments;
 	
@@ -47,10 +48,11 @@ public class SeekerPostTable extends Model {
 	 * @param matesRequired
 	 * @param mateApplied
 	 */
-	public SeekerPostTable(String seeker, Date date, Time timeStart, Time timeEnd,
+	public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
 			String location, String title, String post, Integer matesRequired,
 			Integer mateApplied) {
 		this.seeker = seeker;
+		this.seekerWhoPosted=seekerWhoPosted;
 		this.postdate = date;
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
@@ -83,6 +85,12 @@ public class SeekerPostTable extends Model {
     	this.matesWantToHelp.add(mate);
     	this.save();
     	mate.addPostWantTohelp(this);
+    	return this;
+    }
+    public SeekerPostTable removeHelpMate(Mate mate){    	
+    	this.matesWantToHelp.remove(mate);
+    	this.save();
+    	mate.removePostWantTohelp(this);
     	return this;
     }
     

@@ -17,6 +17,10 @@
     <input type="submit" value="I want to Help" />
     #{/form}
     #{/if}
+     #{form @GiveHelpController.mateRevokeHelp(), enctype:'multipart/form-data'}
+    <input type="hidden"  value ='${post.id}' name = "postId"/>
+    <input type="submit" value="I want to Revoke Help" />
+    #{/form}
     <div class="post-metadata">
         <span class="post-author">by ${post.seeker}</span>,
         <span class="post-date">${post.postdate.format('dd MMM yy')}</span>

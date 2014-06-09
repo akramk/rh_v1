@@ -1,6 +1,10 @@
 package models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -14,6 +18,8 @@ public class Seeker extends User{
 	public String email;
 	public String pass;
 	
+	@OneToMany 
+    public List<SeekerPostTable> posts;
 	/**
 	 * @param ssid
 	 * @param firstName
@@ -33,6 +39,11 @@ public class Seeker extends User{
 		this.pass = pass;
 	}
 	
+	public Seeker addPost(SeekerPostTable newPost){//the post this seeker gave
+		this.posts.add(newPost);
+        this.save();
+		return this;
+	}
 	
 	
 
