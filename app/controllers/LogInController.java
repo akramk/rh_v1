@@ -32,16 +32,7 @@ public class LogInController extends Controller {
 		{			
 			if( type.equalsIgnoreCase("seeker"))
 			{
-				List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
-				if(seeker.size()==1)
-				{
-
-					session.put("type", seeker.get(0).firstName +" "+ seeker.get(0).lastName);				 
-					SeekHelpController.seekHelpRedir();	
-
-				} 
-				if( type.equalsIgnoreCase("seeker"))
-					{
+				
 						    List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
 							if(seeker.size()==1)
 							{
@@ -53,11 +44,14 @@ public class LogInController extends Controller {
 							  SeekHelpController.seekHelpRedir();							  
 							   
 							} 
-							else							
-							 System.out.println("User ID or Password missmatch");
-					}
-				else if(type.equalsIgnoreCase("mate"))
-					{
+							else
+							{
+								errorMessage="User ID , password or user type missmatch";
+								render(errorMessage);
+							}
+			}
+		   else if(type.equalsIgnoreCase("mate"))
+			{
 					        List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
 							if(mate.size()==1)							
 							{
@@ -68,36 +62,19 @@ public class LogInController extends Controller {
 								GiveHelpController.giveHelpSearch(null, null, null, null);	
 								 
 							}
-							else						
-							 System.out.println("User ID or Password missmatch");						  
-					}
-				else
-				{					
-					errorMessage="User ID , password or user type missmatch";
-					render(errorMessage);
-				}
-			}
-			else if(type.equalsIgnoreCase("mate"))
-			{
-				List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
-				if(mate.size()==1)							
-				{
-					session.put("type", mate.get(0).firstName +" "+ mate.get(0).lastName);								
-					GiveHelpController.giveHelpSearch(null, null, null, null);	
-
-				}
-				else{						
-					
-					errorMessage="User ID , password or user type missmatch";
-					render(errorMessage);
-				}
-			}
+							else
+							{
+								errorMessage="User ID , password or user type missmatch";
+								render(errorMessage);
+							}						  
+			 }
 			else
-			{
-				errorMessage="You must be registered as Helpmate or Seeker";
-				render(errorMessage);
-			}	
+			{					
+					errorMessage="User ID , password or user type missmatch";
+					render(errorMessage);
+			}
 		}
+			
 
 		else
 		{

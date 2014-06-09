@@ -26,8 +26,8 @@ public class SeekHelpController extends Controller {
 		System.out.println(session.get("type"));
 		int mate_applied = 0;
 		boolean all_check = false;
-		if (session.get("id")!=null && post_date.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
-				&& location.length() > 0 && mates_Required > 0) 
+		if (session.get("id")!=null && postDate.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
+				&& location.length() > 0 && matesRequired > 0) 
 		{
 			all_check = true;
 		} 
@@ -66,18 +66,17 @@ public class SeekHelpController extends Controller {
 				timeE = java.sql.Time.valueOf("00:00:00");
 			}
 
-			SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS,
-					timeE, location, title, post, matesRequired, mate_applied);
+			//SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS,timeE, location, title, post, matesRequired, mate_applied);
 			System.out.println("Flag" + flag);
 			if (flag == true) {
 				//find the user who post this and save this post under this user 
 				Long seekerId=Long.parseLong(session.get("id"));
-				Seeker seeker=Seeker.findById(seekerId);
-				SeekerPostTable giveHelpPost = new SeekerPostTable(session.get("userName"),seeker, date, timeS,
-						timeE, location, title, post, mates_Required, mate_applied);
-				giveHelpPost.create();
+				Seeker seekerObj=Seeker.findById(seekerId);
+				SeekerPostTable giveHelpPostObj = new SeekerPostTable(session.get("userName"),seekerObj, date, timeS,
+						timeE, location, title, post, matesRequired, mate_applied);
+				giveHelpPostObj.create();
 				
-				seeker.addPost(giveHelpPost);
+				seekerObj.addPost(giveHelpPostObj);
 				GiveHelpController.giveHelpSearch(null, null, null, null);
 
 			} else {
