@@ -11,13 +11,17 @@
         <link rel="stylesheet" href="@{'/public/stylesheets/jquery-ui.css'}">
 	    <script src="@{'/public/javascripts/jquery-1.10.2.js'}"></script>
 	    <script src="@{'/public/javascripts/jquery-ui.js'}"></script>
-	    <link rel="stylesheet" href="/resources/demos/style.css"> 
 	   
+	    <script src="@{'/public/javascripts/gen_validatorv4.js'}"></script>	    
+	    <link rel="stylesheet" href="/resources/demos/style.css">	     
         <script>
 		  $(function() {
 		    $( "#datepicker" ).datepicker();
 		  });
 	   </script>
+	   
+	   
+	   
         #{get 'moreScripts' /}
     </head>
     <body>

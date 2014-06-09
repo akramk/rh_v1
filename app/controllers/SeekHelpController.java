@@ -18,16 +18,16 @@ public class SeekHelpController extends Controller {
 		render();
 	}
 
-	public static void seekHelp(String seeker, @Required String post_date,@Required String timeStart, @Required String timeEnd,
-			String location, int mates_Required, String title, String post) throws ParseException, java.text.ParseException {
+	public static void seekHelp(String seeker, @Required String postDate,@Required String timeStart, @Required String timeEnd,
+			String location, int matesRequired, String title, String post) throws ParseException, java.text.ParseException {
 
 		
 		
 		System.out.println(session.get("type"));
 		int mate_applied = 0;
 		boolean all_check = false;
-		if (seeker.length() > 0 && post_date.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
-				&& location.length() > 0 && mates_Required > 0) 
+		if (seeker.length() > 0 && postDate.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
+				&& location.length() > 0 && matesRequired > 0) 
 		{
 			all_check = true;
 		} 
@@ -42,8 +42,8 @@ public class SeekHelpController extends Controller {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			boolean flag = false;
 			Date date;
-			if (!post_date.equalsIgnoreCase("") && all_check) {
-				date = dateFormat.parse(post_date);
+			if (!postDate.equalsIgnoreCase("") && all_check) {
+				date = dateFormat.parse(postDate);
 				flag = true;
 			} else {
 				date = new Date();
@@ -67,7 +67,7 @@ public class SeekHelpController extends Controller {
 			}
 
 			SeekerPostTable giveHelpPost = new SeekerPostTable(seeker, date, timeS,
-					timeE, location, title, post, mates_Required, mate_applied);
+					timeE, location, title, post, matesRequired, mate_applied);
 			System.out.println("Flag" + flag);
 			if (flag == true) {
 				giveHelpPost.create();

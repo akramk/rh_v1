@@ -41,27 +41,58 @@
 		  </tbody>
 		</table>
 </div>
-#{form @GiveHelpController.giveHelpSearch(), enctype:'multipart/form-data'}
-    
+
+<form id="giveHelpSearchForm" action="GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
   
+    <div id='giveHelpSearchForm_location_errorloc' style="color: red;" class='error_strings'>
+    </div>
     Location:<br>
     <input type="text" name="location"/>
     <br>
     
+    <div id='giveHelpSearchForm_searchDate_errorloc' style="color: red;" class='error_strings'>    
+    </div>
     Date:<br>
-    <input type="date" id="datepicker" name="search_date"/>
+    <input type="date" id="datepicker" name="searchDate"/>
     <br>
     
+    <div id='giveHelpSearchForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
+    </div>
     Start Time:<br>
-    <input type="text" name="time_start"/>
+    <input type="text" name="timeStart"/>
     <br>
 
+    <div id='giveHelpSearchForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
+    </div>  
     End Time:<br>
-    <input type="text" name="time_end"/>
+    <input type="text" name="timeEnd"/>
     <br>    
 
     <input type="submit" value="Submit!" />
-#{/form}
-#{form @SeekHelpController.SeekHelpRedir(), enctype:'multipart/form-data'}  
+</form>
+
+
+ #{form @SeekHelpController.SeekHelpRedir(), enctype:'multipart/form-data'} 
+
+<!--<form  action="SeekHelpController/SeekHelpRedir" enctype="multipart/form-data" >  -->
     <input type="submit" value="SeekHelp" />
+<!-- </form> -->
+
 #{/form}
+
+<script language="JavaScript" type="text/javascript">
+
+  var frmvalidator  = new Validator("giveHelpSearchForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
+ 
+  frmvalidator.addValidation("location","req","Please enter location");
+  
+  frmvalidator.addValidation("searchDate","req","Please enter Date");
+  
+  frmvalidator.addValidation("timeStart","req","Please enter start time");
+  
+  frmvalidator.addValidation("timeEnd","req","Please enter end time");
+ 
+    
+</script>
