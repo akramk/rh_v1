@@ -23,6 +23,7 @@
 	background-repeat: repeat-x;
 	font-family: "Lucida Calligraphy";
 	font-size: 40px;
+	text-shadow: 3px 4px 3px #c4c4c4;
 	color: #4a4a4a;
 }
 
@@ -41,8 +42,9 @@
 	margin-top: 10px;
 	border-radius: 3px;
 	background-repeat: repeat-x;
+	text-shadow: 2px 3px 2px #eeeeee;
 	font-family: arial;
-	font-weight: normal;
+	font-size: 16px;
 	position: relative;
 	text-align: center;
 	text-indent: inherit;
@@ -59,7 +61,7 @@
 	border-radius: 3px;
 	background-image: url(/public/images/hdr-btn-hvr.png);
 	background-repeat: repeat-x;
-	text-shadow: 2px 3px 2px #414141;
+	text-shadow: 1px 2px 2px #414141;
 	font-family: arial;
 	position: relative;
 	text-align: center;
