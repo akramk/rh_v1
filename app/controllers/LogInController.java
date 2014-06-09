@@ -26,6 +26,7 @@ public class LogInController extends Controller {
 	  */
 	  public static void logIn(@Email String email, String pwd, String type) throws ParseException, java.text.ParseException{
 		validation.email(email);
+		session.clear();
 		if(type != null)
 		{			
 				if( type.equalsIgnoreCase("seeker"))
@@ -33,9 +34,12 @@ public class LogInController extends Controller {
 						    List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
 							if(seeker.size()==1)
 							{
-							 
-							  session.put("type", seeker.get(0).firstName +" "+ seeker.get(0).lastName);				 
-							  SeekHelpController.seekHelpRedir();	
+								session.put("userType", "seeker");
+								session.put("id", seeker.get(0).id);
+//								session.put("loggedInUser",seeker.get(0));			 
+								session.put("userName", seeker.get(0).firstName +" "+ seeker.get(0).lastName);
+								  
+							  SeekHelpController.seekHelpRedir();							  
 							   
 							} 
 							else							
@@ -46,7 +50,10 @@ public class LogInController extends Controller {
 					        List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
 							if(mate.size()==1)							
 							{
-								session.put("type", mate.get(0).firstName +" "+ mate.get(0).lastName);								
+								session.put("userType", "mate");
+								session.put("id", mate.get(0).id);
+//								session.put("loggedInUser",mate.get(0));
+								session.put("name", mate.get(0).firstName +" "+ mate.get(0).lastName);								
 								GiveHelpController.giveHelpSearch(null, null, null, null);	
 								 
 							}

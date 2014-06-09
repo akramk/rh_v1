@@ -59,8 +59,19 @@ public class SeekerPostTable extends Model {
 		this.status = "open";
 	}
 	
-    public SeekerPostTable addComment(String author, String content) {
-    	SeekerPostComment newComment = new SeekerPostComment(this, author, content);
+    public SeekerPostTable addComment(String userType, Long userId, String content) {
+    	SeekerPostComment newComment=null;
+    	if(userType.equals("seeker")){
+    		Seeker author=Seeker.findById(userId);
+    		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
+    		newComment= new SeekerPostComment(this, userType, author,null, content).save();//I dont know what this save does, it works same without save()!!
+    	}
+    	else if(userType.equals("mate")){
+    		Mate author=Mate.findById(userId);
+    		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
+    		newComment= new SeekerPostComment(this, userType, null, author, content).save();//I dont know what this save does, it works same without save()!!
+    	}
+    	
         this.comments.add(newComment);
         this.save();
         return this;
