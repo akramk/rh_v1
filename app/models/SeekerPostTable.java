@@ -76,7 +76,7 @@ public class SeekerPostTable extends Model {
     		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
     		newComment= new SeekerPostComment(this, userType, null, author, content).save();//I dont know what this save does, it works same without save()!!
     	}
-    	
+    	System.out.println(newComment.content);
         this.comments.add(newComment);
         this.save();
         return this;
