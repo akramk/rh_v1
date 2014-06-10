@@ -3,7 +3,10 @@ package models;
 import javax.persistence.*;
 
 import java.util.*;
+import java.util.Date;
+import java.util.List;
 
+import play.data.binding.As;
 import play.data.validation.*;
 import play.db.jpa.Model;
 
@@ -17,7 +20,10 @@ public class SeekerPostComment extends Model{
 	@OneToOne
 	public Seeker authorSeeker;
     @Required
-    public Date postedAt;
+    public @As("dd/MM/yyyy")
+	// This the Date format, if you intend to do so please use this type of
+	// format always.
+    Date postedAt;
      
     @Lob
     @Required

@@ -1,19 +1,23 @@
-SeekerPostTable(john1):
- seeker: 1234ks
+SeekerPostTable(seekhelp1):
+ seeker: Mask Rip
  postdate: 25/05/2014
  timeStart: 8:30:54
  timeEnd: 16:30:54
  location: Munich
  post: I need help
- matesRequired: 3
- mateApplied: 2
+ matesRequired: 5
+ mateApplied: 0
+ status: open
+ title: Help for Banking
 
-SeekerPostTable(marry1):
- seeker: 1234ks
- postdate: 25/04/2014
+SeekerPostTable(seekhelp2):
+ seeker: Mask Rip
+ postdate: 05/06/2014
  timeStart: 10:30:54
  timeEnd: 12:30:54
  location: Hamburg
  post: I need help
  matesRequired: 4
- mateApplied: 1
+ mateApplied: 0
+ status: open
+ title: Help for House repairing
