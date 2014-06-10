@@ -166,7 +166,7 @@ timeStart and timeEnd string to Time variable.*/
 	}
 	
 	public static void mateRevokeHelp(Long postId) throws ParseException{
-		System.out.println("Revke Help button is being clicked : "+ postId);
+		System.out.println("Rev0ke Help button is being clicked : "+ postId);
 		//fetch the specific seeker object from the table.
 		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
 		//updates the number of mateApplied in each click
@@ -175,16 +175,21 @@ timeStart and timeEnd string to Time variable.*/
 		Long userId=Long.parseLong(session.get("id"));
 		Mate author=Mate.findById(userId);
 //		giveHelpPost.addHelpMate(author);
-		giveHelpPost.removeHelpMate(author);
-		giveHelpPost = SeekerPostTable.findById(postId);
-//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
+
+//		giveHelpPost.removeHelpMate(author);
+//		giveHelpPost = SeekerPostTable.findById(postId);
+
+		//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
 		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
-		if(giveHelpPost.matesRequired-giveHelpPost.mateApplied >=0 ){
+		if(giveHelpPost.mateApplied >=0 ){
+			giveHelpPost.removeHelpMate(author);
+			giveHelpPost = SeekerPostTable.findById(postId);
 			giveHelpPost.status = "open";
 			System.out.println(giveHelpPost.seeker+" open ");
+			giveHelpPost.save();
 		}
 		//save the object in the database
-		giveHelpPost.save();
+//		giveHelpPost.save();
 		System.out.println();
 		SeekHelpController.seekerPostShowDetail(postId);
 	}

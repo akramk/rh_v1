@@ -19,6 +19,9 @@ public class Mate extends User{
 	
 	@ManyToMany
     public List<SeekerPostTable>postsWantTohelp;
+	@OneToMany 
+    public List<MatePostTable> posts;
+	
 	/**
 	 * @param ssid
 	 * @param firstName
@@ -38,7 +41,14 @@ public class Mate extends User{
 		this.pass = pass;
 	}
 	
-	public Mate addPostWantTohelp(SeekerPostTable post){//help a post
+	
+	public Mate addPost(MatePostTable newPost){//the post this seeker gave
+		this.posts.add(newPost);
+        this.save();
+		return this;
+	}
+	
+	public Mate addPostWantTohelp(SeekerPostTable post){//when press the I want to help button this function activates
 		this.postsWantTohelp.add(post);
 		this.save();
 		return this;

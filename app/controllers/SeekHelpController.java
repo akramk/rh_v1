@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import models.Mate;
 import models.SeekerPostTable;
 import models.Seeker;
 import play.data.validation.Required;
@@ -90,7 +91,16 @@ public class SeekHelpController extends Controller {
 	//this will show the detail of a seeker's post
 	public static void seekerPostShowDetail(Long id){
 		SeekerPostTable post=SeekerPostTable.findById(id);
-		render(post);
+		System.out.println(post.id+post.post);
+		List<Mate>matesWantedtoHelp = post.matesWantToHelp;
+		boolean mateFound = false;
+		for(int i =0; i<matesWantedtoHelp.size();i++){
+			if(matesWantedtoHelp.get(i).id == Long.parseLong(session.get("id"))){
+				System.out.println(i + "Found"+ matesWantedtoHelp.get(i).id);
+				mateFound = true;
+			}
+		}
+		render(post, mateFound);
 	}
 	
 	public static void postComment(Long postId, @Required String content){

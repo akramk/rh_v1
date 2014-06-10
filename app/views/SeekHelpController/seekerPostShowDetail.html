@@ -11,16 +11,20 @@
         Total Mate Required to Help: ${post.matesRequired}
     </h4>
     
-    #{if post.status == "open" && session.get("userType") == "mate"}
+    #{if post.status == "open" && session.get("userType") == "mate" && mateFound == false}
     #{form @GiveHelpController.mateIncrementer1(), enctype:'multipart/form-data'}
     <input type="hidden"  value ='${post.id}' name = "postId"/>
     <input type="submit" value="I want to Help" />
     #{/form}
     #{/if}
+    
+    #{if post.status == "open" && session.get("userType") == "mate" && mateFound == true}
      #{form @GiveHelpController.mateRevokeHelp(), enctype:'multipart/form-data'}
     <input type="hidden"  value ='${post.id}' name = "postId"/>
     <input type="submit" value="I want to Revoke Help" />
     #{/form}
+    #{/if}
+    
     <div class="post-metadata">
         <span class="post-author">by ${post.seeker}</span>,
         <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
