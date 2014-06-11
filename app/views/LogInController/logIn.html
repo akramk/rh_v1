@@ -2,30 +2,51 @@
 #{set title:'Home' /}
 
 
-#{form @LogInController.logIn(), enctype:'multipart/form-data'}
     
-  
+ <form id="LogInForm" action="LogInController/logIn" enctype="multipart/form-data" >
+    
+    <div id='LogInForm_email_errorloc' style="color: red;" class='error_strings'>
+    </div>    
     User ID:<br>
-    <input type="text" name="email"/>
+    <input type="text" name="email" />    
     <br>
-      
-    
+     
+    <div id='LogInForm_pwd_errorloc' style="color: red;" class='error_strings'>
+    </div>  
     Password:<br>
-    <input type="password" size="25" name="pwd"/>
+    <input type="password" size="25" name="pwd" />
     <br> 
     
-    
+    <div id='LogInForm_type_errorloc' style="color: red;" class='error_strings'>
+    </div>
     User Type:<br>
     <select name = "type">
-		  <option value="seeker" >Seeker</option>
-		  <option value="mate">Helpmate</option>
-  
+          <option value="0" selected>Select
+		  <option value="seeker" >Seeker
+		  <option value="mate">Helpmate
 	</select>
         
-<!-- <button type="button">Register</button> -->
-   <!--  <button type="button">Sign In</button> -->
+    <br>
+    <input type="submit" class="btn btn-default"  value="Sign In" />
+    <label id="lblErrorMessage" style="color: red;">${errorMessage} </label>
+</form> 
+
+
+<script language="JavaScript" type="text/javascript">
+
+  var frmvalidator  = new Validator("LogInForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
+ 
+  frmvalidator.addValidation("email","maxlen=50");
+  frmvalidator.addValidation("email","req");
+  frmvalidator.addValidation("email","email");
   
-    <input type="submit" class="frm-btn" value="Sign In" />
-#{/form}
+  frmvalidator.addValidation("pwd","req","Please enter your Password");
+  frmvalidator.addValidation("pwd","maxlen=20","For Password, Max length is 20");  
+  
+  frmvalidator.addValidation("type","dontselect=0");
+   
+</script>
 
 

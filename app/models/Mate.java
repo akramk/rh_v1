@@ -1,11 +1,14 @@
 package models;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.*;
+
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class Mate extends Model{
+public class Mate extends User{
 	
 	public String ssid;
 	public String firstName;
@@ -13,6 +16,12 @@ public class Mate extends Model{
 	public int age;
 	public String email;
 	public String pass;
+	
+	@ManyToMany
+    public List<SeekerPostTable>postsWantTohelp;
+	@OneToMany 
+    public List<MatePostTable> posts;
+	
 	/**
 	 * @param ssid
 	 * @param firstName
@@ -33,6 +42,21 @@ public class Mate extends Model{
 	}
 	
 	
+	public Mate addPost(MatePostTable newPost){//the post this seeker gave
+		this.posts.add(newPost);
+        this.save();
+		return this;
+	}
 	
+	public Mate addPostWantTohelp(SeekerPostTable post){//when press the I want to help button this function activates
+		this.postsWantTohelp.add(post);
+		this.save();
+		return this;
+	}
+	public Mate removePostWantTohelp(SeekerPostTable post){//-Revoke help from where I wanted to help earlier
+		this.postsWantTohelp.remove(post);
+		this.save();
+		return this;
+	}
 	
 }

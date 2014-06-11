@@ -9,47 +9,90 @@
 #{/if}
 
 
+<form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
 
-#{form @SeekHelpController.seekHelp(), enctype:'multipart/form-data', role:'form'}
-  <div class="form-group">
-    <label for="seeker">Seeker Name:</label>
-    <input class="form-control"  type="text" name="seeker" value='${session.get("type")}' readonly />
+  <div id='seekHelpRedirForm_seeker_errorloc' style="color: red;" class='error_strings'>    
   </div>
-  <div class="form-group">
-    <label for="post_date">Date:</label>
-    <input class="form-control"  type="text" name="post_date" id="datepicker" value="25/05/2014" />
-  </div>
+  <label for="seeker">Seeker Name:</label>
+  <input class="form-control"  type="text" name="seeker" value='${session.get("userName")}' readonly />
+  <br>
   
-  <div class="form-group">
-    <label for="timeStart">Start time:</label>
-    <input class="form-control"  type="text" name="timeStart" value="08:15:00" />
+  <div id='seekHelpRedirForm_postDate_errorloc' style="color: red;" class='error_strings'>    
   </div>
+  <label for="postDate">Date:</label>
+  <input class="form-control"  type="text" name="postDate" id="datepicker" value="" />
+  <br>
   
- <div class="form-group">
-    <label for="timeEnd">End time:</label>
-    <input class="form-control"  type="text" name="timeEnd" value="12:00:00" />
+  <div id='seekHelpRedirForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="timeStart">Start time:</label>
+  <input class="form-control"  type="text" name="timeStart" value="" />
+  <br>
+  
+ <div id='seekHelpRedirForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
+ </div>  
+  
+  <label for="timeEnd">End time:</label>
+  <input class="form-control"  type="text" name="timeEnd" value="" />
+  <br>
+   
+ <div id='seekHelpRedirForm_location_errorloc' style="color: red;" class='error_strings'>
+ </div>
+ <label for="location">Location:</label>
+ <input class="form-control"  type="text" name="location" value="" />
+  <br>
+  
+ <div id='seekHelpRedirForm_matesRequired_errorloc' style="color: red;" class='error_strings'> 
+</div>
+  <label for="matesRequired">Number of mates:</label>
+  <input class="form-control"  type="number" name="matesRequired" min=1 />
+  <br>
+  
+   <div id='seekHelpRedirForm_title_errorloc' style="color: red;" class='error_strings'>
+  </div>
+  <label for="title">Title:</label>
+  <input class="form-control"  type="text" name="title" value="" />
+  <br>
+  
+  
+  <div id='seekHelpRedirForm_post_errorloc' style="color: red;" class='error_strings'>  
   </div>  
+  <label for="post">Message:</label>
+  <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
+  </textarea>
+  <br> 
   
   <div class="form-group">
-    <label for="location">Location:</label>
-    <input class="form-control"  type="text" name="location" value="" />
+    <input type="submit" class="btn btn-default"  value="save" />
   </div>
   
-  <div class="form-group">
-    <label for="mates_Required">Number of mates:</label>
-    <input class="form-control"  type="number" name="mates_Required" value="" />
-  </div>
-  <div class="form-group">
-    <label for="title">Title:</label>
-    <input class="form-control"  type="text" name="title" value="" />
-  </div>
-  <div class="form-group">
-    <label for="post">Message:</label>
-    <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
-    </textarea>  
-  </div>  
-  <div>
-    <input class="frm-btn" type="submit" value="Save" />
-  </div>
+</form>
+
+
+<script language="JavaScript" type="text/javascript">
+
+  var frmvalidator  = new Validator("seekHelpRedirForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
  
-#{/form}
+  frmvalidator.addValidation("seeker","req","Please enter your  Name");
+  frmvalidator.addValidation("seeker","maxlen=50","For Name, Max length is 50");
+  
+  frmvalidator.addValidation("postDate","req","Please enter Date");
+  
+  frmvalidator.addValidation("timeStart","req","Please enter start time");
+  
+  frmvalidator.addValidation("timeEnd","req","Please enter end time");
+ 
+  frmvalidator.addValidation("location","req","Please enter location");
+  
+  frmvalidator.addValidation("matesRequired","req","Please enter number of mates you required");
+  frmvalidator.addValidation("matesRequired","maxlen=50");
+  frmvalidator.addValidation("matesRequired","numeric"); 
+  
+  frmvalidator.addValidation("title","req","Please enter title");
+  
+  frmvalidator.addValidation("post","req","Please enter your  message");
+  frmvalidator.addValidation("post","maxlen=1000");
+  
+</script>

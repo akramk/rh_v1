@@ -31,9 +31,13 @@ public class SeekerPostTable extends Model {
 	public Integer matesRequired;
 	public Integer mateApplied;
 	public String status;
-	
-	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+	@OneToOne
+	public Seeker seekerWhoPosted;
+	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
     public List<SeekerPostComment> comments;
+	
+	@ManyToMany
+    public List<Mate> matesWantToHelp;
 	/**
 	 * @param seeker
 	 * @param date
@@ -44,10 +48,11 @@ public class SeekerPostTable extends Model {
 	 * @param matesRequired
 	 * @param mateApplied
 	 */
-	public SeekerPostTable(String seeker, Date date, Time timeStart, Time timeEnd,
+	public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
 			String location, String title, String post, Integer matesRequired,
 			Integer mateApplied) {
 		this.seeker = seeker;
+		this.seekerWhoPosted=seekerWhoPosted;
 		this.postdate = date;
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
@@ -59,10 +64,34 @@ public class SeekerPostTable extends Model {
 		this.status = "open";
 	}
 	
-    public SeekerPostTable addComment(String author, String content) {
-    	SeekerPostComment newComment = new SeekerPostComment(this, author, content);
+    public SeekerPostTable addComment(String userType, Long userId, String content) {
+    	SeekerPostComment newComment=null;
+    	if(userType.equals("seeker")){
+    		Seeker author=Seeker.findById(userId);
+    		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
+    		newComment= new SeekerPostComment(this, userType, author,null, content).save();//I dont know what this save does, it works same without save()!!
+    	}
+    	else if(userType.equals("mate")){
+    		Mate author=Mate.findById(userId);
+    		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
+    		newComment= new SeekerPostComment(this, userType, null, author, content).save();//I dont know what this save does, it works same without save()!!
+    	}
+    	
         this.comments.add(newComment);
         this.save();
         return this;
     }
+    public SeekerPostTable addHelpMate(Mate mate){    	
+    	this.matesWantToHelp.add(mate);
+    	this.save();
+    	mate.addPostWantTohelp(this);
+    	return this;
+    }
+    public SeekerPostTable removeHelpMate(Mate mate){    	
+    	this.matesWantToHelp.remove(mate);
+    	this.save();
+    	mate.removePostWantTohelp(this);
+    	return this;
+    }
+    
 }

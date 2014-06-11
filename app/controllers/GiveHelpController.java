@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import models.Mate;
 import models.SeekerPostTable;
 import play.mvc.Controller;
 
@@ -22,29 +23,29 @@ to navigate the links.*/
 	
 /*
 @param location
-@param search_date
-@param time_start
-@param time_end
+@param searchDate
+@param timeStart
+@param timeEnd
 This function searches on these parameter basis. And there are different criterias for searche queries.	
 */
 	
 	/**
 	 * @param location
-	 * @param search_date
-	 * @param time_start
-	 * @param time_end
+	 * @param searchDate
+	 * @param timeStart
+	 * @param timeEnd
 	 * @throws java.text.ParseException
 	 */
 	/**
 	 * @param location
-	 * @param search_date
-	 * @param time_start
-	 * @param time_end
+	 * @param searchDate
+	 * @param timeStart
+	 * @param timeEnd
 	 * @throws java.text.ParseException
 	 */
-	public static void giveHelpSearch(String location, Date search_date, String time_start, String time_end) 
+	public static void giveHelpSearch(String location, Date searchDate, String timeStart, String timeEnd) 
 			throws java.text.ParseException {
-		System.out.println(time_start + "----" + time_end + "Location"+ location + "Date" + search_date);
+		System.out.println(timeStart + "----" + timeEnd + "Location"+ location + "Date" + searchDate);
 		
 		//System.out.println(session.get("type"));
 		
@@ -52,7 +53,7 @@ This function searches on these parameter basis. And there are different criteri
 so then this condition will be checked. As at that time all the parameters will be null. Because search panel will return
 no outputs but null.
 */
-		if (location == null && search_date == null && time_start == null&& time_end == null) 
+		if (location == null && searchDate == null && timeStart == null&& timeEnd == null) 
 		{
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
@@ -64,21 +65,21 @@ no outputs but null.
 		
 /*When user will give all the values in the search panel then this will be the search query condition. And all the parameter will be
 merged with "AND" . Keep in mind that we have time attribute in table that is timeStart and timeEnd so we have to format the
-time_start and time_end string to Time variable.*/
-		else if ((!location.equalsIgnoreCase("")) && (search_date != null)&& (!time_start.equals("")) 
-				&& (!time_end.equals(""))) 
+timeStart and timeEnd string to Time variable.*/
+		else if ((!location.equalsIgnoreCase("")) && (searchDate != null)&& (!timeStart.equals("")) 
+				&& (!timeEnd.equals(""))) 
 		{
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
-							search_date, location,
-							java.sql.Time.valueOf(time_start),
-							java.sql.Time.valueOf(time_end)).fetch();
+							searchDate, location,
+							java.sql.Time.valueOf(timeStart),
+							java.sql.Time.valueOf(timeEnd)).fetch();
 			System.out.println("ALL NOT NULL");
 			render(giveHelpPost);
 		}
 
 /*This check occurs when user does not give any values in the search panel and press the submit button.	*/	
-		else if ((location == null || location.equalsIgnoreCase("")) && (search_date == null || search_date.equals(""))
-				&& (time_start == null || time_start.equals("")) && (time_end == null || time_end.equals(""))) 
+		else if ((location == null || location.equalsIgnoreCase("")) && (searchDate == null || searchDate.equals(""))
+				&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
 		{
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition 3");
@@ -86,31 +87,31 @@ time_start and time_end string to Time variable.*/
 		}
 
 /*This occurs when user gives any values in the search Panel. Not all the values but any values.*/
-		else if (!location.equalsIgnoreCase("") || search_date != null || !time_start.equals("") || !time_end.equals("")) 
+		else if (!location.equalsIgnoreCase("") || searchDate != null || !timeStart.equals("") || !timeEnd.equals("")) 
 		{
-			System.out.println("Value Found: " + time_start + "----" + time_end + "Location" 
-		      + location + "Date" + search_date);
+			System.out.println("Value Found: " + timeStart + "----" + timeEnd + "Location" 
+		      + location + "Date" + searchDate);
 
-			if (search_date == null) {
+			if (searchDate == null) {
 				// if user does not give any date then it will automatically get the date of 01/01/1990. 
 				//because we dont have any entry obviously before 1990
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				search_date = dateFormat.parse("01/01/1990");
+				searchDate = dateFormat.parse("01/01/1990");
 			}
 
-			if (time_start.equalsIgnoreCase("")) {//when user dont give any start time it gets the 00hh 00mm and 00ss
-				time_start = "00:00:00";
+			if (timeStart.equalsIgnoreCase("")) {//when user dont give any start time it gets the 00hh 00mm and 00ss
+				timeStart = "00:00:00";
 			}
 
-			if (time_end.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
-				time_end = "00:00:00";
+			if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
+				timeEnd = "00:00:00";
 			}
 
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable
 					.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?",
-							search_date, location,
-							java.sql.Time.valueOf(time_start),
-							java.sql.Time.valueOf(time_end)).fetch();
+							searchDate, location,
+							java.sql.Time.valueOf(timeStart),
+							java.sql.Time.valueOf(timeEnd)).fetch();
 			render(giveHelpPost);
 		}
 	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
@@ -140,5 +141,57 @@ time_start and time_end string to Time variable.*/
 		System.out.println();
 		GiveHelpController.giveHelpSearch(null, null, null, null);
 	}
+	
+	public static void mateIncrementer1(Long postId) throws ParseException{
+		System.out.println("Ready to Help button is being clicked to help: "+ postId);
+		//fetch the specific seeker object from the table.
+		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
+		//updates the number of mateApplied in each click
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied +1;
+		//use this logged in mate as the helper
+		Long userId=Long.parseLong(session.get("id"));
+		Mate author=Mate.findById(userId);
+		giveHelpPost.addHelpMate(author);
+		giveHelpPost = SeekerPostTable.findById(postId);
+//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
+		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
+		if(giveHelpPost.mateApplied == giveHelpPost.matesRequired){
+			giveHelpPost.status = "close";
+			System.out.println(giveHelpPost.seeker+" closed ");
+		}
+		//save the object in the database
+		giveHelpPost.save();
+		System.out.println();
+		SeekHelpController.seekerPostShowDetail(postId);
+	}
+	
+	public static void mateRevokeHelp(Long postId) throws ParseException{
+		System.out.println("Rev0ke Help button is being clicked : "+ postId);
+		//fetch the specific seeker object from the table.
+		SeekerPostTable giveHelpPost = SeekerPostTable.findById(postId);
+		//updates the number of mateApplied in each click
+		giveHelpPost.mateApplied = giveHelpPost.mateApplied -1;
+		//use this logged in mate as the helper
+		Long userId=Long.parseLong(session.get("id"));
+		Mate author=Mate.findById(userId);
+//		giveHelpPost.addHelpMate(author);
 
+//		giveHelpPost.removeHelpMate(author);
+//		giveHelpPost = SeekerPostTable.findById(postId);
+
+		//		System.out.println(giveHelpPost.matesWantToHelp.get(0).firstName);
+		//Check for whether the mateApplied is equals to mateRequired or not then change the status to close 
+		if(giveHelpPost.mateApplied >=0 ){
+			giveHelpPost.removeHelpMate(author);
+			giveHelpPost = SeekerPostTable.findById(postId);
+			giveHelpPost.status = "open";
+			System.out.println(giveHelpPost.seeker+" open ");
+			giveHelpPost.save();
+		}
+		//save the object in the database
+//		giveHelpPost.save();
+		System.out.println();
+		SeekHelpController.seekerPostShowDetail(postId);
+	}
+	
 }

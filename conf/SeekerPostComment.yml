@@ -1,0 +1,12 @@
+SeekerPostComment(matepostcomment1):
+ author: NULL
+ who: mate
+ postedAt: 10/06/2014
+ content: Hello I am XYZ I want to help you but can you please change the time.
+ 
+SeekerPostComment(seekerpostcomment1):
+ author: NULL
+ who: seeker
+ postedAt: 10/06/2014
+ content: Hello I am Mask Rip, I need this type of help also. Can we discuss.
+ 

@@ -21,49 +21,66 @@ import controllers.SeekHelpController;
 
 public class LogInController extends Controller {
 
-	 /*
-	  * Log in via email,password and user type. Also session put in the session variable with user type key and his name
-	  */
-	  public static void logIn(@Email String email, String pwd, String type) throws ParseException, java.text.ParseException{
-		validation.email(email);
+	/*
+	 * Log in via email,password and user type. Also session put in the session variable with user type key and his name
+	 */
+
+	public static void logIn(String email, String pwd, String type) throws ParseException, java.text.ParseException{
+		String errorMessage=null;
+		session.clear();
 		if(type != null)
 		{			
-				if( type.equalsIgnoreCase("seeker"))
-					{
+			if( type.equalsIgnoreCase("seeker"))
+			{
+				
 						    List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
 							if(seeker.size()==1)
 							{
-							 
-							  session.put("type", seeker.get(0).firstName +" "+ seeker.get(0).lastName);				 
-							  SeekHelpController.seekHelpRedir();	
+								session.put("userType", "seeker");
+								session.put("id", seeker.get(0).id);
+//								session.put("loggedInUser",seeker.get(0));			 
+								session.put("userName", seeker.get(0).firstName +" "+ seeker.get(0).lastName);
+								  
+							  SeekHelpController.seekHelpRedir();							  
 							   
 							} 
-							else							
-							 System.out.println("User ID or Password missmatch");
-					}
-				else if(type.equalsIgnoreCase("mate"))
-					{
+							else
+							{
+								errorMessage="User ID , password or user type missmatch";
+								render(errorMessage);
+							}
+			}
+		   else if(type.equalsIgnoreCase("mate"))
+			{
 					        List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
 							if(mate.size()==1)							
 							{
-								session.put("type", mate.get(0).firstName +" "+ mate.get(0).lastName);								
+								session.put("userType", "mate");
+								session.put("id", mate.get(0).id);
+//								session.put("loggedInUser",mate.get(0));
+								session.put("userName", mate.get(0).firstName +" "+ mate.get(0).lastName);								
 								GiveHelpController.giveHelpSearch(null, null, null, null);	
 								 
 							}
-							else						
-							 System.out.println("User ID or Password missmatch");						  
-					}
-				else
-					{
-					 		render();
-					}	
+							else
+							{
+								errorMessage="User ID , password or user type missmatch";
+								render(errorMessage);
+							}						  
+			 }
+			else
+			{					
+					errorMessage="User ID , password or user type missmatch";
+					render(errorMessage);
+			}
 		}
-		
+			
+
 		else
 		{
 			render();
 		}
 
-    }
+	}
 
 }

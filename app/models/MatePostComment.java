@@ -1,17 +1,18 @@
 package models;
 
-import javax.persistence.*;
-
-import java.util.*;
 import java.util.Date;
-import java.util.List;
 
-import play.data.binding.As;
-import play.data.validation.*;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import play.data.validation.MaxSize;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class SeekerPostComment extends Model{
+public class MatePostComment extends Model{
 	@Required
     public String author;
 	public String who;//this person is mate or seeker, Admin(in future admin role will be implemented)  
@@ -20,10 +21,7 @@ public class SeekerPostComment extends Model{
 	@OneToOne
 	public Seeker authorSeeker;
     @Required
-    public @As("dd/MM/yyyy")
-	// This the Date format, if you intend to do so please use this type of
-	// format always.
-    Date postedAt;
+    public Date postedAt;
      
     @Lob
     @Required
@@ -32,9 +30,10 @@ public class SeekerPostComment extends Model{
     
     @ManyToOne
     @Required
-    public SeekerPostTable post;
+    public MatePostTable post;
     
-    public SeekerPostComment(SeekerPostTable post, String userType, Seeker authorSeeker,Mate authorMate, String content) {
+    
+    public MatePostComment(MatePostTable post, String userType, Seeker authorSeeker,Mate authorMate, String content) {
     	if(userType.equals("seeker")){
     		this.authorSeeker=authorSeeker;
     		this.who="seeker";

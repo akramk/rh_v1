@@ -4,6 +4,27 @@
     <h2 class="post-title">
         <a href="@{SeekHelpController.seekerPostShowDetail(post.id)}">${post.title}</a>
     </h2>
+    
+    <h4 class="mate-applied">
+        Mate Applied to Help: ${post.mateApplied}
+        <br/>
+        Total Mate Required to Help: ${post.matesRequired}
+    </h4>
+    
+    #{if post.status == "open" && session.get("userType") == "mate" && mateFound == false}
+    #{form @GiveHelpController.mateIncrementer1(), enctype:'multipart/form-data'}
+    <input type="hidden"  value ='${post.id}' name = "postId"/>
+    <input type="submit" value="I want to Help" />
+    #{/form}
+    #{/if}
+    
+    #{if post.status == "open" && session.get("userType") == "mate" && mateFound == true}
+     #{form @GiveHelpController.mateRevokeHelp(), enctype:'multipart/form-data'}
+    <input type="hidden"  value ='${post.id}' name = "postId"/>
+    <input type="submit" value="I want to Revoke Help" />
+    #{/form}
+    #{/if}
+    
     <div class="post-metadata">
         <span class="post-author">by ${post.seeker}</span>,
         <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
@@ -20,10 +41,13 @@
 			All fields required!
 		</p>
 	#{/ifErrors}
+    
     <p>
         <label for="author">Your name: </label>
-        <input type="text" name="author" id="author" value="${params.author}"/>
+        ${session.get("userName")}
     </p>
+     
+    
     <p>
         <label for="content">Your message: </label>
         <textarea name="content" id="content">${params.content}</textarea>
@@ -42,7 +66,14 @@
         #{list items:post.comments, as:'comment'}
             <div class="comment">
                 <div class="comment-metadata">
-                    <span class="comment-author">by  ${comment.author} ,</span>
+                    <span class="comment-author">
+                    #{if comment.who=="seeker"}
+                    	by  ${comment.authorSeeker.firstName} ,	
+                    #{/if}
+                    #{if comment.who=="mate"}
+                    	by  ${comment.authorMate.firstName} ,	
+                    #{/if}
+                    </span>
                     <span class="comment-date">
                          ${comment.postedAt.format('dd MMM yy')} 
                     </span>
