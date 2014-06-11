@@ -33,7 +33,7 @@ public class LogInController extends Controller {
 			if( type.equalsIgnoreCase("seeker"))
 			{
 				
-						    List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
+						    List<Seeker> seeker = Seeker.find("email = ? and pass = ?", email,pwd).fetch();
 							if(seeker.size()==1)
 							{
 								session.put("userType", "seeker");
@@ -52,7 +52,7 @@ public class LogInController extends Controller {
 			}
 		   else if(type.equalsIgnoreCase("mate"))
 			{
-					        List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
+					        List<Mate> mate = Mate.find("email = ? and pass = ?", email,pwd).fetch();
 							if(mate.size()==1)							
 							{
 								session.put("userType", "mate");
