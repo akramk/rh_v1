@@ -1,5 +1,6 @@
 package models;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,9 +19,9 @@ public class Mate extends User{
 	public String pass;
 	
 	@ManyToMany
-    public List<SeekerPostTable>postsWantTohelp;
+    public List<SeekerPostTable>postsWantTohelp = new LinkedList<>();
 	@OneToMany 
-    public List<MatePostTable> posts;
+    public List<MatePostTable> posts = new LinkedList<>();
 	
 	/**
 	 * @param ssid

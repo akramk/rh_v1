@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -17,7 +18,6 @@ import play.db.jpa.Model;
 
 @Entity
 public class SeekerPostTable extends Model {
-
 	public String seeker;
 	public @As("dd/MM/yyyy")
 	// This the Date format, if you intend to do so please use this type of
@@ -34,10 +34,10 @@ public class SeekerPostTable extends Model {
 	@OneToOne
 	public Seeker seekerWhoPosted;
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
-    public List<SeekerPostComment> comments;
+    public List<SeekerPostComment> comments = new LinkedList<>();
 	
 	@ManyToMany
-    public List<Mate> matesWantToHelp;
+    public List<Mate> matesWantToHelp = new LinkedList<>();
 	/**
 	 * @param seeker
 	 * @param date
@@ -65,16 +65,16 @@ public class SeekerPostTable extends Model {
 	}
 	
     public SeekerPostTable addComment(String userType, Long userId, String content) {
-    	SeekerPostComment newComment=null;
+    	SeekerPostComment newComment = null;
     	if(userType.equals("seeker")){
     		Seeker author=Seeker.findById(userId);
     		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
-    		newComment= new SeekerPostComment(this, userType, author,null, content).save();//I dont know what this save does, it works same without save()!!
+    		newComment= new SeekerPostComment(this, userType, author,null, content);//I dont know what this save does, it works same without save()!!
     	}
     	else if(userType.equals("mate")){
     		Mate author=Mate.findById(userId);
     		//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
-    		newComment= new SeekerPostComment(this, userType, null, author, content).save();//I dont know what this save does, it works same without save()!!
+    		newComment= new SeekerPostComment(this, userType, null, author, content);//I dont know what this save does, it works same without save()!!
     	}
     	System.out.println(newComment.content);
         this.comments.add(newComment);
