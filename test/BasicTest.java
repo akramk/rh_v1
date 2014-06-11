@@ -3,15 +3,35 @@ import org.junit.*;
 import java.sql.Time;
 import java.util.*;
 
+import play.mvc.Scope.Session;
 import play.test.*;
 import models.*;
+import play.mvc.Controller;
+import groovyjarjarcommonscli.ParseException;
 
+import java.awt.Panel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ivy.util.Message;
+
+import models.SeekerPostTable;
+import models.Mate;
+import models.Seeker;
+import play.cache.Cache;
+import play.data.validation.Email;
+import play.data.validation.Validation;
+import play.mvc.Controller.*;
+import controllers.GiveHelpController;
+import controllers.LogInController;
+import controllers.SeekHelpController;
 public class BasicTest extends UnitTest {
 
-//	@Before //to delete the database before any test
-//    public void setup() {
-//        Fixtures.deleteDatabase(); //Fixtures class is a helper to deal with your database during tests. 
-//    }
+	@Before //to delete the database before any test
+    public void setup() {
+        Fixtures.deleteDatabase(); //Fixtures class is a helper to deal with your database during tests. 
+    }
 	
 	@Test
 	//Seeker(String ssid, String firstName, String lastName, int age,String email, String pass)
@@ -24,6 +44,21 @@ public class BasicTest extends UnitTest {
     	// Test
     	assertNotNull(bob);
     	assertEquals("Jun", bob.firstName);
+	}
+	@Test
+	public void loginUser(){
+		//Create a new user and save it
+		Seeker bob = new Seeker("12","Jun","Seeker",25,"abm.junaed@gmail.com","123").save();
+		//logIn(String email, String pwd, String type) throws ParseException, java.text.ParseException{
+		try {
+			LogInController.logIn("abm.junaed@gmail.com", "123","seeker");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Test
 	public void createPost() {
@@ -96,52 +131,83 @@ public class BasicTest extends UnitTest {
 	    assertNotNull(secondComment.postedAt);
 	}
 	
-	@Test
-	public void useTheCommentsRelation() {//if I delete a post, all of its comments will also be deleted, now test it
-	    // Create a new user and save it
-		Seeker bob = new Seeker("12","Jun","Seeker",25,"abm.junaed@gmail.com","123").save();
-		//create a new mate and save it
-				//Mate(String ssid, String firstName, String lastName, int age,String email, String pass) 
-				Mate mate = new Mate("13mate","Akram","Mate",25,"akram@gmail.com","123").save();
-			    // Create a new post
-				@SuppressWarnings("deprecation")
-				Date startDate=new Date("10/07/2014");
-				Date endDate=new Date("10/07/2014");
-				Time startTime=new Time(9, 30, 00);
-				Time endTime=new Time(10, 30, 00);
-				//public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
-//				String location, String title, String post, Integer matesRequired,Integer mateApplied) {
-				SeekerPostTable seekerPost=new SeekerPostTable("bob1", bob,startDate,startTime, endTime,"Munich","Help 1","This is a help seek post for help 1",2,0).save();
-			 
-			    // Post a first comment
-				//addComment(String userType, Long userId, String content)
-				List<Seeker> seeker = Seeker.find("email like ? and pass like ?", "abm.junaed@gmail.com","123").fetch();
-				List<Mate> mates = Mate.find("email like ? and pass like ?", "akram@gmail.com","123").fetch();
-				System.out.println(seeker.get(0).id); 
+//	@Test
+//	public void useTheCommentsRelation() {//if I delete a post, all of its comments will also be deleted, now test it
+//	    // Create a new user and save it
+//		Seeker bob = new Seeker("12","Jun","Seeker",25,"abm.junaed@gmail.com","123").save();
+//		//create a new mate and save it
+//				//Mate(String ssid, String firstName, String lastName, int age,String email, String pass) 
+//				Mate mate = new Mate("13mate","Akram","Mate",25,"akram@gmail.com","123").save();
+//			    // Create a new post
+//				@SuppressWarnings("deprecation")
+//				Date startDate=new Date("10/07/2014");
+//				Date endDate=new Date("10/07/2014");
+//				Time startTime=new Time(9, 30, 00);
+//				Time endTime=new Time(10, 30, 00);
+//				//public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
+////				String location, String title, String post, Integer matesRequired,Integer mateApplied) {
+//				SeekerPostTable seekerPost=new SeekerPostTable("bob1", bob,startDate,startTime, endTime,"Munich","Help 1","This is a help seek post for help 1",2,0).save();
+//			 
+//			    // Post a first comment
+//				//addComment(String userType, Long userId, String content)
+//				List<Seeker> seeker = Seeker.find("email like ? and pass like ?", "abm.junaed@gmail.com","123").fetch();
+//				List<Mate> mates = Mate.find("email like ? and pass like ?", "akram@gmail.com","123").fetch();
+//				System.out.println(seeker.get(0).id); 
 //				seekerPost.addComment("seeker", seeker.get(0).id, "comment from seeker");
-				seekerPost.addComment("mate",(long) 1, "hi");
-//			    seekerPost.addComment("mate", mates.get(0).id,"comment from mate");	 
-	    // Count things
-	    assertEquals(2, User.count());
-	    assertEquals(1, SeekerPostTable.count());
-	    assertEquals(2, SeekerPostComment.count());
-	 
-	    // Retrieve Bob's post
-	    SeekerPostTable bobPost = SeekerPostTable.find("bySeekerWhoPosted", bob).first();
-	    assertNotNull(bobPost);
-	 
-	    // Navigate to comments
-	    assertEquals(2, bobPost.comments.size());
-	    assertEquals("Jun", bobPost.comments.get(0).authorSeeker.firstName);
-	    assertEquals("Akram", bobPost.comments.get(0).authorMate.firstName);
-	    
-	    // Delete the post
-	    bobPost.delete();
-	    
-	    // Check that all comments have been deleted
-	    assertEquals(1, User.count());
-	    assertEquals(0, SeekerPostTable.count());
-	    assertEquals(0, SeekerPostComment.count());
+//				seekerPost.addComment("mate",(long) 1, "hi");
+////			    seekerPost.addComment("mate", mates.get(0).id,"comment from mate");	 
+//	    // Count things
+//	    assertEquals(2, User.count());
+//	    assertEquals(1, SeekerPostTable.count());
+//	    assertEquals(2, SeekerPostComment.count());
+//	 
+//	    // Retrieve Bob's post
+//	    SeekerPostTable bobPost = SeekerPostTable.find("bySeekerWhoPosted", bob).first();
+//	    assertNotNull(bobPost);
+//	 
+//	    // Navigate to comments
+//	    assertEquals(2, bobPost.comments.size());
+//	    assertEquals("Jun", bobPost.comments.get(0).authorSeeker.firstName);
+//	    assertEquals("Akram", bobPost.comments.get(0).authorMate.firstName);
+//	    
+//	    // Delete the post
+//	    bobPost.delete();
+//	    
+//	    // Check that all comments have been deleted
+//	    assertEquals(1, User.count());
+//	    assertEquals(0, SeekerPostTable.count());
+//	    assertEquals(0, SeekerPostComment.count());
+//	}
+
+	@Test 
+	public void mateHelp(){
+		    // // Create a new user and save it
+			Seeker bob = new Seeker("12","Jun","Seeker",25,"abm.junaed@gmail.com","123").save();
+		    //create a new mate and save it
+			//Mate(String ssid, String firstName, String lastName, int age,String email, String pass) 
+			Mate mate = new Mate("13mate","Akram","Mate",25,"akram@gmail.com","123").save();
+		    // Create a new post
+			@SuppressWarnings("deprecation")
+			Date startDate=new Date("10/07/2014");
+			Date endDate=new Date("10/07/2014");
+			Time startTime=new Time(9, 30, 00);
+			Time endTime=new Time(10, 30, 00);
+			//public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
+//			String location, String title, String post, Integer matesRequired,Integer mateApplied) {
+			SeekerPostTable seekerPost=new SeekerPostTable("bob1", bob,startDate,startTime, endTime,"Munich","Help 1","This is a help seek post for help 1",2,0).save();
+			
+			Session.current().put("id", mate.id);
+			
+			//give help
+			try {
+				GiveHelpController.mateIncrementer1(seekerPost.id);
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			assertEquals(1, seekerPost.matesWantToHelp.size());
+			
 	}
 
+	
 }
