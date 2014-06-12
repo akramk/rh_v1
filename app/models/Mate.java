@@ -1,5 +1,6 @@
 package models;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,9 +19,9 @@ public class Mate extends User{
 	public String pass;
 	
 	@ManyToMany
-    public List<SeekerPostTable>postsWantTohelp;
+    public List<SeekerPostTable>postsWantTohelp = new LinkedList<>();
 	@OneToMany 
-    public List<MatePostTable> posts;
+    public List<MatePostTable> posts = new LinkedList<>();
 	
 	/**
 	 * @param ssid
@@ -48,12 +49,12 @@ public class Mate extends User{
 		return this;
 	}
 	
-	public Mate addPostWantTohelp(SeekerPostTable post){//when press the I want to help button this function activates
+	public Mate addPostWantTohelp(SeekerPostTable post){//when mate press the "I want to help" button this function activates
 		this.postsWantTohelp.add(post);
 		this.save();
 		return this;
 	}
-	public Mate removePostWantTohelp(SeekerPostTable post){//-Revoke help from where I wanted to help earlier
+	public Mate removePostWantTohelp(SeekerPostTable post){//-When mate press "Revoke help" from where I wanted to help earlier
 		this.postsWantTohelp.remove(post);
 		this.save();
 		return this;
