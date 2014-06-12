@@ -9,7 +9,7 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class Mate extends User{
+public class Mate extends Model{
 	
 	public String ssid;
 	public String firstName;
