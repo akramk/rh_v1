@@ -17,8 +17,9 @@ this form this will redirect you to the giveHelp page Where you will be able to 
 filter using the search panel. Also you can go to the SeekHelp page through pusing the button "SeekHelp". As usual this is used 
 for navigation. As we dont have any navigation panel now. But those who will design the interface can followi this apporach
 to navigate the links.*/
-	public static void giveHelp() {		
-		render();		
+	public static void giveHelp() throws ParseException {		
+		//render();
+		GiveHelpController.giveHelpSearch(null, null, null, null);
 	}
 	
 /*
