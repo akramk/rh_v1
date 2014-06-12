@@ -373,7 +373,8 @@ public class BasicTest extends UnitTest {
 		//test
 		assertEquals(1, seekerPost.matesWantToHelp.size());
 		//remove this mate's help
-		
+		seekerPost.removeHelpMate(mate);
+		assertEquals(0, seekerPost.matesWantToHelp.size());
 	}
 
 }
