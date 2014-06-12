@@ -308,7 +308,8 @@ public class BasicTest extends UnitTest {
 		seekerPost.addComment("mate", mates.get(0).id, "hi");
 		
 		// Count things
-		assertEquals(2, User.count());
+		assertEquals(1, Mate.count());
+		assertEquals(1, Seeker.count());
 		assertEquals(1, SeekerPostTable.count());
 		assertEquals(2, SeekerPostComment.count());
 
@@ -325,9 +326,54 @@ public class BasicTest extends UnitTest {
 		junPost.delete();
 
 		// Check that all comments have been deleted
-		assertEquals(2, User.count());
+		assertEquals(1, Mate.count());
+		assertEquals(1, Seeker.count());
 		assertEquals(0, SeekerPostTable.count());
 		assertEquals(0, SeekerPostComment.count());
+	}
+	@Test
+	public void addHelpMate(){//add a help mate to a post where seeker wanted help
+		// Create a new user and save it
+		Seeker jun = new Seeker("12", "Jun", "Seeker", 25,"abm.junaed@gmail.com", "123").save();
+		// create a new mate and save it
+		// Mate(String ssid, String firstName, String lastName, int age,String email, String pass)
+		Mate mate = new Mate("13mate", "Akram", "Mate", 25, "akram@gmail.com","123").save();
+		// Create a new post
+		@SuppressWarnings("deprecation")
+		Date startDate = new Date("10/07/2014");
+		Date endDate = new Date("10/07/2014");
+		Time startTime = new Time(9, 30, 00);
+		Time endTime = new Time(10, 30, 00);
+		// public SeekerPostComment(SeekerPostTable post, String userType, Seeker authorSeeker,Mate authorMate, String content) {
+		SeekerPostTable seekerPost = new SeekerPostTable("jun1", jun,startDate, startTime, endTime, "Munich", "Help 1","This is a help seek post for help 1", 2, 0).save();
+		
+		//add a helpmate to this post
+		seekerPost.addHelpMate(mate);
+		//test
+		assertEquals(1, seekerPost.matesWantToHelp.size());
+	}
+	@Test
+	public void removeHelpMate(){//add a help mate to a post where seeker wanted help and then remove this mate from that post
+		// Create a new user and save it
+		Seeker jun = new Seeker("12", "Jun", "Seeker", 25,"abm.junaed@gmail.com", "123").save();
+		// create a new mate and save it
+		// Mate(String ssid, String firstName, String lastName, int age,String email, String pass)
+		Mate mate = new Mate("13mate", "Akram", "Mate", 25, "akram@gmail.com","123").save();
+		// Create a new post
+		@SuppressWarnings("deprecation")
+		Date startDate = new Date("10/07/2014");
+		Date endDate = new Date("10/07/2014");
+		Time startTime = new Time(9, 30, 00);
+		Time endTime = new Time(10, 30, 00);
+		// public SeekerPostComment(SeekerPostTable post, String userType, Seeker authorSeeker,Mate authorMate, String content) {
+		SeekerPostTable seekerPost = new SeekerPostTable("jun1", jun,startDate, startTime, endTime, "Munich", "Help 1","This is a help seek post for help 1", 2, 0).save();
+		
+		//add a helpmate to this post
+		seekerPost.addHelpMate(mate);
+		//test
+		assertEquals(1, seekerPost.matesWantToHelp.size());
+		//remove this mate's help
+		
 	}
 
 }

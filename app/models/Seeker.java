@@ -11,7 +11,7 @@ import play.db.jpa.Model;
 
 
 @Entity
-public class Seeker extends User{
+public class Seeker extends Model{
 	public String ssid;
 	public String firstName;
 	public String lastName;
