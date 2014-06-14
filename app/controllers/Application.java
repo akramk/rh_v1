@@ -153,6 +153,6 @@ public class Application extends Controller {
 		}
 		giveHelpPost.save();
 		System.out.println();
-		GiveHelpController.giveHelp();
+//		GiveHelpController.giveHelp();
 	}
 }
