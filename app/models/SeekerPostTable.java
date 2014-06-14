@@ -37,7 +37,7 @@ public class SeekerPostTable extends Model {
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
 	public List<SeekerPostComment> comments = new LinkedList<>();
 
-	@ManyToMany
+	@ManyToMany(mappedBy="postsWantTohelp")
 	public List<Mate> matesWantToHelp = new LinkedList<>();
 
 	/**
