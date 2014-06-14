@@ -76,7 +76,7 @@ public class SeekHelpController extends Controller {
 				SeekerPostTable giveHelpPostObj = new SeekerPostTable(session.get("userName"),seekerObj, date, timeS,
 						timeE, location, title, post, matesRequired, mate_applied);
 				giveHelpPostObj.create();
-				
+				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.firstName);
 				seekerObj.addPost(giveHelpPostObj);
 				GiveHelpController.giveHelpSearch(null, null, null, null);
 

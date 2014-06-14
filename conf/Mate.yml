@@ -5,6 +5,7 @@ Mate(mate1):
  age: 25
  email: jeff@gmail.com
  pass: mate1
+ type: mate
  
  
 Mate(mate2):
@@ -14,3 +15,4 @@ Mate(mate2):
  age: 21
  email: alex@gmail.com
  pass: mate2
+ type: mate
