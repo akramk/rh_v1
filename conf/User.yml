@@ -1,0 +1,37 @@
+User(mate1):
+ ssid: 1234k3254
+ firstName: John
+ lastName: Fred
+ age: 25
+ email: jeff@gmail.com
+ pass: mate1
+ type: mate
+ 
+ 
+User(mate2):
+ ssid: 1234k3244
+ firstName: Alex
+ lastName: Rass
+ age: 21
+ email: alex@gmail.com
+ pass: mate2
+ type: mate
+
+ User(seeker1):
+ ssid: 1234k3234
+ firstName: Mask
+ lastName: Rip
+ age: 50
+ email: mask@gmail.com
+ pass: seeker1
+ type: seeker
+ 
+ 
+User(seeker2):
+ ssid: 1234k33545
+ firstName: Riz
+ lastName: Bon
+ age: 62
+ email: riz@gmail.com
+ pass: seeker2
+ type: seeker

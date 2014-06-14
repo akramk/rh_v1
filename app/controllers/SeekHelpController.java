@@ -71,14 +71,20 @@ public class SeekHelpController extends Controller {
 			System.out.println("Flag" + flag);
 			if (flag == true) {
 				//find the user who post this and save this post under this user 
-				Long seekerId=Long.parseLong(session.get("id"));
-				Seeker seekerObj=Seeker.findById(seekerId);
-				SeekerPostTable giveHelpPostObj = new SeekerPostTable(session.get("userName"),seekerObj, date, timeS,
-						timeE, location, title, post, matesRequired, mate_applied);
-				giveHelpPostObj.create();
-				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.firstName);
-				seekerObj.addPost(giveHelpPostObj);
-				GiveHelpController.giveHelpSearch(null, null, null, null);
+				try {
+					Long seekerId=Long.parseLong(session.get("id"));
+					Seeker seekerObj=Seeker.findById(seekerId);
+					SeekerPostTable giveHelpPostObj = new SeekerPostTable(session.get("userName"),seekerObj, date, timeS,
+							timeE, location, title, post, matesRequired, mate_applied);
+					giveHelpPostObj.create();
+//				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.userSeeker.firstName);
+					seekerObj.addPost(giveHelpPostObj);
+					GiveHelpController.giveHelpSearch(null, null, null, null);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}
 
 			} else {
 				seekHelpRedir();
