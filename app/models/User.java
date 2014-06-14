@@ -1,6 +1,6 @@
 package models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 import play.db.jpa.Model;
 
@@ -14,7 +14,11 @@ public class User extends Model{
 	public String pass;
 	public String type;//mate or seeker
 	
+	@OneToOne(mappedBy="userMate")
+	public Mate mate;
 	
+	@OneToOne(mappedBy="userSeeker")
+	public Seeker seeker;
 	
 	/**
 	 * @param firstName
@@ -26,7 +30,7 @@ public class User extends Model{
 	 */
 	public User(String firstName, String lastName, int age, String email,
 			String pass, String type) {
-		super();
+//		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;

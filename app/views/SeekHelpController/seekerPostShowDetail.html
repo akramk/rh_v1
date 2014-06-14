@@ -68,10 +68,10 @@
                 <div class="comment-metadata">
                     <span class="comment-author">
                     #{if comment.who=="seeker"}
-                    	by  ${comment.authorSeeker.firstName} ,	
+                    	by  ${comment.authorSeeker.userSeeker.firstName} ,	
                     #{/if}
                     #{if comment.who=="mate"}
-                    	by  ${comment.authorMate.firstName} ,	
+                    	by  ${comment.authorMate.userMate.firstName} ,	
                     #{/if}
                     </span>
                     <span class="comment-date">

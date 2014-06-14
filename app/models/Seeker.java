@@ -7,13 +7,17 @@ import javax.mail.Session;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
 
 @Entity
-public class Seeker extends User implements play.db.Model{
-	public String ssid;
+public class Seeker extends Model{
+//	public String ssid;
+	@OneToOne
+	public User userSeeker;
 	
 	@OneToMany 
     public List<SeekerPostTable> posts = new LinkedList<>();
@@ -26,13 +30,13 @@ public class Seeker extends User implements play.db.Model{
 	 * @param email
 	 * @param pass
 	 */
-	public Seeker(String ssid, String firstName, String lastName, int age,
-			String email, String pass) {
-		super(firstName, lastName, age, email, pass, "seeker");
-	}
-	
+//	public Seeker(String ssid, String firstName, String lastName, int age,
+//			String email, String pass) {
+//		super(firstName, lastName, age, email, pass, "seeker");
+//	}
+//	
 	public Seeker addPost(SeekerPostTable newPost){//the post this seeker gave
-		System.out.println(newPost.seekerWhoPosted.email);
+		System.out.println(newPost.seekerWhoPosted.userSeeker.email);
 		this.posts.add(newPost);
         this.save();
 		return this;
