@@ -12,7 +12,6 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-<<<<<<< HEAD
     
 	public static void seekHelpRedir(){
 		render();
@@ -97,7 +96,5 @@ public class Application extends Controller {
 		System.out.println();
 //		GiveHelpController.giveHelp();
 	}
-=======
 
->>>>>>> rh_v2
 }
