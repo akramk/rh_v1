@@ -17,8 +17,9 @@ this form this will redirect you to the giveHelp page Where you will be able to 
 filter using the search panel. Also you can go to the SeekHelp page through pusing the button "SeekHelp". As usual this is used 
 for navigation. As we dont have any navigation panel now. But those who will design the interface can followi this apporach
 to navigate the links.*/
-	public static void giveHelp() {		
-		render();		
+	public static void giveHelp() throws ParseException {		
+		//render();
+		GiveHelpController.giveHelpSearch(null, null, null, null);
 	}
 	
 /*
@@ -43,11 +44,21 @@ This function searches on these parameter basis. And there are different criteri
 	 * @param timeEnd
 	 * @throws java.text.ParseException
 	 */
-	public static void giveHelpSearch(String location, Date searchDate, String timeStart, String timeEnd) 
+	public static void giveHelpSearch(String location, String searchDateS, String timeStart, String timeEnd) 
 			throws java.text.ParseException {
+		
+		SimpleDateFormat dateFormatS = new SimpleDateFormat("dd/MM/yyyy");
+		Date searchDate = null;
+		if (searchDateS != null && !searchDateS.equals("")) {
+			searchDate = dateFormatS.parse(searchDateS);
+		}
+		System.out.println(searchDate);
+		System.out.println(searchDateS);
+		
 		System.out.println(timeStart + "----" + timeEnd + "Location"+ location + "Date" + searchDate);
 		
 		//System.out.println(session.get("type"));
+		
 		
 /*When the page will be reloaded from the navigation panel through clicking any link or button then this page will be reloaded.
 so then this condition will be checked. As at that time all the parameters will be null. Because search panel will return
@@ -89,7 +100,7 @@ timeStart and timeEnd string to Time variable.*/
 /*This occurs when user gives any values in the search Panel. Not all the values but any values.*/
 		else if (!location.equalsIgnoreCase("") || searchDate != null || !timeStart.equals("") || !timeEnd.equals("")) 
 		{
-			System.out.println("Value Found: " + timeStart + "----" + timeEnd + "Location" 
+			System.out.println("Last Else IF Value Found: " + timeStart + "----" + timeEnd + "Location" 
 		      + location + "Date" + searchDate);
 
 			if (searchDate == null) {
@@ -97,6 +108,7 @@ timeStart and timeEnd string to Time variable.*/
 				//because we dont have any entry obviously before 1990
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				searchDate = dateFormat.parse("01/01/1990");
+//				dateS = dateFormat.parse("01/01/1990");
 			}
 
 			if (timeStart.equalsIgnoreCase("")) {//when user dont give any start time it gets the 00hh 00mm and 00ss
@@ -106,10 +118,10 @@ timeStart and timeEnd string to Time variable.*/
 			if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
 				timeEnd = "00:00:00";
 			}
-
+			
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable
-					.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?",
-							searchDate, location,
+					.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+							searchDate, '%'+location+'%',
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
 			render(giveHelpPost);

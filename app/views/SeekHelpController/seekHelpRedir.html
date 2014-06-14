@@ -1,14 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{if flash.error}
-    <p style="color:#c00">
-        ${flash.error}
-        
-    </p>
-#{/if}
 
-
+#{if session.get("userType") == "seeker"}
 <form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
 
   <div id='seekHelpRedirForm_seeker_errorloc' style="color: red;" class='error_strings'>    
@@ -67,6 +61,14 @@
   </div>
   
 </form>
+#{/if}
+
+
+#{else}
+<form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
+<h2 style="color:red;">Posting for Seeker only.</h2>
+</form>
+#{/else}
 
 
 <script language="JavaScript" type="text/javascript">

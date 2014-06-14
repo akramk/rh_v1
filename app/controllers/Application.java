@@ -1,75 +1,16 @@
 package controllers;
 
 import play.*;
-import play.data.validation.Required;
-import play.data.validation.Validation;
-import play.db.jpa.JPA;
 import play.mvc.*;
-import groovyjarjarcommonscli.ParseException;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.*;
-
-import javax.persistence.Query;
 
 import models.*;
 
 public class Application extends Controller {
-    
-    public static void giveHelp(){
-		render();
-    }
-    
-	public static void giveHelpSearch(String location, Date search_date, String time_start, String time_end) throws java.text.ParseException{
-    	System.out.println(time_start + "----"+ time_end +"Location"+location+"Date"+search_date);
-    	
-    	if(location == null && search_date == null && time_start == null && time_end == null){
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
-			System.out.println("ALL NULL");
-			render(giveHelpPost);
-    	}
-    	else if((!location.equalsIgnoreCase("")) &&(search_date != null) 
-				&& (!time_start.equals("")) && (!time_end.equals(""))){
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?", search_date, location,
-					java.sql.Time.valueOf(time_start), java.sql.Time.valueOf(time_end)).fetch();
-			System.out.println("ALL NOT NULL");
-			render(giveHelpPost);
-		}
-		
-		else if((location == null || location.equalsIgnoreCase("")) && (search_date == null || search_date.equals(""))
-				&& (time_start == null || time_start.equals("")) && (time_end == null || time_end.equals(""))){
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
-			System.out.println("Condition 3");
-			render(giveHelpPost);
-		}
-		
-		else if(!location.equalsIgnoreCase("") || search_date != null
-				|| !time_start.equals("") || !time_end.equals("")){
-			System.out.println("Value Found: "+time_start + "----"+ time_end +"Location"+location+"Date"+search_date);
-			
-			if(search_date == null){
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
-				search_date = dateFormat.parse("01/01/1990");
-			}
-			
-			if(time_start.equalsIgnoreCase("")){
-				time_start = "00:00:00";
-			}
-			
-			if(time_end.equalsIgnoreCase("")){
-				time_end = "00:00:00";
-			}
-			
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? OR location like ? OR timeStart >= ? OR timeEnd<= ?", search_date, location,
-					java.sql.Time.valueOf(time_start),java.sql.Time.valueOf(time_end)).fetch();
-			render(giveHelpPost);
-		}else{
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
-			System.out.println("Condition Final");
-			render(giveHelpPost);
-		}
-		
+
+    public static void index() {
+        render();
     }
     
 	public static void seekHelpRedir(){
@@ -153,6 +94,7 @@ public class Application extends Controller {
 		}
 		giveHelpPost.save();
 		System.out.println();
-		GiveHelpController.giveHelp();
+//		GiveHelpController.giveHelp();
 	}
+
 }

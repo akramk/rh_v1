@@ -27,8 +27,8 @@ public class SeekHelpController extends Controller {
 		//System.out.println(session.get("type"));
 		int mate_applied = 0;
 		boolean all_check = false;
-		if (session.get("id")!=null && postDate.length() > 0 && timeStart.length() > 0 && timeEnd.length() > 0
-				&& location.length() > 0 && matesRequired > 0) 
+		if (session.get("id")!=null && postDate != null && !timeStart.equals("") && !timeEnd.equals("") 
+				&& !location .equals("")) 
 		{
 			all_check = true;
 		} 
@@ -76,7 +76,7 @@ public class SeekHelpController extends Controller {
 				SeekerPostTable giveHelpPostObj = new SeekerPostTable(session.get("userName"),seekerObj, date, timeS,
 						timeE, location, title, post, matesRequired, mate_applied);
 				giveHelpPostObj.create();
-				
+				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.firstName);
 				seekerObj.addPost(giveHelpPostObj);
 				GiveHelpController.giveHelpSearch(null, null, null, null);
 
