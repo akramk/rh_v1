@@ -5,6 +5,7 @@ Seeker(mate1):
  age: 50
  email: mask@gmail.com
  pass: seeker1
+ type: seeker
  
  
 Seeker(seeker2):
@@ -14,3 +15,4 @@ Seeker(seeker2):
  age: 62
  email: riz@gmail.com
  pass: seeker2
+ type: seeker

@@ -3,7 +3,7 @@
 
 
     
- <form id="LogInForm" action="LogInController/logIn" enctype="multipart/form-data" >
+ <form id="LogInForm" action="/LogInController/logIn" enctype="multipart/form-data" >
     
     <div id='LogInForm_email_errorloc' style="color: red;" class='error_strings'>
     </div>    
@@ -19,12 +19,6 @@
     
     <div id='LogInForm_type_errorloc' style="color: red;" class='error_strings'>
     </div>
-    User Type:<br>
-    <select name = "type">
-          <option value="0" selected>Select
-		  <option value="seeker" >Seeker
-		  <option value="mate">Helpmate
-	</select>
         
     <br>
     <div class="col-lg-4 col-md-4">
@@ -45,8 +39,6 @@
   
   frmvalidator.addValidation("pwd","req","Please enter your Password");
   frmvalidator.addValidation("pwd","maxlen=20","For Password, Max length is 20");  
-  
-  frmvalidator.addValidation("type","dontselect=0");
    
 </script>
 

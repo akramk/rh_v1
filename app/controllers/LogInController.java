@@ -4,19 +4,17 @@ import groovyjarjarcommonscli.ParseException;
 
 import java.awt.Panel;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ivy.util.Message;
 
 import models.SeekerPostTable;
-import models.Mate;
 import models.Seeker;
+import models.User;
 import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Validation;
 import play.mvc.Controller;
-import controllers.SeekHelpController;
 
 
 public class LogInController extends Controller {
@@ -26,59 +24,34 @@ public class LogInController extends Controller {
 	 */
 
 	public static void logIn(String email, String pwd, String type) throws ParseException, java.text.ParseException{
+		if((email==null && pwd==null  && type==null) || (email.equals("") && pwd.equals("")  && type.equals(""))){
+			System.out.println("Null or blank found all");
+			render();
+		}
+		
 		String errorMessage=null;
 		session.clear();
-		if(type != null)
-		{			
-			if( type.equalsIgnoreCase("seeker"))
+		System.out.println(email+pwd+type);
+		List<User> user = User.find("email = ? and pass = ?", email,pwd).fetch();
+		if(user.size() == 1)
+		{
+			
+			session.put("userType", user.get(0).type);
+			session.put("id", user.get(0).id);
+			session.put("userName", user.get(0).firstName +" "+ user.get(0).lastName);
+			if(user.get(0).type.equals("seeker"))
 			{
-				
-						    List<Seeker> seeker = Seeker.find("email like ? and pass like ?", email,pwd).fetch();
-							if(seeker.size()==1)
-							{
-								session.put("userType", "seeker");
-								session.put("id", seeker.get(0).id);
-//								session.put("loggedInUser",seeker.get(0));			 
-								session.put("userName", seeker.get(0).firstName +" "+ seeker.get(0).lastName);
-								  
-							  SeekHelpController.seekHelpRedir();							  
-							   
-							} 
-							else
-							{
-								errorMessage="User ID , password or user type missmatch";
-								render(errorMessage);
-							}
+				SeekHelpController.seekHelpRedir();
 			}
-		   else if(type.equalsIgnoreCase("mate"))
+			if(user.get(0).type.equals("mate"))
 			{
-					        List<Mate> mate = Mate.find("email like ? and pass like ?", email,pwd).fetch();
-							if(mate.size()==1)							
-							{
-								session.put("userType", "mate");
-								session.put("id", mate.get(0).id);
-//								session.put("loggedInUser",mate.get(0));
-								session.put("userName", mate.get(0).firstName +" "+ mate.get(0).lastName);								
-								GiveHelpController.giveHelpSearch(null, null, null, null);	
-								 
-							}
-							else
-							{
-								errorMessage="User ID , password or user type missmatch";
-								render(errorMessage);
-							}						  
-			 }
-			else
-			{					
-					errorMessage="User ID , password or user type missmatch";
-					render(errorMessage);
+				GiveHelpController.giveHelp();
 			}
 		}
-			
-
 		else
 		{
-			render();
+			errorMessage="Wrong User ID or password ";
+			render(errorMessage);
 		}
 
 	}
