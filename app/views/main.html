@@ -63,6 +63,24 @@
                     </li>
                     <li><a href="">Contact</a>
                     </li>
+                    
+                    
+                    
+                    #{if session.get("userType") == "seeker"}
+                    <li><a href="@{ProfileController.profileView}">Seeker: ${session.get("userName")}</a>
+                    </li>
+                    #{/if}
+
+                    #{if session.get("userType") == "mate"}
+                    <li><a href="@{ProfileController.profileView}">Mate: ${session.get("userName")}</a>
+                    </li>
+                    #{/if}
+                    
+                     #{if session.isEmpty() == false}
+                    <li><a href="http://localhost:9000/">Log Out</a>
+                    </li>
+                     #{/if}                   
+                    
                     <!--li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
                         <ul class="dropdown-menu">
