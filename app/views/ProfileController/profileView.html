@@ -1,0 +1,75 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+
+#{if session.get("userType") == "mate"}
+
+<p>Hello! <b>${session.get("userType")}</b>, ${usermate.firstName} Welcome to your profile</p>
+
+Details:
+<div>
+<p>Name: ${session.get("userName")}</p>
+<p>Email: ${usermate.email}</p>
+<p>Age: ${usermate.age}</p>
+<p>Address: Not yet ready. Adnan Rabbi please perform the address part</p>
+</div>
+
+#{/if}
+
+#{if session.get("userType") == "seeker"}
+
+<p>Hello! <b>${session.get("userType")}</b>, ${userseeker.firstName} Welcome to your profile</p>
+
+Details:
+<div>
+<p>Name: ${session.get("userName")}</p>
+<p>Email: ${userseeker.email}</p>
+<p>Age: ${userseeker.age}</p>
+<p>Address: Not yet ready. Adnan Rabbi please perform the address part</p>
+</div>
+
+#{/if}
+
+
+
+
+<div>
+#{if openedEvents.size() > 0}
+<h3>Open Events:</h3>
+#{list items:openedEvents, as:'open'}
+<a href="@{SeekHelpController.seekerPostShowDetail(open.id)}">${open.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Open Events Applied.</h4>
+#{/else}
+</div>
+
+<div>
+#{if closedEvents.size() > 0}
+<h3>Closed Events:</h3>
+#{list items:closedEvents, as:'close'}
+<a href="@{SeekHelpController.seekerPostShowDetail(close.id)}">${close.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Closed Events.</h4>
+#{/else}
+</div>
+
+<div>
+#{if completedEvents.size() > 0}
+<h3>Completed Events:</h3>
+#{list items:completedEvents, as:'complete'}
+<a href="@{SeekHelpController.seekerPostShowDetail(complete.id)}">${complete.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Completed Events.</h4>
+#{/else}
+</div>
+
+</div>
