@@ -1,18 +1,22 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
 
 @Entity
 public class Address extends Model{
 	
-	public String ssid;
+	
 	public String houseNumber;
 	public String street;
 	public String zipCode;
 	public String city;
 	public String country;
+	
+	@OneToOne
+	public User userAddress;
 	/**
 	 * @param ssid
 	 * @param houseNumber
@@ -21,10 +25,8 @@ public class Address extends Model{
 	 * @param city
 	 * @param country
 	 */
-	public Address(String ssid, String houseNumber, String street,
+	public Address(String houseNumber, String street,
 			String zipCode, String city, String country) {
-		super();
-		this.ssid = ssid;
 		this.houseNumber = houseNumber;
 		this.street = street;
 		this.zipCode = zipCode;

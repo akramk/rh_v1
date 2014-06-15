@@ -1,12 +1,22 @@
 package external;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import models.Address;
 import models.Mate;
 import models.Seeker;
 import models.User;
 
 public class DataFill {
-	public void dataFiller(){
-		User userseeker = new User("Mask", "Rip", 50, "mask@gmail.com", "seeker1", "seeker");
+	public void dataFiller() throws ParseException{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date date =  dateFormat.parse("25/05/1965");
+		User userseeker = new User("12345ks","Mask", "Rip", date, "mask@gmail.com", "seeker1", "seeker");
+		Address address = new Address("21", "ABC", "sadhj", "Rajshahi", "Bangladesh");
+		address.userAddress = userseeker;
+		userseeker.address = address;
 		userseeker.create();
 		Seeker seeker = new Seeker();
 		seeker.userSeeker = userseeker;
@@ -14,7 +24,10 @@ public class DataFill {
 		seeker.save();
 		
 		
-		userseeker = new User("Riz", "Bon", 62, "riz@gmail.com", "seeker2", "seeker");
+		userseeker = new User("25546s", "Riz", "Bon", date, "riz@gmail.com", "seeker2", "seeker");
+		address = new Address("42", "3sd", "43dsa", "Rajshahi", "Bangladesh");
+		address.userAddress = userseeker;
+		userseeker.address = address;
 		userseeker.create();
 		seeker = new Seeker();
 		seeker.userSeeker = userseeker;
@@ -22,14 +35,20 @@ public class DataFill {
 		seeker.save();
 		
 		
-		User usermate = new User("John", "Fred", 20, "jeff@gmail.com", "mate1", "mate");
+		User usermate = new User("25s4sk","John", "Fred", date, "jeff@gmail.com", "mate1", "mate");
+		address = new Address("3", "dasds", "5ds", "Dhaka", "Bangladesh");
+		address.userAddress = usermate;
+		usermate.address = address;
 		usermate.create();
 		Mate mate = new Mate();
 		mate.userMate = usermate;
 		mate.create();
 		mate.save();
 		
-		usermate = new User("Alex", "Rass", 25, "alex@gmail.com", "mate2", "mate");
+		usermate = new User("254s6e", "Alex", "Rass",date, "alex@gmail.com", "mate2", "mate");
+		address = new Address("das", "re", "re", "Rajshahi", "Bangladesh");
+		address.userAddress = usermate;
+		usermate.address = address;
 		usermate.create();
 		mate = new Mate();
 		mate.userMate = usermate;
