@@ -1,0 +1,89 @@
+#{extends 'main.html' /}
+#{set title:'Seeker detail' /}
+
+    <h2 class="post-title">
+        <a href="@{GiveHelpController.matePostShowDetail(post.id)}">${post.title}</a>
+    </h2>
+    
+    <h4 class="mate-applied">
+        Seeker Applied for Help: ${post.seekersApplied}
+        <br/>
+        Total Seeker Required to Help: ${post.seekersRequired}
+    </h4>
+    
+    #{if post.status == "open" && session.get("userType") == "seeker" && mateFound == false}
+    #{form @SeekHelpController.seekerIncrementer1(), enctype:'multipart/form-data'}
+    <input type="hidden"  value ='${post.id}' name = "postId"/>
+    <input type="submit" value="I Need Help" />
+    #{/form}
+    #{/if}
+    
+    #{if post.status == "open" && session.get("userType") == "seeker" && mateFound == true}
+     #{form @SeekHelpController.seekerRevokeHelpNeeded(), enctype:'multipart/form-data'}
+    <input type="hidden"  value ='${post.id}' name = "postId"/>
+    <input type="submit" value="I want to Revoke My Request" />
+    #{/form}
+    #{/if}
+    
+    <div class="post-metadata">
+        <span class="post-author">by ${post.postedBy.userMate.firstName}</span>,
+        <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
+    </div>
+    
+        <div class="post-content">
+            <div class="about">Detail: </div>
+            ${post.post.nl2br()}
+        </div>
+        
+    #{form @GiveHelpController.postComment(post.id)}
+	#{ifErrors}
+		<p class="error">
+			All fields required!
+		</p>
+	#{/ifErrors}
+    
+    <p>
+        <label for="author">Your name: </label>
+        ${session.get("userName")}
+    </p>
+     
+    
+    <p>
+        <label for="content">Your message: </label>
+        <textarea name="content" id="content">${params.content}</textarea>
+    </p>
+    <p>
+        <input type="submit" value="Submit your comment" />
+    </p>
+	#{/form}
+     
+    <div class="comments">
+        <h3>
+            { ${post.comments.size() ?: 'no'}
+            comment${post.comments.size().pluralize()}}
+        </h3>
+        
+        #{list items:post.comments, as:'comment'}
+            <div class="comment">
+                <div class="comment-metadata">
+                    <span class="comment-author">
+                    #{if comment.who=="seeker"}
+                    	by  ${comment.authorSeeker.userSeeker.firstName} ,	
+                    #{/if}
+                    #{if comment.who=="mate"}
+                    	by  ${comment.authorMate.userMate.firstName} ,	
+                    #{/if}
+                    </span>
+                    <span class="comment-date">
+                         ${comment.postedAt.format('dd MMM yy')} 
+                    </span>
+                </div>
+                <div class="comment-content">
+                    <div class="about">Detail: </div>
+                     ${comment.content.escape().nl2br()}
+                </div>
+            </div>
+         #{/list}
+        
+    </div>
+     
