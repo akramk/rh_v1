@@ -1406,7 +1406,7 @@ th {
   text-align: left;
 }
 .table {
-  width: 100%;
+  width: 97.5%;
   margin-bottom: 20px;
 }
 .table > thead > tr > th,
@@ -4030,23 +4030,37 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
-  color: #999;
+  color: #c0c0c0;
+  height: 50px;
+  padding-left: 30px;
+  background-image: url('/public/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 40px 30px;
+  background-position: left center;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #fff;
   background-color: transparent;
+  text-shadow: 0 1px 1.5px rgba(250, 250, 250, .6);
+  height: 50px;
+  padding-left: 30px;
+  background-image: url('/public/images/logo-hovr.png');
+  background-repeat: no-repeat;
+  background-size: 40px 30px;
+  background-position: left center;
 }
 .navbar-inverse .navbar-text {
-  color: #999;
+  color: #e0e0e0;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #999;
+  color: #e0e0e0;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #fff;
   background-color: transparent;
+  text-shadow: 0 1px 1.5px rgba(250, 250, 250, .6);
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,

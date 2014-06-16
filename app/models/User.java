@@ -1,19 +1,26 @@
 package models;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
+import play.data.binding.As;
 import play.db.jpa.Model;
 
 
 @Entity
 public class User extends Model{
+	public String ssid;
 	public String firstName;
 	public String lastName;
-	public int age;
+	public @As("dd/MM/yyyy")
+ 	Date dateofBirth;
 	public String email;
 	public String pass;
 	public String type;//mate or seeker
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	public Address address;
 	@OneToOne(mappedBy="userMate")
 	public Mate mate;
 	
@@ -28,12 +35,13 @@ public class User extends Model{
 	 * @param pass
 	 * @param type
 	 */
-	public User(String firstName, String lastName, int age, String email,
+	public User(String ssid, String firstName, String lastName, Date dateofBirth, String email,
 			String pass, String type) {
 //		super();
+		this.ssid = ssid;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.age = age;
+		this.dateofBirth = dateofBirth;
 		this.email = email;
 		this.pass = pass;
 		this.type = type;

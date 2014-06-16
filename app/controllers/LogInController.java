@@ -30,6 +30,7 @@ public class LogInController extends Controller {
 			System.out.println("Null or blank found all");
 //			DataFill dt = new DataFill();
 //			dt.dataFiller();
+			session.clear();
 			render();
 
 		}
