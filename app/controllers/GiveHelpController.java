@@ -1,13 +1,17 @@
 package controllers;
 
 import java.awt.Panel;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import models.Mate;
+import models.MatePostTable;
+import models.Seeker;
 import models.SeekerPostTable;
+import play.data.validation.Required;
 import play.mvc.Controller;
 
 public class GiveHelpController extends Controller {
@@ -205,5 +209,107 @@ timeStart and timeEnd string to Time variable.*/
 		System.out.println();
 		SeekHelpController.seekerPostShowDetail(postId);
 	}
+	//when I mate post to indicating when he is free, call this function and sane his data
+	public static void giveHelpPost(@Required String postDate,@Required String timeStart, @Required String timeEnd,
+			String location, int seekersRequired, String title, String post) throws ParseException, java.text.ParseException {
+
+		
+		
+		//System.out.println(session.get("type"));
+		int seeker_applied = 0;
+		boolean all_check = false;
+		if (session.get("id")!=null && postDate != null && !timeStart.equals("") && !timeEnd.equals("") 
+				&& !location .equals("")) 
+		{
+			all_check = true;
+		} 
+		else 
+		{
+			flash.error("Please check your input data Again!");
+			giveHelp();
+		}
+
+		// page redirected and landed
+		if (all_check) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			boolean flag = false;
+			Date date;
+			if (!postDate.equalsIgnoreCase("") && all_check) {
+				date = dateFormat.parse(postDate);
+				flag = true;
+			} else {
+				date = new Date();
+			}
+
+			// SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+			Time timeS = null;
+			if (timeStart != null && flag == true) {
+				timeS = java.sql.Time.valueOf(timeStart);
+				flag = true;
+			} else {
+				timeS = java.sql.Time.valueOf("00:00:00");
+			}
+
+			Time timeE = null;
+			if (timeStart != null && flag == true) {
+				timeE = java.sql.Time.valueOf(timeEnd);
+				flag = true;
+			} else {
+				timeE = java.sql.Time.valueOf("00:00:00");
+			}
+
+			System.out.println("Flag" + flag);
+			if (flag == true) {
+				//find the user who post this and save this post under this user 
+				try {
+					Long mateId=Long.parseLong(session.get("id"));
+					Mate mateObj=Mate.findById(mateId);
+					//(Mate postedBy, Date date, Time timeStart, Time timeEnd,String location, String title, String post, Integer matesRequired,Integer mateApplied)
+					MatePostTable giveHelpPostObj = new MatePostTable(mateObj, date, timeS,
+							timeE, location, title, post, seekersRequired, seeker_applied);
+					giveHelpPostObj.create();
+//				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.userSeeker.firstName);
+					mateObj.addPost(giveHelpPostObj);
+					GiveHelpController.giveHelpSearch(null, null, null, null);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}
+
+			} else {
+				giveHelp();
+			}
+
+		}
+
+	}
+
+	//this will show the detail of a seeker's post
+	public static void matePostShowDetail(Long id){
+		MatePostTable post=MatePostTable.findById(id);
+		System.out.println(post.id+post.post);
+		List<Seeker>seekersWantHelp = post.seekersWantHelp;
+		boolean mateFound = false;
+		for(int i =0; i<seekersWantHelp.size();i++){
+			if(seekersWantHelp.get(i).id == Long.parseLong(session.get("id"))){
+				System.out.println(i + "Found"+ seekersWantHelp.get(i).id);
+				mateFound = true;
+			}
+		}
+		render(post, mateFound);
+	}
+
+	public static void postComment(Long postId, @Required String content){
+		MatePostTable post = MatePostTable.findById(postId);
+	    if (validation.hasErrors()) {
+	        render("GiveHelpController/matePostShowDetail.html", post);
+	    }
+	  //addComment is a function of SeekerPostTable model
+	    post.addComment(session.get("userType"),Long.parseLong(session.get("id")), content);//id of SeekerPostTable is Long, but 
+	    //session stores data in string so convert the id to long using Long.parseLong
+	    matePostShowDetail(postId);
+	}
+
 	
 }

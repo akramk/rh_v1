@@ -72,9 +72,6 @@
 </form>
 
 
-#{form @SeekHelpController.SeekHelpRedir(), enctype:'multipart/form-data'} 
-    <input class="frm-btn" type="submit" value="SeekHelp" />
-#{/form}
 
 <script language="JavaScript" type="text/javascript">
 
@@ -91,4 +88,103 @@
   frmvalidator.addValidation("timeEnd","req","Please enter end time");
  
     
+</script>
+
+
+<!-- Form where mate can post when he can help -->
+#{if session.get("userType") == "mate"}
+<form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" >
+
+  <div id='matePostForm_seeker_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="seeker">Mate Name:</label>
+  <input class="form-control"  type="text" name="seeker" value='${session.get("userName")}' readonly />
+  <br>
+  
+  <div id='matePostForm_postDate_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="postDate">Date:</label>
+  <input class="form-control"  type="text" name="postDate" id="datepicker" value="" />
+  <br>
+  
+  <div id='matePostForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="timeStart">Start time:</label>
+  <input class="form-control"  type="text" name="timeStart" value="" />
+  <br>
+  
+ <div id='matePostForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
+ </div>  
+  
+  <label for="timeEnd">End time:</label>
+  <input class="form-control"  type="text" name="timeEnd" value="" />
+  <br>
+   
+ <div id='matePostForm_location_errorloc' style="color: red;" class='error_strings'>
+ </div>
+ <label for="location">Location:</label>
+ <input class="form-control"  type="text" name="location" value="" />
+  <br>
+  
+ <div id='matePostForm_matesRequired_errorloc' style="color: red;" class='error_strings'> 
+</div>
+  <label for="matesRequired">Number of mates I can help:</label>
+  <input class="form-control"  type="number" name="seekersRequired" min=1 />
+  <br>
+  
+   <div id='matePostForm_title_errorloc' style="color: red;" class='error_strings'>
+  </div>
+  <label for="title">Title:</label>
+  <input class="form-control"  type="text" name="title" value="" />
+  <br>
+  
+  
+  <div id='matePostForm_post_errorloc' style="color: red;" class='error_strings'>  
+  </div>  
+  <label for="post">Message:</label>
+  <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
+  </textarea>
+  <br> 
+  
+  <div class="form-group">
+    <input type="submit" class="btn btn-default"  value="save" />
+  </div>
+  
+</form>
+#{/if}
+
+
+#{else}
+
+<h2 style="color:red;">Advertise for seeker</h2>
+
+#{/else}
+
+
+<script language="JavaScript" type="text/javascript">
+
+  var frmvalidator  = new Validator("matePostForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
+ 
+  frmvalidator.addValidation("seeker","req","Please enter your  Name");
+  frmvalidator.addValidation("seeker","maxlen=50","For Name, Max length is 50");
+  
+  frmvalidator.addValidation("postDate","req","Please enter Date");
+  
+  frmvalidator.addValidation("timeStart","req","Please enter start time");
+  
+  frmvalidator.addValidation("timeEnd","req","Please enter end time");
+ 
+  frmvalidator.addValidation("location","req","Please enter location");
+  
+  frmvalidator.addValidation("matesRequired","req","Please enter number of mates you required");
+  frmvalidator.addValidation("matesRequired","maxlen=50");
+  frmvalidator.addValidation("matesRequired","numeric"); 
+  
+  frmvalidator.addValidation("title","req","Please enter title");
+  
+  frmvalidator.addValidation("post","req","Please enter your  message");
+  frmvalidator.addValidation("post","maxlen=1000");
+  
 </script>

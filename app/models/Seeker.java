@@ -22,6 +22,9 @@ public class Seeker extends Model{
 	@OneToMany 
     public List<SeekerPostTable> posts = new LinkedList<>();
     
+    @ManyToMany
+    public List<MatePostTable>postsAppliedforHelp = new LinkedList<>();
+    
 	/**
 	 * @param ssid
 	 * @param firstName
@@ -42,7 +45,16 @@ public class Seeker extends Model{
 		return this;
  }
 	
-	
+	public Seeker addPostNeedHelp(MatePostTable post){//when seeker press the "I need help" button this function activates
+		this.postsAppliedforHelp.add(post);
+		this.save();
+		return this;
+	}
+	public Seeker removePostNeededHelp(MatePostTable post){//-When seeker press "Revoke need help" from where I wanted to help earlier
+		this.postsAppliedforHelp.remove(post);
+		this.save();
+		return this;
+	}
 	
 
 }

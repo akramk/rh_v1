@@ -1,6 +1,42 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+<div class="container">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>  	
+		      <th>Title</th>     
+		      <th>Date</th>
+		      <th>Location</th>
+		      <th>Seeker Applied</th>
+		      <th>seeker Required</th>		      
+		      <th>Post</th> 
+		      <th>Mate</th>
+		      <th>End Time </th>
+		      <th>Start Time</th>
+		    
+		      
+		    </tr>
+		  </thead>
+		  <tbody id="giveHelpPostTable">
+		    #{list items:seekHelpPost, as:'p'}
+		    <tr>
+		      <td><a href="@{GiveHelpController.matePostShowDetail(p.id)}">${p.title}</a></td>  		        
+		      <td>${p.postdate.format('dd/MM/yyyy')}</td>
+		      <td>${p.location}</td>
+		      <td>${p.seekersApplied}</td>
+		      <td>${p.seekersRequired}</td>		      
+		      <td>${p.post}</td>
+			  <td>${p.postedBy.userMate.firstName}</td>	
+		      <td>${p.timeEnd}</td>
+		      <td>${p.timeStart}</td>
+		      <td>
+		      </td>
+		    </tr>
+		    #{/list}
+		  </tbody>
+		</table>
+</div>
 
 #{if session.get("userType") == "seeker"}
 <form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >

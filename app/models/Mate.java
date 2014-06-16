@@ -14,6 +14,8 @@ public class Mate extends Model{
 //	public String ssid;
 	@OneToOne
 	public User userMate;
+	@OneToMany 
+    public List<MatePostTable> posts = new LinkedList<>();
 	@ManyToMany
     public List<SeekerPostTable>postsWantTohelp = new LinkedList<>();
 	
@@ -32,11 +34,11 @@ public class Mate extends Model{
 //	}
 	
 	
-//	public Mate addPost(MatePostTable newPost){//the post this seeker gave
-//		this.posts.add(newPost);
-//        this.save();
-//		return this;
-//	}
+	public Mate addPost(MatePostTable newPost){//the post this seeker gave
+		this.posts.add(newPost);
+        this.save();
+		return this;
+	}
 	
 	public Mate addPostWantTohelp(SeekerPostTable post){//when mate press the "I want to help" button this function activates
 		this.postsWantTohelp.add(post);

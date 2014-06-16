@@ -17,8 +17,8 @@ import play.db.jpa.Model;
  there will be no mate_applied variable. As for the beginning obviously there will be no mates applied.*/
 
 @Entity
-public class SeekerPostTable extends Model {
-	public String seeker;
+public class MatePostTable extends Model {
+//	public String seeker;
 	public @As("dd/MM/yyyy")
 	// This the Date format, if you intend to do so please use this type of
 	// format always.
@@ -28,18 +28,18 @@ public class SeekerPostTable extends Model {
 	public String location;
 	public String post;
 	public String title;
-	public Integer matesRequired;
-	public Integer mateApplied;
+	public Integer seekersRequired;
+	public Integer seekersApplied;
 	public String status;
 	@ManyToOne
-	public Seeker seekerWhoPosted;
+	public Mate postedBy;
 
-	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //SeekerPostTable is the main table, SeekerPostComment is the table containing many part.
-	//mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
-	public List<SeekerPostComment> comments = new LinkedList<>();
+	@OneToMany(mappedBy="post", cascade=CascadeType.ALL) //mappedBy post, and cascade=CascadeType.ALL means if the post is deleted, then all comments will be deleted 
+	public List<MatePostComment> comments = new LinkedList<>();
 
-	@ManyToMany(mappedBy="postsWantTohelp")
-	public List<Mate> matesWantToHelp = new LinkedList<>();
+	@ManyToMany(mappedBy="postsAppliedforHelp")
+	public List<Seeker> seekersWantHelp = new LinkedList<>();
+	
 
 	/**
 	 * @param seeker
@@ -51,49 +51,49 @@ public class SeekerPostTable extends Model {
 	 * @param matesRequired
 	 * @param mateApplied
 	 */
-	public SeekerPostTable(String seeker,Seeker seekerWhoPosted, Date date, Time timeStart, Time timeEnd,
+	public MatePostTable(Mate postedBy, Date date, Time timeStart, Time timeEnd,
 			String location, String title, String post, Integer matesRequired,
 			Integer mateApplied) {
-		this.seeker = seeker;
-		this.seekerWhoPosted=seekerWhoPosted;
+//		this.seeker = seeker;
+		this.postedBy=postedBy;
 		this.postdate = date;
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
 		this.location = location;
 		this.title=title;
 		this.post = post;
-		this.matesRequired = matesRequired;
-		this.mateApplied = mateApplied;
+		this.seekersRequired = matesRequired;
+		this.seekersApplied = mateApplied;
 		this.status = "open";
 	}
 
-	public SeekerPostTable addComment(String userType, Long userId, String content) {
-		SeekerPostComment newComment = null;
+	public MatePostTable addComment(String userType, Long userId, String content) {
+		MatePostComment newComment = null;
 		if(userType.equals("seeker")){
 			Seeker author=Seeker.findById(userId);
 			//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
-			newComment= new SeekerPostComment(this, userType, author,null, content);//I dont know what this save does, it works same without save()!!
+			newComment= new MatePostComment(this, userType, author,null, content);//I dont know what this save does, it works same without save()!!
 		}
 		else if(userType.equals("mate")){
 			Mate author=Mate.findById(userId);
 			//SeekerPostComment(SeekerPostTable post, String userType, Seeker seekerAuthor,Mate mateAuthor, String content) {
-			newComment= new SeekerPostComment(this, userType, null, author, content);//I dont know what this save does, it works same without save()!!
+			newComment= new MatePostComment(this, userType, null, author, content);//I dont know what this save does, it works same without save()!!
 		}
 		System.out.println(newComment.content);
 		this.comments.add(newComment);
 		this.save();
 		return this;
 	}
-	public SeekerPostTable addHelpMate(Mate mate){    	
-		this.matesWantToHelp.add(mate);
+	public MatePostTable addSeeker(Seeker seeker){//seeker can want help under a post    	
+		this.seekersWantHelp.add(seeker);
 		this.save();
-		mate.addPostWantTohelp(this);
+		seeker.addPostNeedHelp(this);
 		return this;
 	}
-	public SeekerPostTable removeHelpMate(Mate mate){    	
-		this.matesWantToHelp.remove(mate);
+	public MatePostTable removeSeeker(Seeker seeker){//Seeker who wanted help under a post can be removed in future, or he can revoke his request of getting help    	
+		this.seekersWantHelp.remove(seeker);
 		this.save();
-		mate.removePostWantTohelp(this);
+		seeker.removePostNeededHelp(this);
 		return this;
 	}
 
