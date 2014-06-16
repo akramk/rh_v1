@@ -10,11 +10,14 @@ Details:
 <div>
 <p>Name: ${session.get("userName")}</p>
 <p>Email: ${usermate.email}</p>
-<p>Age: ${usermate.dateofBirth}</p>
-<p>Address: Not yet ready. Adnan Rabbi please perform the address part</p>
+<p>Date of Birth: ${usermate.dateofBirth.cut('00:00:00.0')}</p>
+<p>Address: House: ${usermate.address.houseNumber}, Street: ${usermate.address.street}</p>
+<P>${usermate.address.zipCode}, ${usermate.address.city}, ${usermate.address.country}</P>
 </div>
 
 #{/if}
+
+
 
 #{if session.get("userType") == "seeker"}
 
@@ -24,8 +27,9 @@ Details:
 <div>
 <p>Name: ${session.get("userName")}</p>
 <p>Email: ${userseeker.email}</p>
-<p>Age: ${userseeker.dateofBirth}</p>
-<p>Address: Not yet ready. Adnan Rabbi please perform the address part</p>
+<p>Date of Birth: ${userseeker.dateofBirth.cut('00:00:00.0')}</p>
+<p>Address: House: ${userseeker.address.houseNumber}, Street: ${userseeker.address.street}</p>
+<P>${userseeker.address.zipCode}, ${userseeker.address.city}, ${userseeker.address.country}</P>
 </div>
 
 #{/if}

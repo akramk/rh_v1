@@ -21,6 +21,7 @@ public class User extends Model{
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	public Address address;
+	
 	@OneToOne(mappedBy="userMate")
 	public Mate mate;
 	
