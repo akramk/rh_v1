@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import models.Mate;
+import models.MatePostTable;
 import models.Seeker;
 import models.SeekerPostTable;
 import models.User;
@@ -55,11 +56,35 @@ public class ProfileController extends Controller {
 				}
 
 			}
+			
+			//It will fetch all the posts posted by mate(user)
+			List<MatePostTable> postsAppliedtoGetHelp = seeker.postsAppliedforHelp;
+			//Declaration and initialization of open,close,completed Events List opened by mate
+			List<MatePostTable> completedEventsofMatePost = new LinkedList<>();
+			List<MatePostTable> closedEventsofMatePost = new LinkedList<>();
+			List<MatePostTable> openedEventsofMatePost = new LinkedList<>();
+			
+			//assigning the events to the separate List which have been already created.
+			for (MatePostTable matepostIterator : postsAppliedtoGetHelp) {
 
+				if (matepostIterator.status.equalsIgnoreCase("open")) {
+					openedEventsofMatePost.add(matepostIterator);
+				}
+
+				if (matepostIterator.status.equalsIgnoreCase("close")) {
+					closedEventsofMatePost.add(matepostIterator);
+				}
+
+				if (matepostIterator.status.equalsIgnoreCase("complete")) {
+					completedEventsofMatePost.add(matepostIterator);
+				}
+
+			}
 
 
 			//Rendering the seeker data, its details and its events
-			render(userseeker, openedEvents, closedEvents, completedEvents);
+			render(userseeker, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
+					closedEventsofMatePost, completedEventsofMatePost);
 		}
 
 		/*
@@ -95,10 +120,37 @@ public class ProfileController extends Controller {
 
 				}			  
 
+				
+				
+				
+				//It will fetch all the posts posted by mate(user)
+				List<MatePostTable> postsAppliedtoGetHelp = mate.posts;
+				//Declaration and initialization of open,close,completed Events List opened by mate
+				List<MatePostTable> completedEventsofMatePost = new LinkedList<>();
+				List<MatePostTable> closedEventsofMatePost = new LinkedList<>();
+				List<MatePostTable> openedEventsofMatePost = new LinkedList<>();
+				
+				//assigning the events to the separate List which have been already created.
+				for (MatePostTable matepostIterator : postsAppliedtoGetHelp) {
+
+					if (matepostIterator.status.equalsIgnoreCase("open")) {
+						openedEventsofMatePost.add(matepostIterator);
+					}
+
+					if (matepostIterator.status.equalsIgnoreCase("close")) {
+						closedEventsofMatePost.add(matepostIterator);
+					}
+
+					if (matepostIterator.status.equalsIgnoreCase("complete")) {
+						completedEventsofMatePost.add(matepostIterator);
+					}
+
+				}				
 
 //			System.out.println(postsMateAppliedtoHelp.get(0).matesWantToHelp.get(0).userMate.firstName);
 //			System.out.println(postsMateAppliedtoHelp.get(0).matesWantToHelp.get(1).userMate.firstName);
-			render(usermate, openedEvents, closedEvents, completedEvents);
+			render(usermate, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
+					closedEventsofMatePost, completedEventsofMatePost);
 		}
 
 	}

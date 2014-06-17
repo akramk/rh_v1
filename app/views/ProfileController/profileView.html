@@ -35,8 +35,8 @@ Details:
 #{/if}
 
 
-
-
+<!-- This div is for the posts opened by Seeker -->
+<h2>Events from Seekers side:</h2>
 <div>
 #{if openedEvents.size() > 0}
 <h3>Open Events:</h3>
@@ -76,4 +76,45 @@ Details:
 #{/else}
 </div>
 
+
+<!-- This div is for the posts opened by Mate -->
+
+<h2>Events opened from Mates side:</h2>
+<div>
+#{if openedEventsofMatePost.size() > 0}
+<h3>Open Events from Mate:</h3>
+#{list items:openedEventsofMatePost, as:'openbyMate'}
+<a href="@{GiveHelpController.matePostShowDetail(openbyMate.id)}">${openbyMate.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Open Events from Mate been Applied.</h4>
+#{/else}
+</div>
+
+<div>
+#{if closedEventsofMatePost.size() > 0}
+<h3>Closed Events from Mate:</h3>
+#{list items:closedEventsofMatePost, as:'closebyMate'}
+<a href="@{GiveHelpController.matePostShowDetail(closebyMate.id)}">${closebyMate.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Closed Events from Mate.</h4>
+#{/else}
+</div>
+
+<div>
+#{if completedEventsofMatePost.size() > 0}
+<h3>Completed Events from Mate:</h3>
+#{list items:completedEventsofMatePost, as:'completebyMate'}
+<a href="@{GiveHelpController.matePostShowDetail(completebyMate.id)}">${completebyMate.title}</a>
+<br/>
+#{/list}
+#{/if}
+#{else}
+<h4>No Completed Events from Mate.</h4>
+#{/else}
 </div>
