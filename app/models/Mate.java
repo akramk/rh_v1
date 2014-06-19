@@ -18,6 +18,8 @@ public class Mate extends Model{
     public List<MatePostTable> posts = new LinkedList<>();
 	@ManyToMany
     public List<SeekerPostTable>postsWantTohelp = new LinkedList<>();
+    @OneToMany(mappedBy="notifyThisMate")
+	public List<Notification> notifyMate = new LinkedList<Notification>();
 	
 	/**
 	 * @param ssid

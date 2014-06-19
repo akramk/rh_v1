@@ -93,8 +93,7 @@
 
 <!-- Form where mate can post when he can help -->
 #{if session.get("userType") == "mate"}
-<form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" >
-
+<form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" > 
   <div id='matePostForm_seeker_errorloc' style="color: red;" class='error_strings'>    
   </div>
   <label for="seeker">Mate Name:</label>
@@ -151,13 +150,14 @@
   </div>
   
 </form>
+
 #{/if}
 
 
 #{else}
-
+<form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" > 
 <h2 style="color:red;">Advertise for seeker</h2>
-
+</form>
 #{/else}
 
 

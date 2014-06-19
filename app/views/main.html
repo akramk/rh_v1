@@ -77,8 +77,10 @@
                     #{/if}
                     
                      #{if session.isEmpty() == false}
-                    <li><a href="http://localhost:9000/">Log Out</a>
                     </li>
+                    <li><a href="@{NotificationController.notificationProfile}">${session.get("notification")}: Notifications</a>
+                    </li>
+                    <li><a href="http://localhost:9000/">Log Out</a>
                      #{/if}                   
                     
                     <!--li class="dropdown">

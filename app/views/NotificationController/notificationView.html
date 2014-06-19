@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h2>Notification for the Events you Applied</h2>
+
+#{list postsMateAppliedtoHelp, as:'seekerPost'}
+ #{list seekerPost.notifySeekerPost, as: 'notification'}
+ <a href="@{SeekHelpController.seekerPostShowDetail(seekerPost.id)}">${seekerPost.title}</a>
+
+	#{if notification.notificationDate != NULL}
+		${notification.notificationDate.format('dd MMMM yyyy')}
+	#{/if}
+
+	#{else}
+		NULL Date
+	#{/else}
+	
+	${notification.notificationMessage}
+	<br/> 
+ #{/list}
+#{/list}

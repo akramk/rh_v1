@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h2>Notification for the Events you Applied</h2>
+
+#{list notificationofPost, as:'notificationPost'}
+#{if session.get("userType") == "mate" &&  notificationofPost.size() > 0 }
+<a href="@{SeekHelpController.seekerPostShowDetail(notificationPost.seekerPostTable.id)}">${notificationPost.seekerPostTable.title}</a>
+${notificationPost.notificationDate}
+${notificationPost.notificationMessage}
+#{/if}
+
+#{if session.get("userType") == "seeker" &&  notificationofPost.size() > 0 }	
+<a href="@{GiveHelpController.matePostShowDetail(notificationPost.matePostTable.id)}">${notificationPost.matePostTable.title}</a>
+${notificationPost.notificationDate}
+${notificationPost.notificationMessage}
+#{/if}
+
+<br/>
+<br/>
+#{/list}
+
+#{if notificationofPost.size() == 0}
+<form >
+<h2 style="color:red;">No Notification.</h2>
+</form>
+#{/if}

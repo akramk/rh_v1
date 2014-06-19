@@ -19,7 +19,7 @@ import play.db.jpa.Model;
 @Entity
 public class MatePostTable extends Model {
 //	public String seeker;
-	public @As("dd/MM/yyyy")
+	public @As("MM/dd/yyyy")
 	// This the Date format, if you intend to do so please use this type of
 	// format always.
 	Date postdate;

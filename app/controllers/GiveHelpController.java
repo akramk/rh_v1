@@ -9,6 +9,7 @@ import java.util.List;
 
 import models.Mate;
 import models.MatePostTable;
+import models.Notification;
 import models.Seeker;
 import models.SeekerPostTable;
 import play.data.validation.Required;
@@ -24,6 +25,8 @@ to navigate the links.*/
 	public static void giveHelp() throws ParseException {		
 		//render();
 		GiveHelpController.giveHelpSearch(null, null, null, null);
+		
+		
 	}
 	
 /*
@@ -210,7 +213,7 @@ timeStart and timeEnd string to Time variable.*/
 		SeekHelpController.seekerPostShowDetail(postId);
 	}
 	//when I mate post to indicating when he is free, call this function and sane his data
-	public static void giveHelpPost(@Required String postDate,@Required String timeStart, @Required String timeEnd,
+	public static void giveHelpPost(String postDate,String timeStart,String timeEnd,
 			String location, int seekersRequired, String title, String post) throws ParseException, java.text.ParseException {
 
 		
@@ -226,16 +229,17 @@ timeStart and timeEnd string to Time variable.*/
 		else 
 		{
 			flash.error("Please check your input data Again!");
-			giveHelp();
+			GiveHelpController.giveHelpSearch(null, null, null, null);
 		}
 
 		// page redirected and landed
 		if (all_check) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			boolean flag = false;
 			Date date;
 			if (!postDate.equalsIgnoreCase("") && all_check) {
 				date = dateFormat.parse(postDate);
+				System.out.println("Posting Event Date: "+ date);
 				flag = true;
 			} else {
 				date = new Date();
@@ -278,13 +282,132 @@ timeStart and timeEnd string to Time variable.*/
 				}
 
 			} else {
-				giveHelp();
+				GiveHelpController.giveHelpSearch(null, null, null, null);
 			}
 
 		}
 
 	}
 
+	/*
+	 * This function will get the input and will update the post posted by mate
+	 */
+	
+	public static void updatepost(Long postId, String mate, String postDate,String timeStart,String timeEnd,
+			String location, int seekersRequired,  int seekersApplied, String title, String post) throws ParseException{
+		
+		String changesMade = "";
+//		SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+		MatePostTable matePost = MatePostTable.findById(postId);
+		
+		System.out.println("postId "+ postId);
+		System.out.println(mate + postDate+ timeStart +timeEnd+ location+ seekersRequired + seekersApplied+title + post);
+		
+		boolean all_check = false;
+		if (session.get("id")!=null && postDate != null && !postDate.equals("") && !timeStart.equals("") && !timeEnd.equals("") 
+				&& !location .equals("")) 
+		{
+			all_check = true;
+			System.out.println("All check true");
+		}
+		//If all values are not null or empty then this update will take action
+		if(all_check){
+			//Location Update
+//			SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+			if(!matePost.location.equalsIgnoreCase(location)){
+				matePost.location = location;
+				matePost.save();
+				changesMade += "Location Updated, ";
+			}//End of location update
+			
+			//Date update
+			System.out.println(postDate.contains("-"));
+			SimpleDateFormat dateFormat = null;
+			
+			if(postDate.contains("-")){
+				dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				System.out.println("Entered is -------------");
+			}
+			if(postDate.contains("/"))
+			{
+				dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				System.out.println("Entered is ////////////////");
+			}
+			
+			Date updatedDate;
+			updatedDate = dateFormat.parse(postDate);
+			if (!postDate.equalsIgnoreCase("") && all_check && matePost.postdate.compareTo(updatedDate) != 0) 
+			{
+				
+				System.out.println("update Date: "+updatedDate);
+				matePost.postdate = updatedDate;
+				matePost.save();
+				changesMade += "Event Updated, ";
+			}//End of Event Date update
+			
+			//TimeStart Update
+			Time timeS = null;
+			timeS = java.sql.Time.valueOf(timeStart);
+			if (matePost.timeStart.compareTo(timeS) != 0) 
+			{
+				matePost.timeStart = timeS;
+				matePost.save();
+				changesMade += "Event Start Time Updated, ";
+			}//End of timeStart update
+			
+			//TimeEnd Update
+			Time timeE = null;
+			timeE = java.sql.Time.valueOf(timeEnd);
+			if (matePost.timeEnd.compareTo(timeE) != 0) 
+			{
+				matePost.timeEnd = timeE;
+				matePost.save();
+				changesMade += "Event End Time Updated, ";
+			}//End of timeEnd update
+			
+			//mates Required Update
+			if(matePost.seekersRequired != seekersRequired)
+			{
+				if(seekersRequired > matePost.seekersRequired){
+					matePost.seekersRequired = seekersRequired;
+					matePost.status = "open";
+					matePost.save();
+					changesMade += "More mates Required, ";
+				}
+				
+				if((seekersRequired - seekersApplied == 0)){
+					matePost.seekersRequired = seekersRequired;
+					matePost.status = "close";
+					matePost.save();
+					changesMade += "Less mates Required, ";
+				}
+				
+			}//End of mates Required update
+			System.out.println(matePost.seekersWantHelp.get(0).id);
+		}
+		if(!changesMade.equals("")){
+			System.out.println("Notification: "+changesMade.substring(0, changesMade.length()-2));
+			changesMade = changesMade.substring(0, changesMade.length()-2);
+			List <Seeker> seekerlists = matePost.seekersWantHelp;
+			for(Seeker s: seekerlists){
+				
+				Notification notify = new Notification();
+				notify.notificationMessage = changesMade;
+				notify.notificationDate = new Date();
+				notify.notifyThisSeeker=s;
+				notify.matePostTable=matePost;
+				notify.viewed = "false";
+				notify.create();
+				notify.save();	
+			}
+			
+		}
+
+		matePostShowDetail(postId);
+		
+	}
+	
+	
 	//this will show the detail of a seeker's post
 	public static void matePostShowDetail(Long id){
 		MatePostTable post=MatePostTable.findById(id);
@@ -297,6 +420,7 @@ timeStart and timeEnd string to Time variable.*/
 				mateFound = true;
 			}
 		}
+		
 		render(post, mateFound);
 	}
 
@@ -308,6 +432,25 @@ timeStart and timeEnd string to Time variable.*/
 	  //addComment is a function of SeekerPostTable model
 	    post.addComment(session.get("userType"),Long.parseLong(session.get("id")), content);//id of SeekerPostTable is Long, but 
 	    //session stores data in string so convert the id to long using Long.parseLong
+	    
+        System.out.println("Entered in the comment: "+post.post);
+        if(post.postedBy.id == Long.parseLong(session.get("id"))){
+        	List <Seeker> seekerlists = post.seekersWantHelp;
+        	for(Seeker s: seekerlists){
+        		String nameofmate = post.postedBy.userMate.firstName+" "+post.postedBy.userMate.lastName; 
+        		Notification notify = new Notification();
+        		notify.notificationMessage = "Commented by, "+nameofmate+": " + content ;
+        		notify.notifyThisSeeker=s;
+        		notify.notificationDate = new Date();
+        		notify.matePostTable=post;
+        		notify.viewed = "false";
+				notify.create();
+				notify.save();        		
+				System.out.println("Post Notification Done");
+        	}
+        }
+	    
+	    
 	    matePostShowDetail(postId);
 	}
 

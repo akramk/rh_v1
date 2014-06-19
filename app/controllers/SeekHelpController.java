@@ -9,6 +9,7 @@ import java.util.List;
 
 import models.Mate;
 import models.MatePostTable;
+import models.Notification;
 import models.SeekerPostTable;
 import models.Seeker;
 import play.data.validation.Required;
@@ -48,11 +49,13 @@ public class SeekHelpController extends Controller {
 
 		// page redirected and landed
 		if (all_check) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			System.out.println("input Date: "+ postDate);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			boolean flag = false;
 			Date date;
 			if (!postDate.equalsIgnoreCase("") && all_check) {
 				date = dateFormat.parse(postDate);
+				System.out.println("Posting Event Date: "+ date);
 				flag = true;
 			} else {
 				date = new Date();
@@ -125,7 +128,149 @@ public class SeekHelpController extends Controller {
       //addComment is a function of SeekerPostTable model
         post.addComment(session.get("userType"),Long.parseLong(session.get("id")), content);//id of SeekerPostTable is Long, but 
         //session stores data in string so convert the id to long using Long.parseLong
+        
+        /*
+         * This code snippet is for notify the affiliated mates.
+         */
+        System.out.println("Entered in the comment: "+post.seekerWhoPosted.id);
+        if(post.seekerWhoPosted.id == Long.parseLong(session.get("id"))){
+        	List <Mate> matelists = post.matesWantToHelp;
+        	for(Mate m: matelists){
+        		Notification notify = new Notification();
+        		notify.notificationMessage = "Commented by, "+post.seeker +": " + content ;
+        		notify.notifyThisMate=m;
+        		notify.notificationDate = new Date();
+        		notify.seekerPostTable=post;
+        		notify.viewed = "false";
+				notify.create();
+				notify.save();        		
+				System.out.println("Post Notification Done");
+        	}
+        }
+        
         seekerPostShowDetail(postId);
+	}
+	
+	/*
+	 * This function will update the post of the seeker
+	 */
+	public static void updatePost(Long postId, String seeker, @Required String postDate,@Required String timeStart, @Required String timeEnd,
+			String location, int matesRequired, int mateApplied, String title, String post) throws java.text.ParseException{
+		String changesMade = "";
+		SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+		
+		System.out.println("postId "+ postId);
+		System.out.println(seeker + postDate+ timeStart +timeEnd+ location+ matesRequired + mateApplied+title + post);
+		
+		boolean all_check = false;
+		if (session.get("id")!=null && postDate != null && !postDate.equals("") && !timeStart.equals("") && !timeEnd.equals("") 
+				&& !location .equals("")) 
+		{
+			all_check = true;
+			System.out.println("All check true");
+		}
+		//If all values are not null or empty then this update will take action
+		if(all_check){
+			//Location Update
+//			SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+			if(!seekerPost.location.equalsIgnoreCase(location)){
+				seekerPost.location = location;
+				seekerPost.save();
+				changesMade += "Location Updated, ";
+			}//End of location update
+			
+			//Date update
+			System.out.println(postDate.contains("-"));
+			SimpleDateFormat dateFormat = null;
+			
+			if(postDate.contains("-")){
+				dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			}
+			if(postDate.contains("/"))
+			{
+				dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			}
+			
+			Date updatedDate;
+			updatedDate = dateFormat.parse(postDate);
+			if (!postDate.equalsIgnoreCase("") && all_check && seekerPost.postdate.compareTo(updatedDate) != 0) 
+			{
+				
+				System.out.println(updatedDate);
+				seekerPost.postdate = updatedDate;
+				seekerPost.save();
+				changesMade += "Event Updated, ";
+			}//End of Event Date update
+			
+			//TimeStart Update
+			Time timeS = null;
+			timeS = java.sql.Time.valueOf(timeStart);
+			if (seekerPost.timeStart.compareTo(timeS) != 0) 
+			{
+				seekerPost.timeStart = timeS;
+				seekerPost.save();
+				changesMade += "Event Start Time Updated, ";
+			}//End of timeStart update
+			
+			//TimeEnd Update
+			Time timeE = null;
+			timeE = java.sql.Time.valueOf(timeEnd);
+			if (seekerPost.timeEnd.compareTo(timeE) != 0) 
+			{
+				seekerPost.timeEnd = timeE;
+				seekerPost.save();
+				changesMade += "Event End Time Updated, ";
+			}//End of timeEnd update
+			
+			//mates Required Update
+			if(seekerPost.matesRequired != matesRequired)
+			{
+				if(matesRequired > seekerPost.matesRequired){
+					seekerPost.matesRequired = matesRequired;
+					seekerPost.status = "open";
+					seekerPost.save();
+					changesMade += "More mates Required, ";
+				}
+				
+				if((matesRequired - mateApplied == 0)){
+					seekerPost.matesRequired = matesRequired;
+					seekerPost.status = "close";
+					seekerPost.save();
+					changesMade += "Less mates Required, ";
+				}
+				
+			}//End of mates Required update
+			System.out.println(seekerPost.matesWantToHelp.get(0).id);
+		}
+		if(!changesMade.equals("")){
+			System.out.println("Notification: "+changesMade.substring(0, changesMade.length()-2));
+			changesMade = changesMade.substring(0, changesMade.length()-2);
+			List <Mate> matelists = seekerPost.matesWantToHelp;
+			for(Mate m: matelists){
+				
+				Notification notify = new Notification();
+				notify.notificationMessage = changesMade;
+				notify.notificationDate = new Date();
+				notify.notifyThisMate=m;
+				notify.seekerPostTable=seekerPost;
+				notify.viewed = "false";
+				notify.create();
+				notify.save();	
+			}
+			
+			//seekerPost.notifySeekerPost.add(notify);
+			//seekerPost.save();
+			
+//			List<Mate> mate= seekerPost.matesWantToHelp;
+//			for(Mate m: mate){
+//				m.notifyMate.add(notify);
+//				m.save();
+//			}
+			
+		}
+
+		seekerPostShowDetail(postId);
+		
 	}
 
 	/*
@@ -133,7 +278,7 @@ public class SeekHelpController extends Controller {
 	@param searchDate
 	@param timeStart
 	@param timeEnd
-	This function searches on these parameter basis. And there are different criterias for searche queries.	
+	This function searches on these parameter basis. And there are different criterias for search queries.	
 	*/
 		
 		/**

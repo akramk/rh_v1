@@ -25,9 +25,86 @@
     #{/form}
     #{/if}
     
+    
+ <!-- This div will show when the seeker logged In and will click the button to update
+ his post. -->  
+ #{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString()} 
+<div id="updateDiv"  style="display:none;" class="answer_list" > 
+#{form @SeekHelpController.updatePost(post.id), enctype:'multipart/form-data'}
+
+  <div id='seekHelpRedirForm_seeker_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="seeker">Seeker Name:</label>
+  <input class="form-control"  type="text" name="seeker" value='${session.get("userName")}' readonly />
+  <br>
+  
+  <div id='seekHelpRedirForm_postDate_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="postDate">Date:</label>
+  <input class="form-control"  type="text" name="postDate" id="datepicker" value="${post.postdate.cut('00:00:00.0')}" />
+  <br>
+  
+  <div id='seekHelpRedirForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
+  </div>
+  <label for="timeStart">Start time:</label>
+  <input class="form-control"  type="text" name="timeStart" value="${post.timeStart}" />
+  <br>
+  
+ <div id='seekHelpRedirForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
+ </div>  
+  
+  <label for="timeEnd">End time:</label>
+  <input class="form-control"  type="text" name="timeEnd" value="${post.timeEnd}" />
+  <br>
+   
+ <div id='seekHelpRedirForm_location_errorloc' style="color: red;" class='error_strings'>
+ </div>
+ <label for="location">Location:</label>
+ <input class="form-control"  type="text" name="location" value="${post.location}" />
+  <br>
+  
+ <div id='seekHelpRedirForm_matesRequired_errorloc' style="color: red;" class='error_strings'> 
+</div>
+  <label for="matesRequired">Number of Mates Required:</label>
+  <input class="form-control"  type="number" name="matesRequired" min ="${post.mateApplied}" value = "${post.matesRequired}" />
+  <br>
+ 
+  <div id='seekHelpRedirForm_matesApplied_errorloc' style="color: red;" class='error_strings'> 
+</div>
+  <label for="mateApplied">Number of Mates Applied:</label>
+  <input class="form-control"  type="number" name="mateApplied" value = "${post.mateApplied}" readonly/>
+  <br>
+  
+   <div id='seekHelpRedirForm_title_errorloc' style="color: red;" class='error_strings'>
+  </div>
+  <label for="title">Title:</label>
+  <input class="form-control"  type="text" name="title" value="${post.title}" readonly />
+  <br>
+  
+  
+  <div id='seekHelpRedirForm_post_errorloc' style="color: red;" class='error_strings'>  
+  </div>  
+  <label for="post">Message:</label>
+  <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
+  </textarea>
+  <br> 
+  
+  <div class="form-group">
+    <input type="submit" class="btn btn-default"  value="save your Update" />
+  </div>
+
+ #{/form}   
+    
+ </div>
+<input id="button_event" type="button" name="update" value="Update your post" onclick="showDiv()" />
+#{/if}
+<!-- End of Update Div -->
+
+    
     <div class="post-metadata">
         <span class="post-author">by ${post.seeker}</span>,
-        <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
+        <span class="post-date">${post.postdate.format('dd MMM yyyy')}</span>
+         <span class="post-location">,  Event location: ${post.location}</span>
     </div>
     
         <div class="post-content">
@@ -86,4 +163,19 @@
          #{/list}
         
     </div>
+    
+<script language="JavaScript" type="text/javascript">  
+function showDiv() {
+	
+	if (document.getElementById('updateDiv').style.display !== 'none') {
+		document.getElementById('updateDiv').style.display = 'none';
+		
+    }
+    else {
+    	document.getElementById('updateDiv').style.display = 'block';
+    	document.getElementById('button_event').value = "Close Update"
+    }
+	
+}
+</script>
      

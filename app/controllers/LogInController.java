@@ -5,11 +5,13 @@ import groovyjarjarcommonscli.ParseException;
 
 import java.awt.Panel;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.ivy.util.Message;
 
 import models.Mate;
+import models.Notification;
 import models.SeekerPostTable;
 import models.Seeker;
 import models.User;
@@ -47,11 +49,13 @@ public class LogInController extends Controller {
 			if(user.get(0).type.equals("seeker"))
 			{
 				session.put("id", user.get(0).seeker.id);
+				session.put("notification", notificationCounter());
 				SeekHelpController.seekHelpRedir();
 			}
 			if(user.get(0).type.equals("mate"))
 			{
 				session.put("id", user.get(0).mate.id);
+				session.put("notification", notificationCounter());
 				GiveHelpController.giveHelp();
 			}
 		}
@@ -62,5 +66,31 @@ public class LogInController extends Controller {
 		}
 
 	}
+	
+	public static int notificationCounter(){
+		
+		List<Notification> notificationofSeekerPost = new LinkedList<Notification>();
+		List<Notification> notificationofMatePost = new LinkedList<Notification>();
+		System.out.println(Long.parseLong(session.get("id")));
+		if(session.get("userType").equals("mate"))
+		{
+			notificationofSeekerPost = Notification.find("notifyThisMate_id=? and viewed=?", 
+					Long.parseLong(session.get("id")),"false").fetch();
+			return notificationofSeekerPost.size();
+		}
+		
+		if(session.get("userType").equals("seeker"))
+		{
+			notificationofMatePost = Notification.find("notifyThisSeeker_id=? and viewed=?", 
+					Long.parseLong(session.get("id")),"false").fetch();
+			return notificationofMatePost.size();
+		}
+		
+		return 0;
+	
+		
+		
+	}
+	
 
 }

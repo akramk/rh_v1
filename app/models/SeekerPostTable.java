@@ -19,7 +19,7 @@ import play.db.jpa.Model;
 @Entity
 public class SeekerPostTable extends Model {
 	public String seeker;
-	public @As("dd/MM/yyyy")
+	public @As("MM/dd/yyyy")
 	// This the Date format, if you intend to do so please use this type of
 	// format always.
 	Date postdate;
@@ -40,7 +40,11 @@ public class SeekerPostTable extends Model {
 
 	@ManyToMany(mappedBy="postsWantTohelp")
 	public List<Mate> matesWantToHelp = new LinkedList<>();
-
+	
+	@OneToMany
+	public List<Notification> notifySeekerPost = new LinkedList<Notification>();
+	
+	
 	/**
 	 * @param seeker
 	 * @param date

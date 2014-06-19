@@ -25,6 +25,10 @@ public class Seeker extends Model{
     @ManyToMany
     public List<MatePostTable>postsAppliedforHelp = new LinkedList<>();
     
+    
+    @OneToMany(mappedBy="notifyThisSeeker")
+	public List<Notification> notifySeeker = new LinkedList<Notification>();
+    
 	/**
 	 * @param ssid
 	 * @param firstName
