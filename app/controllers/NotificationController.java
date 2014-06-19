@@ -40,7 +40,7 @@ public class NotificationController extends Controller{
 		if(session.get("userType").equals("mate"))
 		{
 			System.out.println(Long.parseLong(session.get("id")));
-			notificationofPost = Notification.find("notifyThisMate_id=?", Long.parseLong(session.get("id"))).fetch();
+			notificationofPost = Notification.find("notifyThisMate_id=? ORDER BY notificationDate DESC", Long.parseLong(session.get("id"))).fetch();
 			for (Notification npost : notificationofPost)
 			{
 				System.out.println(npost.notificationMessage);
@@ -52,7 +52,7 @@ public class NotificationController extends Controller{
 		if(session.get("userType").equals("seeker"))
 		{
 			System.out.println("Seeker Entered");
-			notificationofPost = Notification.find("notifyThisSeeker_id=?", Long.parseLong(session.get("id"))).fetch();
+			notificationofPost = Notification.find("notifyThisSeeker_id=? ORDER BY notificationDate DESC", Long.parseLong(session.get("id"))).fetch();
 			for (Notification npost : notificationofPost)
 			{
 				System.out.println("message: "+ npost.notificationMessage);
