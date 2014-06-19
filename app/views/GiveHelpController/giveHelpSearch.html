@@ -1,6 +1,49 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+<!-- This is the singular search values which is clickable search like amazon -->
+<!-- 
+<table>
+    <tr>
+    
+    #{if location != ""}
+        <td>
+              <ul style="list-style-type: none;">
+                <li> <a href="@{GiveHelpController.giveHelpSearchMetaLocation(location, searchDateS,timeStart,timeEnd)}">${location}</a></li>
+              </ul>
+        </td>
+	#{/if}
+	
+	#{if searchDateS != ""}
+        <td>
+              <ul style="list-style-type: none;" >
+              <li><a href="@{GiveHelpController.giveHelpSearchMetaDate(location, searchDateS,timeStart,timeEnd)}">${searchDateS}</a></li>
+              </ul>
+        </td>
+    #{/if}    
+    
+    #{if timeStart != "00:00:00"}
+        <td>
+              <ul style="list-style-type: none;">
+                <li> <a href="@{GiveHelpController.giveHelpSearchMetaTimeStart(location, searchDateS,timeStart,timeEnd)}">${timeStart}</a></li>
+              </ul>
+        </td>
+	#{/if}
+	
+	#{if timeEnd != "23:59:00"}
+        <td>
+              <ul style="list-style-type: none;" >
+              <li><a href="@{GiveHelpController.giveHelpSearchMetaTimeEnd(location, searchDateS,timeStart,timeEnd)}">${timeEnd}</a></li>
+              </ul>
+        </td>
+    #{/if}  
+    </tr>
+</table> -->
+
+<!-- End of singular click search -->
+
+
+
 <div class="container">
 		<table class="table table-hover">
 		  <thead>
@@ -42,33 +85,68 @@
 		</table>
 </div>
 
+<!-- 
 <form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
   
-    <div id='giveHelpSearchForm_location_errorloc' style="color: red;" class='error_strings'>
+    <div id='giveHelpSearchForm_location_errorloc1' style="color: red;" class='error_strings'>
     </div>
     Location:<br>
     <input type="text" name="location"/>
     <br>
     
-    <div id='giveHelpSearchForm_searchDate_errorloc' style="color: red;" class='error_strings'>    
+    <div id='giveHelpSearchForm_searchDate_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Date:<br>
-    <input type="date" id="datepicker_Invalid" name="searchDate"/>
+    <input type="text" id="datepicker_" name="searchDate" value=""/>
     <br>
     
-    <div id='giveHelpSearchForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
+    <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Start Time:<br>
     <input type="text" name="timeStart"/>
     <br>
 
-    <div id='giveHelpSearchForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
+    <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
     </div>  
     End Time:<br>
     <input type="text" name="timeEnd"/>
     <br>    
 
     <input class="frm-btn" type="submit" value="Submit!" />
+</form>
+
+-->
+
+
+
+
+<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
+  
+    <div  style="color: red;" class='error_strings'>
+    </div>
+    Location:<br>
+    <input type="text" name="location" value=""/>
+    <br>
+    
+    <div style="color: red;" class='error_strings'>    
+    </div>
+    Date:<br>
+    <input type="text" id="datepicker" name="searchDateS" value=""/>
+    <br>
+    
+    <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
+    </div>
+    Start Time:<br>
+    <input type="text" name="timeStart"/>
+    <br>
+
+    <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
+    </div>  
+    End Time:<br>
+    <input type="text" name="timeEnd"/>
+    <br>    
+
+    <input class="frm-btn" type="submit" value="Search!" />
 </form>
 
 
@@ -79,13 +157,13 @@
   frmvalidator.EnableOnPageErrorDisplay();
   frmvalidator.EnableMsgsTogether();
  
-  frmvalidator.addValidation("location","req","Please enter location");
+  frmvalidator.addValidation("location","Please enter location");
   
-  frmvalidator.addValidation("searchDate","req","Please enter Date");
+  frmvalidator.addValidation("searchDate","Please enter Date");
   
-  frmvalidator.addValidation("timeStart","req","Please enter start time");
+  frmvalidator.addValidation("timeStart","Please enter start time");
   
-  frmvalidator.addValidation("timeEnd","req","Please enter end time");
+  frmvalidator.addValidation("timeEnd","Please enter end time");
  
     
 </script>

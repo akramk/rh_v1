@@ -36,13 +36,23 @@ public class NotificationController extends Controller{
 	
 	public static void notificationProfile(){
 		List<Notification> notificationofPost = new LinkedList<Notification>();
-
+		List<Notification> NewnotificationofPost = new LinkedList<Notification>();		
+		List<Notification> OldnotificationofPost = new LinkedList<Notification>();		
+		
 		if(session.get("userType").equals("mate"))
 		{
 			System.out.println(Long.parseLong(session.get("id")));
 			notificationofPost = Notification.find("notifyThisMate_id=? ORDER BY notificationDate DESC", Long.parseLong(session.get("id"))).fetch();
 			for (Notification npost : notificationofPost)
 			{
+				if(npost.viewed.equalsIgnoreCase("false"))
+				{
+					NewnotificationofPost.add(npost);
+				}
+				if(npost.viewed.equalsIgnoreCase("true"))
+				{
+					OldnotificationofPost.add(npost);
+				}
 				System.out.println(npost.notificationMessage);
 				npost.viewed = "true";
 				npost.save();
@@ -55,6 +65,15 @@ public class NotificationController extends Controller{
 			notificationofPost = Notification.find("notifyThisSeeker_id=? ORDER BY notificationDate DESC", Long.parseLong(session.get("id"))).fetch();
 			for (Notification npost : notificationofPost)
 			{
+				if(npost.viewed.equalsIgnoreCase("false"))
+				{
+					NewnotificationofPost.add(npost);
+				}
+				if(npost.viewed.equalsIgnoreCase("true"))
+				{
+					OldnotificationofPost.add(npost);
+				}
+				
 				System.out.println("message: "+ npost.notificationMessage);
 				npost.viewed = "true";
 				npost.save();
@@ -65,7 +84,7 @@ public class NotificationController extends Controller{
 		/////////////////notification reinitialize
 		session.put("notification", LogInController.notificationCounter());
 		//////////////////////////////////////////RE-Initialize done
-		render(notificationofPost);
+		render(NewnotificationofPost, OldnotificationofPost, notificationofPost);
 
 	}
 }

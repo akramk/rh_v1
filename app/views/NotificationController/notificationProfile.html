@@ -2,8 +2,51 @@
 #{set title:'Home' /}
 
 <h2>Notification for the Events you Applied</h2>
+<div> <h3>New Notification: </h3>
+#{list NewnotificationofPost, as:'newnotificationPost'}
 
-#{list notificationofPost, as:'notificationPost'}
+#{if session.get("userType") == "mate" &&  NewnotificationofPost.size() > 0 }
+<a href="@{SeekHelpController.seekerPostShowDetail(newnotificationPost.seekerPostTable.id)}">${newnotificationPost.seekerPostTable.title}</a>
+${newnotificationPost.notificationDate}
+${newnotificationPost.notificationMessage}
+#{/if}
+
+#{if session.get("userType") == "seeker" &&  NewnotificationofPost.size() > 0 }
+<a href="@{GiveHelpController.matePostShowDetail(newnotificationPost.matePostTable.id)}">${newnotificationPost.matePostTable.title}</a>
+${newnotificationPost.notificationDate}
+${newnotificationPost.notificationMessage}
+#{/if}
+
+<br/>
+<br/>
+#{/list}
+</div>
+
+
+
+<div> <h3>Old Notification: </h3>
+#{list OldnotificationofPost, as:'oldnotificationPost'}
+#{if session.get("userType") == "mate" &&  OldnotificationofPost.size() > 0 }
+<a href="@{SeekHelpController.seekerPostShowDetail(oldnotificationPost.seekerPostTable.id)}">${oldnotificationPost.seekerPostTable.title}</a>
+${oldnotificationPost.notificationDate}
+${oldnotificationPost.notificationMessage}
+#{/if}
+
+
+#{if session.get("userType") == "seeker" &&  OldnotificationofPost.size() > 0 }	
+<a href="@{GiveHelpController.matePostShowDetail(oldnotificationPost.matePostTable.id)}">${oldnotificationPost.matePostTable.title}</a>
+${oldnotificationPost.notificationDate}
+${oldnotificationPost.notificationMessage}
+#{/if}
+
+<br/>
+<br/>
+#{/list}
+</div>
+
+
+
+<!-- #{list notificationofPost, as:'notificationPost'}
 #{if session.get("userType") == "mate" &&  notificationofPost.size() > 0 }
 <a href="@{SeekHelpController.seekerPostShowDetail(notificationPost.seekerPostTable.id)}">${notificationPost.seekerPostTable.title}</a>
 ${notificationPost.notificationDate}
@@ -18,7 +61,7 @@ ${notificationPost.notificationMessage}
 
 <br/>
 <br/>
-#{/list}
+#{/list} -->
 
 #{if notificationofPost.size() == 0}
 <form >

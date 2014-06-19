@@ -29,6 +29,31 @@ to navigate the links.*/
 		
 	}
 	
+	public static void giveHelpSearchMetaLocation(String location, String searchDateS, String timeStart, String timeEnd) throws ParseException{
+		System.out.println("Meta search called Location");
+		GiveHelpController.giveHelpSearch(location, "", "", "");
+		
+	}
+	
+	public static void giveHelpSearchMetaDate(String location, String searchDateS, String timeStart, String timeEnd) throws ParseException{
+		System.out.println("Meta search called Date");
+		GiveHelpController.giveHelpSearch("", searchDateS, "", "");
+		
+	}
+	
+	public static void giveHelpSearchMetaTimeStart(String location, String searchDateS, String timeStart, String timeEnd) throws ParseException{
+		System.out.println("Meta search called TimeStart");
+		GiveHelpController.giveHelpSearch("", "", timeStart, "");
+		
+	}
+	
+	public static void giveHelpSearchMetaTimeEnd(String location, String searchDateS, String timeStart, String timeEnd) throws ParseException{
+		System.out.println("Meta search called TimeEnd");
+		GiveHelpController.giveHelpSearch("", "", "", timeEnd);
+		
+	}
+	
+	
 /*
 @param location
 @param searchDate
@@ -54,13 +79,13 @@ This function searches on these parameter basis. And there are different criteri
 	public static void giveHelpSearch(String location, String searchDateS, String timeStart, String timeEnd) 
 			throws java.text.ParseException {
 		
-		SimpleDateFormat dateFormatS = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormatS = new SimpleDateFormat("MM/dd/yyyy");
 		Date searchDate = null;
 		if (searchDateS != null && !searchDateS.equals("")) {
 			searchDate = dateFormatS.parse(searchDateS);
 		}
 		System.out.println(searchDate);
-		System.out.println(searchDateS);
+		System.out.println("DATE: "+searchDateS);
 		
 		System.out.println(timeStart + "----" + timeEnd + "Location"+ location + "Date" + searchDate);
 		
@@ -87,12 +112,13 @@ timeStart and timeEnd string to Time variable.*/
 		else if ((!location.equalsIgnoreCase("")) && (searchDate != null)&& (!timeStart.equals("")) 
 				&& (!timeEnd.equals(""))) 
 		{
+			System.out.println(searchDate);
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
 							searchDate, location,
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
 			System.out.println("ALL NOT NULL");
-			render(giveHelpPost);
+			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
 		}
 
 /*This check occurs when user does not give any values in the search panel and press the submit button.	*/	
@@ -110,7 +136,7 @@ timeStart and timeEnd string to Time variable.*/
 			System.out.println("Last Else IF Value Found: " + timeStart + "----" + timeEnd + "Location" 
 		      + location + "Date" + searchDate);
 
-			if (searchDate == null) {
+			if (searchDate == null || searchDateS.equals("")) {
 				// if user does not give any date then it will automatically get the date of 01/01/1990. 
 				//because we dont have any entry obviously before 1990
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -123,15 +149,16 @@ timeStart and timeEnd string to Time variable.*/
 			}
 
 			if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
-				timeEnd = "00:00:00";
+				timeEnd = "23:59:00";
+				System.out.println("No time time End"+java.sql.Time.valueOf(timeEnd));
 			}
 			
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable
-					.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+					.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ?",
 							searchDate, '%'+location+'%',
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
-			render(giveHelpPost);
+			render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 		}
 	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
