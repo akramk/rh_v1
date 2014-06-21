@@ -40,7 +40,7 @@ public class LogInController extends Controller {
 		String errorMessage=null;
 		session.clear();
 		System.out.println(email+pwd+type);
-		List<User> user = User.find("email = ? and pass = ?", email,pwd).fetch();
+		List<User> user = User.find("email = ? and pass = ? and userStatus = ?", email,pwd, "accepted").fetch();
 		System.out.println(user.size());
 		if(user.size() == 1)
 		{	
@@ -57,6 +57,13 @@ public class LogInController extends Controller {
 				session.put("id", user.get(0).mate.id);
 				session.put("notification", notificationCounter());
 				GiveHelpController.giveHelp();
+			}
+			
+			if(user.get(0).type.equals("admin"))
+			{
+				session.put("id", user.get(0).admin.id);
+				session.put("notification", notificationCounter());
+				AdminController.adminPanel();
 			}
 		}
 		else

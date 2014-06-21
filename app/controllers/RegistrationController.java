@@ -69,7 +69,7 @@ public class RegistrationController extends Controller {
 		          {
 			             String errorMessage=null;
 			             List<UserInfo> userInfo = UserInfo.find("ssid = ?", ssID).fetch();
-			             User user = new User(null, null, null, null, null, null, null);
+			             User user = new User(null, null, null, null, null, null, null, null);
 			             
 			             List<User> userObj = User.find("ssid = ?", ssID).fetch();
 			             if(userObj.size()==1)

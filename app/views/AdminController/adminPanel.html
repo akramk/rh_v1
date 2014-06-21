@@ -1,0 +1,64 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h2>Hello Admin!: ${session.get("userName")}</h2>
+
+<div class="container">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>  	
+		      <th>SSID</th>     
+		      <th>DateofBirth</th>
+		      <th>Email</th>
+		      <th>FirstName</th>
+		      <th>LastName</th>		       
+		      <th>UserType</th>
+		      <th>UserStatus</th>
+		      
+		    </tr>
+		  </thead>
+		  <tbody id="AppliedUserTable">
+		    #{list items:appliedUsers, as:'applied'}
+		    <tr>
+		      <td>${applied.ssid}</td>  		        
+		      <td>${applied.dateofBirth.format('dd/MM/yyyy')}</td>
+		      <td>${applied.email}</td>
+		      <td>${applied.firstName}</td>		      
+		      <td>${applied.lastName}</td>
+		      <td>${applied.type}</td>
+		      <td>${applied.userStatus}</td>
+		      <td>
+		      #{form @AdminController.userStatusChange(), enctype:'multipart/form-data'}
+		      <input type="hidden"  value ='${applied.ssid}' name = "ssid"/>
+		      <select name = "status">
+          		<option value="0" selected>Select
+		  		<option value="accepted" >Accepted
+		  		<option value="rejected">Rejected
+			  </select>
+		      <input type="submit" value="Verify" />
+		      #{/form}
+		      </td>
+		    </tr>
+		    #{/list}
+		  </tbody>
+		</table>
+</div>
+
+
+<br/>
+<br/>
+<div class = "statusChange_form">
+<h3>Change User Status:</h3>
+#{form @AdminController.userStatusChange(), enctype:'multipart/form-data'}
+<input type="text"  value ="" name = "ssid"/>
+<select name = "status">
+<option value="0" selected>Select
+<option value="accepted" >Accept
+<option value="rejected">Reject
+<option value="banned">Ban
+<option value="admin">Make Admin
+</select>
+<input type="submit" value="Verify" />
+#{/form}
+
+</div>

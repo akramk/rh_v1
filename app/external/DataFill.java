@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import models.Address;
+import models.Admin;
 import models.Mate;
 import models.Seeker;
 import models.User;
@@ -19,7 +20,7 @@ public class DataFill {
 		userInfo.create();
 		
 		Date date =  dateFormat.parse("25/05/1965");
-		User userseeker = new User("12345ks","Mask", "Rip", date, "mask@gmail.com", "seeker1", "seeker");
+		User userseeker = new User("12345ks","Mask", "Rip", date, "mask@gmail.com", "seeker1", "seeker", "accepted");
 		Address address = new Address("21", "ABC", "sadhj", "Rajshahi", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
@@ -30,7 +31,7 @@ public class DataFill {
 		seeker.save();
 		
 		
-		userseeker = new User("25546s", "Riz", "Bon", date, "riz@gmail.com", "seeker2", "seeker");
+		userseeker = new User("25546s", "Riz", "Bon", date, "riz@gmail.com", "seeker2", "seeker", "applied");
 		address = new Address("42", "3sd", "43dsa", "Rajshahi", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
@@ -41,7 +42,7 @@ public class DataFill {
 		seeker.save();
 		
 		
-		User usermate = new User("25s4sk","John", "Fred", date, "jeff@gmail.com", "mate1", "mate");
+		User usermate = new User("25s4sk","John", "Fred", date, "jeff@gmail.com", "mate1", "mate", "accepted");
 		address = new Address("3", "dasds", "5ds", "Dhaka", "Bangladesh");
 		address.userAddress = usermate;
 		usermate.address = address;
@@ -51,7 +52,7 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
-		usermate = new User("254s6e", "Alex", "Rass",date, "alex@gmail.com", "mate2", "mate");
+		usermate = new User("254s6e", "Alex", "Rass",date, "alex@gmail.com", "mate2", "mate", "applied");
 		address = new Address("das", "re", "re", "Rajshahi", "Bangladesh");
 		address.userAddress = usermate;
 		usermate.address = address;
@@ -60,6 +61,23 @@ public class DataFill {
 		mate.userMate = usermate;
 		mate.create();
 		mate.save();
+		
+		
+		// User Admin created
+		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "admin");
+		address = new Address("90", "Felsen", "5ds", "Dhaka", "Bangladesh");
+		address.userAddress = useradmin;
+		useradmin.address = address;
+		useradmin.create();
+		Admin admin = new Admin();
+		admin.userAdmin = useradmin;
+		admin.create();
+		admin.save();
+		
+		
+		
+		
+		
 		
 		
 	}

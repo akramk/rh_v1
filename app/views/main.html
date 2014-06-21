@@ -76,6 +76,11 @@
                     </li>
                     #{/if}
                     
+                    #{if session.get("userType") == "admin"}
+                    <li><a href="@{AdminController.adminPanel}">Admin Panel</a>
+                    </li>
+                    #{/if}
+                    
                      #{if session.isEmpty() == false}
                     </li>
                     <li><a href="@{NotificationController.notificationProfile}">${session.get("notification")}: Notifications</a>
