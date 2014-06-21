@@ -23,7 +23,14 @@ public class AdminController extends Controller{
 		statusChangeofUser.save();
 		AdminController.adminPanel();
 		
-		
+	}
+	
+	public static void userTypeChange(String type, String ssid){
+		User statusChangeofUser = User.find("ssid=?", ssid).first();
+		statusChangeofUser.type = type;
+		System.out.println(statusChangeofUser.type);
+		statusChangeofUser.save();
+		AdminController.adminPanel();
 		
 	}
 	

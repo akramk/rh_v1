@@ -59,7 +59,7 @@ public class DataFill {
 		
 		
 		// User Admin created
-		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "admin");
+		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "accepted");
 		address = new Address("90", "Felsen", "5ds", "Dhaka", "Bangladesh");
 		address.userAddress = useradmin;
 		useradmin.address = address;
