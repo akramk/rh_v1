@@ -1,0 +1,99 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+ <form id="RegisterForm" action="/RegistrationController/register" enctype="multipart/form-data" >
+    
+    
+    <div id='RegisterForm_ssID_errorloc' style="color: red;" class='error_strings'>    
+    </div>
+    <label for="ssID">Social Security ID:</label>
+    <input class="form-control"  type="text" name="ssID" id="socialSecurityId" value="" />
+    <br>
+    
+    <div id='RegisterForm_userName_errorloc' style="color: red;" class='error_strings'>    
+    </div>
+    <label for="userName">Name:</label>
+    <input class="form-control"  type="text" name="userName" value='${userName}' readonly />
+    <br>
+    
+    <div id='RegisterForm_birthDate_errorloc' style="color: red;" class='error_strings'>    
+    </div>
+    <label for="birthDate">Date of Birth :</label>
+    
+    <input class="form-control"  type="text" name="birthDate" value='${birthDate}' readonly />
+    <br>
+    
+    <div id='RegisterForm_address_errorloc' style="color: red;" class='error_strings'>    
+    </div>
+    <label for="address">Address:</label>
+    <input class="form-control"  type="text" name="address" value='${address}' readonly />
+    <br>
+    
+    <div id='RegisterForm_email_errorloc' style="color: red;" class='error_strings'>
+    </div>    
+    User ID:<br>
+    <input type="text" name="email" />    
+    <br>
+     
+    <div id='RegisterForm_pwd_errorloc' style="color: red;" class='error_strings'>
+    </div>  
+    Password:<br>
+    <input type="password" id="pawd" size="25" name="pwd" />
+    <br> 
+    
+    <div id='RegisterForm_rePwd_errorloc' style="color: red;" class='error_strings'>
+    </div>  
+    Repassword:<br>
+    <input type="password" id="rePassword" size="25" name="rePwd" />
+    <br> 
+    
+    <div id='RegisterForm_type_errorloc' style="color: red;" class='error_strings'>
+    </div>
+      User Type:<br>
+      <select name = "type">
+          <option value="0" selected>Select
+          <option value="seeker" >Seeker
+          <option value="mate">Helpmate
+      </select>
+    <input type="submit" class="btn btn-lg btn-primary pull-right" onclick="passMatchFunction()"  value="Register" />
+     <label for="male">${errorMessage}</label>
+    
+</form> 
+
+
+
+<script language="JavaScript" type="text/javascript">
+
+  var frmvalidator  = new Validator("RegisterForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
+ 
+  frmvalidator.addValidation("ssID","req","Please enter your Social Security ID");
+  frmvalidator.addValidation("ssID","maxlen=20","For Password, Max length is 20");
+  
+  frmvalidator.addValidation("email","maxlen=50");
+  frmvalidator.addValidation("email","req");
+  frmvalidator.addValidation("email","email");
+  
+  frmvalidator.addValidation("pwd","req","Please enter your Password");
+  frmvalidator.addValidation("pwd","maxlen=20","For Password, Max length is 20");
+  
+  frmvalidator.addValidation("rePwd","req","Please enter your Password");
+  frmvalidator.addValidation("rePwd","maxlen=20","For Password, Max length is 20");  
+  
+       
+  frmvalidator.addValidation("type","dontselect=0");
+</script>
+
+<script>
+    function passMatchFunction() {
+        var pass1 = document.getElementById("pawd").value;
+        var pass2 = document.getElementById("rePassword").value;
+        if (pass1 != pass2) {
+            //alert("Passwords Do not match");
+            document.getElementById("pawd").style.borderColor = "#E34234";
+            document.getElementById("rePassword").style.borderColor = "#E34234";
+            alert("Passwords missmatch!!!");
+        }
+    }
+</script>

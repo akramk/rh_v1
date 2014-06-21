@@ -8,6 +8,7 @@ import models.Address;
 import models.Mate;
 import models.Seeker;
 import models.User;
+import models.UserInfo;
 
 public class DataFill {
 	public void dataFiller() throws ParseException{
@@ -54,6 +55,7 @@ public class DataFill {
 		mate.userMate = usermate;
 		mate.create();
 		mate.save();
+		
 		
 	}
 
