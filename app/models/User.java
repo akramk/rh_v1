@@ -18,6 +18,7 @@ public class User extends Model{
 	public String email;
 	public String pass;
 	public String type;//mate or seeker
+	public String userStatus;//admin, applied, accepted, rejected, banned
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	public Address address;
@@ -28,6 +29,10 @@ public class User extends Model{
 	@OneToOne(mappedBy="userSeeker")
 	public Seeker seeker;
 	
+	@OneToOne(mappedBy="userAdmin")
+	public Admin admin;
+	
+	
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -37,7 +42,7 @@ public class User extends Model{
 	 * @param type
 	 */
 	public User(String ssid, String firstName, String lastName, Date dateofBirth, String email,
-			String pass, String type) {
+			String pass, String type, String userStatus) {
 //		super();
 		this.ssid = ssid;
 		this.firstName = firstName;
@@ -45,7 +50,8 @@ public class User extends Model{
 		this.dateofBirth = dateofBirth;
 		this.email = email;
 		this.pass = pass;
-		this.type = type;
+		this.type = type;//mate, seeker, admin
+		this.userStatus = userStatus;
 	}
 			
 
