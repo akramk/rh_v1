@@ -2,7 +2,8 @@
 #{set title:'Home' /}
 
 
-    
+<div class="section">
+<div class="container">
  <form id="LogInForm" action="/LogInController/logIn" enctype="multipart/form-data" >
     
     <div id='LogInForm_email_errorloc' style="color: red;" class='error_strings'>
@@ -12,10 +13,12 @@
     <br>
      
     <div id='LogInForm_pwd_errorloc' style="color: red;" class='error_strings'>
-    </div>  
+    </div><br>  
     Password:<br>
     <input type="password" size="25" name="pwd" />
-    <br> 
+    <br>
+    
+    <label id="lblErrorMessage" style="color: red;">${errorMessage} </label> 
     
     <div id='LogInForm_type_errorloc' style="color: red;" class='error_strings'>
     </div>
@@ -23,7 +26,7 @@
     <br>
     <div class="col-lg-4 col-md-4">
     <input type="submit" class="btn btn-lg btn-primary pull-right"  value="Sign In" /></div>
-    <label id="lblErrorMessage" style="color: red;">${errorMessage} </label>
+    
     
     
 </form> 
@@ -31,6 +34,7 @@
     <div class="col-lg-4 col-md-4">    
     <input type="submit" class="btn btn-lg btn-primary pull-right"  value="Register" /></div>
  </form> 
+</div></div>
 
 
 <script language="JavaScript" type="text/javascript">

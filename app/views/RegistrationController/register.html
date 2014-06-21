@@ -6,27 +6,36 @@
     
     <div id='RegisterForm_ssID_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="ssID">Social Security ID:</label>
-    <input class="form-control"  type="text" name="ssID" id="socialSecurityId" value="" />
-    <br>
+    <div>
+	    
+	    <label for="ssID">Social Security ID:</label>
+	    <br style="clear: both;">
+	    <div style="float: left;">
+	    <input class="form-control"  type="text" name="ssID" id="socialSecurityId" value="" />
+	    </div>
+	    <div id="assetLoading" style="float: left;"></div>
+    </div>
+    <br style="clear: both;">
     
     <div id='RegisterForm_userName_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="userName">Name:</label>
-    <input class="form-control"  type="text" name="userName" value='${userName}' readonly />
+    <div>
+    <label for="userName" style="width: 100px;">Name:</label>
+    <label name="userName" id="userName"></label>
+    </div>
     <br>
     
     <div id='RegisterForm_birthDate_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="birthDate">Date of Birth :</label>
+    <label for="birthDate" style="width: 100px;">Date of Birth :</label>
     
-    <input class="form-control"  type="text" name="birthDate" value='${birthDate}' readonly />
+    <label name="birthDate" id="birthDate" ></label>
     <br>
     
     <div id='RegisterForm_address_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="address">Address:</label>
-    <input class="form-control"  type="text" name="address" value='${address}' readonly />
+    <label for="address" style="width: 100px;">Address:</label>
+    <label name="address" id="address"></label>
     <br>
     
     <div id='RegisterForm_email_errorloc' style="color: red;" class='error_strings'>
@@ -62,8 +71,25 @@
 
 
 
-<script language="JavaScript" type="text/javascript">
-
+<script type="text/javascript">
+	$('#socialSecurityId').change(function(){		
+		var url = #{jsAction @RegistrationController.infoUsingSsid(':ssID') /}
+		$.get(url({ssID: $('#socialSecurityId').val()}), function(data) {
+			var json=data;
+	         if (json[3] != null) {
+	             $('#assetLoading').html('<label>'+json[3]+'</label>');
+	             $('#userName').text('N/A');
+	             $('#birthDate').text('N/A');
+	             $('#address').text('N/A');
+	             
+	         }
+	         else {
+	             $('#userName').text(json[0]);
+	             $('#birthDate').text(json[1]);
+	             $('#address').text(json[2]);
+	         }
+        });
+	});
   var frmvalidator  = new Validator("RegisterForm");
   frmvalidator.EnableOnPageErrorDisplay();
   frmvalidator.EnableMsgsTogether();
@@ -94,6 +120,8 @@
             document.getElementById("pawd").style.borderColor = "#E34234";
             document.getElementById("rePassword").style.borderColor = "#E34234";
             alert("Passwords missmatch!!!");
+            
+            return false;
         }
     }
 </script>

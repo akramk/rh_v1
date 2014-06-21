@@ -5,6 +5,7 @@ import groovyjarjarcommonscli.ParseException;
 import java.awt.Panel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.ivy.util.Message;
@@ -23,7 +24,41 @@ import play.mvc.Controller;
 
 public class RegistrationController extends Controller {
 
-	
+	public static void infoUsingSsid(String ssID){
+		for(int i=0;i<100000;i++);
+		String errorMessage=null;
+		String userName=null;
+		String birthDate=null;
+		String address=null;
+		List<String> info=new LinkedList<>();
+		List<UserInfo> userInfo = UserInfo.find("ssid = ?", ssID).fetch();
+		if(userInfo.size() == 1)
+ 		{	
+        	
+			userName=userInfo.get(0).firstName+" "+userInfo.get(0).lastName;
+			birthDate=userInfo.get(0).dateofBirth.toString();
+ 			 
+ 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+ 			  
+ 			 
+ 			address=userInfo.get(0).houseNumber+" "+userInfo.get(0).street+" "+userInfo.get(0).zipCode+" "+userInfo.get(0).city+" "+userInfo.get(0).country;
+ 			  
+ 			 info.add(userName);
+ 			 info.add(birthDate);
+ 			 info.add(address);
+ 			 info.add(errorMessage);
+ 			 renderJSON(info);
+ 			 
+ 		}
+		else{
+			errorMessage="SSID not found";
+			info.add(userName);
+			 info.add(birthDate);
+			 info.add(address);
+			 info.add(errorMessage);
+			renderJSON(info);
+		}
+	}
 	public static void register(String ssID,String type,String email,String pwd) throws java.text.ParseException{
 	             
 		          if((ssID==null)||(ssID.isEmpty()))
