@@ -103,6 +103,7 @@ no outputs but null.
 			String status ="open";
 			giveHelpPost = SeekerPostTable.find("status like ?", status).fetch();
 			System.out.println("ALL NULL and status is OPEN");
+			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 			render(giveHelpPost);
 		} 
 		
@@ -158,6 +159,7 @@ timeStart and timeEnd string to Time variable.*/
 							searchDate, '%'+location+'%',
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
+			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 			render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 		}
 	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	

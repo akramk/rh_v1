@@ -22,13 +22,18 @@ public class ProfileController extends Controller {
 	 * Close Seeker events will be kept in a List of SeekerPosts called closedEvents
 	 * Complete Seeker events will be kept in a List of SeekerPosts called completedEvents
 	 */
-	public static void profileView() {
-		System.out.println("Session id: " + session.get("id"));
+	public static void profileView(String id) {
+		System.out.println("Session User id: " + id);
 		/*
 		 * if userType is seeker then this condition will be true
 		 */
-		if (session.get("userType").equalsIgnoreCase("seeker")) {
-			Seeker seeker = Seeker.find("id", Long.parseLong(session.get("id"))).first();
+		
+		
+		User user = User.findById(Long.parseLong(id));
+		System.out.println("FOUND IN PROFILE: "+user.email);
+		
+		if (user.type.equalsIgnoreCase("seeker")) {
+			Seeker seeker = Seeker.find("userSeeker_id", Long.parseLong(id)).first();
 
 			System.out.println(seeker.id + " " + seeker.userSeeker.email);
 			//It will fetch the user data through the user and seeker relationship
@@ -81,17 +86,16 @@ public class ProfileController extends Controller {
 
 			}
 
-
 			//Rendering the seeker data, its details and its events
-			render(userseeker, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
+			render(user, userseeker, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
 					closedEventsofMatePost, completedEventsofMatePost);
 		}
 
 		/*
 		 * if userType is mate then this condition will be true
 		 */
-		if (session.get("userType").equalsIgnoreCase("mate")) {
-			Mate mate = Mate.find("id", Long.parseLong(session.get("id"))).first();
+		if (user.type.equalsIgnoreCase("mate")) {
+			Mate mate = Mate.find("userMate_id", Long.parseLong(id)).first();
 
 			System.out.println(mate.id + " " + mate.userMate.email);
 			//It will fetch the user data through the user and mate relationship
@@ -146,10 +150,11 @@ public class ProfileController extends Controller {
 					}
 
 				}				
-
+				
+				
 //			System.out.println(postsMateAppliedtoHelp.get(0).matesWantToHelp.get(0).userMate.firstName);
 //			System.out.println(postsMateAppliedtoHelp.get(0).matesWantToHelp.get(1).userMate.firstName);
-			render(usermate, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
+			render(user, usermate, openedEvents, closedEvents, completedEvents, openedEventsofMatePost,
 					closedEventsofMatePost, completedEventsofMatePost);
 		}
 

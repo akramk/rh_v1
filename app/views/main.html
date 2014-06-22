@@ -69,12 +69,12 @@
                     
                     
                     #{if session.get("userType") == "seeker"}
-                    <li><a href="@{ProfileController.profileView}">Seeker: ${session.get("userName")}</a>
+                    <li><a href="@{ProfileController.profileView(session.get('user_id'))}">Seeker: ${session.get("userName")}</a>
                     </li>
                     #{/if}
 
                     #{if session.get("userType") == "mate"}
-                    <li><a href="@{ProfileController.profileView}">Mate: ${session.get("userName")}</a>
+                    <li><a href="@{ProfileController.profileView(session.get('user_id'))}">Mate: ${session.get("userName")}</a>
                     </li>
                     #{/if}
                     
