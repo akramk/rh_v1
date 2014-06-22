@@ -14,6 +14,11 @@ import models.UserInfo;
 public class DataFill {
 	public void dataFiller() throws ParseException{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		//insert data in user info
+		Date dateOfBirth =  dateFormat.parse("25/05/1965");
+		UserInfo userInfo= new UserInfo("DE1024", "Richard", "John", "male", dateOfBirth, "15", "Dulferstrasse", "80937", "Munich", "Germany");
+		userInfo.create();
+		
 		Date date =  dateFormat.parse("25/05/1965");
 		User userseeker = new User("12345ks","Mask", "Rip", date, "mask@gmail.com", "seeker1", "seeker", "accepted");
 		Address address = new Address("21", "ABC", "sadhj", "Rajshahi", "Bangladesh");
@@ -57,9 +62,18 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
+		userseeker = new User("Martha2", "Martha", "Robert", date, "mar@gmail.com", "seeker3", "seeker", "applied");
+		address = new Address("sda", "fggf", "43dsa", "Dhaka", "Bangladesh");
+		address.userAddress = userseeker;
+		userseeker.address = address;
+		userseeker.create();
+		seeker = new Seeker();
+		seeker.userSeeker = userseeker;
+		seeker.create();
+		seeker.save();
 		
 		// User Admin created
-		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "admin");
+		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "accepted");
 		address = new Address("90", "Felsen", "5ds", "Dhaka", "Bangladesh");
 		address.userAddress = useradmin;
 		useradmin.address = address;

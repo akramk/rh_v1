@@ -102,7 +102,7 @@
 
     
     <div class="post-metadata">
-        <span class="post-author">by ${post.seeker}</span>,
+        <span class="post-author">by <a href="@{ProfileController.profileView(post.seekerWhoPosted.userSeeker.id)}">${post.seeker}</a></span>,
         <span class="post-date">${post.postdate.format('dd MMM yyyy')}</span>
          <span class="post-location">,  Event location: ${post.location}</span>
     </div>
@@ -146,10 +146,10 @@
                 <div class="comment-metadata">
                     <span class="comment-author">
                     #{if comment.who=="seeker"}
-                    	by  ${comment.authorSeeker.userSeeker.firstName} ,	
+                    	by  <a href="@{ProfileController.profileView(comment.authorSeeker.userSeeker.id)}"> ${comment.authorSeeker.userSeeker.firstName} </a>,	
                     #{/if}
                     #{if comment.who=="mate"}
-                    	by  ${comment.authorMate.userMate.firstName} ,	
+                    	by  <a href="@{ProfileController.profileView(comment.authorMate.userMate.id)}">${comment.authorMate.userMate.firstName}  </a>,	
                     #{/if}
                     </span>
                     <span class="comment-date">

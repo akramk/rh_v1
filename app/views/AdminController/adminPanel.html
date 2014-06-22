@@ -32,8 +32,8 @@
 		      <input type="hidden"  value ='${applied.ssid}' name = "ssid"/>
 		      <select name = "status">
           		<option value="0" selected>Select
-		  		<option value="accepted" >Accepted
-		  		<option value="rejected">Rejected
+		  		<option value="accepted" >Accept
+		  		<option value="rejected">Reject
 			  </select>
 		      <input type="submit" value="Verify" />
 		      #{/form}
@@ -56,7 +56,23 @@
 <option value="accepted" >Accept
 <option value="rejected">Reject
 <option value="banned">Ban
-<option value="admin">Make Admin
+</select>
+<input type="submit" value="Verify" />
+#{/form}
+
+</div>
+
+<br/>
+<br/>
+<div class = "typeChange_form">
+<h3>Change User Type:</h3>
+#{form @AdminController.userTypeChange(), enctype:'multipart/form-data'}
+<input type="text"  value ="" name = "ssid"/>
+<select name = "type">
+<option value="0" selected>Select
+<option value="seeker" >Seeker
+<option value="mate">Mate
+<option value="admin">Admin
 </select>
 <input type="submit" value="Verify" />
 #{/form}

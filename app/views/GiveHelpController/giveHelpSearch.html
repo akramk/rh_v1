@@ -70,7 +70,7 @@
 		      <td>${p.mateApplied}</td>
 		      <td>${p.matesRequired}</td>		      
 		      <td>${p.post}</td>
-		      <td><a href="@{ProfileController.profileView(session.get('_id'))}">${p.seeker}</a></td>
+		      <td><a href="@{ProfileController.profileView(p.seekerWhoPosted.userSeeker.id)}">${p.seeker}</a></td>
 		      <td>${p.timeEnd}</td>
 		      <td>${p.timeStart}</td>
 		      <td>

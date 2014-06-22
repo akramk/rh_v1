@@ -49,15 +49,14 @@ public class LogInController extends Controller {
 			if(user.get(0).type.equals("seeker"))
 			{
 				session.put("id", user.get(0).seeker.id);
-				session.put("_id", user.get(0).id);
+				session.put("user_id", user.get(0).id);
 				session.put("notification", notificationCounter());
 				SeekHelpController.seekHelpRedir();
 			}
 			if(user.get(0).type.equals("mate"))
 			{
 				session.put("id", user.get(0).mate.id);
-				session.put("_id", user.get(0).id);		
-				System.out.println("After logged in: "+session.get("_id"));
+				session.put("user_id", user.get(0).id);
 				session.put("notification", notificationCounter());
 				GiveHelpController.giveHelp();
 			}
@@ -65,6 +64,7 @@ public class LogInController extends Controller {
 			if(user.get(0).type.equals("admin"))
 			{
 				session.put("id", user.get(0).admin.id);
+				session.put("user_id", user.get(0).id);
 				session.put("notification", notificationCounter());
 				AdminController.adminPanel();
 			}

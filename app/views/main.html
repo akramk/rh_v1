@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="@{'/public/stylesheets/jquery-ui.css'}">
 	    <script src="@{'/public/javascripts/jquery-1.10.2.js'}"></script>
 	    <script src="@{'/public/javascripts/jquery-ui.js'}"></script>
+	    <script src="@{'/public/javascripts/bootstrap.js'}"></script>
+	    <script src="@{'/public/javascripts/modern-business.js'}"></script>
 	    <link rel="stylesheet" href="/resources/demos/style.css">
 		<!--link rel="stylesheet" href="@{'/public/stylesheets/rh.css'}"-->
 		<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.css'}">
@@ -67,12 +69,12 @@
                     
                     
                     #{if session.get("userType") == "seeker"}
-                    <li><a href="@{ProfileController.profileView(session.get('_id'))}">Seeker: ${session.get("userName")}</a>
+                    <li><a href="@{ProfileController.profileView(session.get('user_id'))}">Seeker: ${session.get("userName")}</a>
                     </li>
                     #{/if}
 
                     #{if session.get("userType") == "mate"}
-                    <li><a href="@{ProfileController.profileView(session.get('_id'))}">Mate: ${session.get("userName")}</a>
+                    <li><a href="@{ProfileController.profileView(session.get('user_id'))}">Mate: ${session.get("userName")}</a>
                     </li>
                     #{/if}
                     
@@ -138,6 +140,45 @@
 
     
     <!-- /.container -->
+    
+    <div id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill" style="background-image:url('/public/images/slide1.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>A place for your needs........</h1>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('/public/images/slide2.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>Serve the society.........</h1>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('/public/images/slide3.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>Be our partner..........</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </div>
     
     <div class="section">
     <div class="container">
