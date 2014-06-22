@@ -23,7 +23,7 @@ public class ProfileController extends Controller {
 	 * Complete Seeker events will be kept in a List of SeekerPosts called completedEvents
 	 */
 	public static void profileView(String id) {
-		System.out.println("Session User id: " + id);
+		System.out.println("User id: " + id);
 		/*
 		 * if userType is seeker then this condition will be true
 		 */

@@ -107,7 +107,7 @@
     
     
     <div class="post-metadata">
-        <span class="post-author">by ${post.postedBy.userMate.firstName}</span>,
+        <span class="post-author">by <a href="@{ProfileController.profileView(post.postedBy.userMate.id)}"> ${post.postedBy.userMate.firstName}</a></span>,
         <span class="post-date">${post.postdate.format('dd MMM yy')}</span>
     </div>
     

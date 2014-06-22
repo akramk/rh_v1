@@ -17,14 +17,22 @@ import play.mvc.Controller;
 
 public class SeekHelpController extends Controller {
 
-	public static void seekHelpRedir() {
-		try {
-			List<MatePostTable> seekHelpPost=seekHelpSearch(null, null, null, null);
-			render(seekHelpPost);
-		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void seekHelpRedir(String location, String searchDateS, String timeStart, String timeEnd) throws java.text.ParseException {
+		System.out.println("Location:" +location+" "+searchDateS+" sd "+timeStart+ " dsa "+timeEnd);
+
+			if((location == null || location.equals("0")) && (searchDateS == null || searchDateS.equals("")) && 
+					(timeStart == null|| timeStart.equals("")) && (timeEnd == null||timeEnd.equals("")))
+			{
+				System.out.println("Entered in first if cond.");
+				List<MatePostTable> seekHelpPost=seekHelpSearch(null, null, null, null);
+				render(seekHelpPost);
+			}
+			else
+			{
+				System.out.println("Entered in first else cond.");
+				List<MatePostTable> seekHelpPost=seekHelpSearch(location, searchDateS, timeStart, timeEnd);
+				render(seekHelpPost);
+			}
 		
 	}
 
@@ -44,7 +52,7 @@ public class SeekHelpController extends Controller {
 		else 
 		{
 			flash.error("Please check your input data Again!");
-			seekHelpRedir();
+			seekHelpRedir(null,null,null,null);
 		}
 
 		// page redirected and landed
@@ -98,7 +106,7 @@ public class SeekHelpController extends Controller {
 				}
 
 			} else {
-				seekHelpRedir();
+				seekHelpRedir(null,null,null,null);
 			}
 
 		}
@@ -299,7 +307,7 @@ public class SeekHelpController extends Controller {
 		public static List<MatePostTable> seekHelpSearch(String location, String searchDateS, String timeStart, String timeEnd) 
 				throws java.text.ParseException {
 			List<MatePostTable> seekHelpPost =null;
-			SimpleDateFormat dateFormatS = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat dateFormatS = new SimpleDateFormat("MM/dd/yyyy");
 			Date searchDate = null;
 			if (searchDateS != null && !searchDateS.equals("")) {
 				searchDate = dateFormatS.parse(searchDateS);
@@ -323,6 +331,7 @@ public class SeekHelpController extends Controller {
 				String status ="open";
 				seekHelpPost = MatePostTable.find("status like ?", status).fetch();
 				System.out.println("ALL NULL and status is OPEN");
+				
 				return seekHelpPost;
 			} 
 			
@@ -345,7 +354,7 @@ public class SeekHelpController extends Controller {
 					&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
 			{
 				seekHelpPost= MatePostTable.findAll();
-				System.out.println("Condition 3");
+				/*System.out.println("Condition 3");*/
 				return seekHelpPost;
 			}
 	
@@ -358,7 +367,7 @@ public class SeekHelpController extends Controller {
 				if (searchDate == null) {
 					// if user does not give any date then it will automatically get the date of 01/01/1990. 
 					//because we dont have any entry obviously before 1990
-					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 					searchDate = dateFormat.parse("01/01/1990");
 	//				dateS = dateFormat.parse("01/01/1990");
 				}
@@ -368,11 +377,11 @@ public class SeekHelpController extends Controller {
 				}
 	
 				if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
-					timeEnd = "00:00:00";
+					timeEnd = "23:59:00";
 				}
 				
 				seekHelpPost = MatePostTable
-						.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+						.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ?",
 								searchDate, '%'+location+'%',
 								java.sql.Time.valueOf(timeStart),
 								java.sql.Time.valueOf(timeEnd)).fetch();
@@ -441,4 +450,87 @@ public class SeekHelpController extends Controller {
 				System.out.println();
 				GiveHelpController.matePostShowDetail(postId);
 			}
+
+		//find the posts of mates who are free to help
+		/*public static  void seekHelpSearchAll(String location, String searchDateS, String timeStart, String timeEnd) throws java.text.ParseException {
+					List<MatePostTable> seekHelpPost =null;
+					SimpleDateFormat dateFormatS = new SimpleDateFormat("dd/MM/yyyy");
+					Date searchDate = null;
+					if (searchDateS != null && !searchDateS.equals("")) {
+						searchDate = dateFormatS.parse(searchDateS);
+					}		
+					
+					
+					
+					
+			When the page will be reloaded from the navigation panel through clicking any link or button then this page will be reloaded.
+			so then this condition will be checked. As at that time all the parameters will be null. Because search panel will return
+			no outputs but null.
+			
+					if (location == null && searchDate == null && timeStart == null&& timeEnd == null) 
+					{
+						seekHelpPost = MatePostTable.findAll();
+						// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
+						String status ="open";
+						seekHelpPost = MatePostTable.find("status like ?", status).fetch();						
+						render(seekHelpPost);
+					} 
+					
+			When user will give all the values in the search panel then this will be the search query condition. And all the parameter will be
+			merged with "AND" . Keep in mind that we have time attribute in table that is timeStart and timeEnd so we have to format the
+			timeStart and timeEnd string to Time variable.
+					else if ((!location.equalsIgnoreCase("")) && (searchDate != null)&& (!timeStart.equals("")) 
+							&& (!timeEnd.equals(""))) 
+					{
+						seekHelpPost = MatePostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+										searchDate, location,
+										java.sql.Time.valueOf(timeStart),
+										java.sql.Time.valueOf(timeEnd)).fetch();
+						
+						render(seekHelpPost);
+					}
+			
+			This check occurs when user does not give any values in the search panel and press the submit button.		
+					else if ((location == null || location.equalsIgnoreCase("")) && (searchDate == null || searchDate.equals(""))
+							&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
+					{
+						seekHelpPost= MatePostTable.findAll();						
+						render(seekHelpPost);
+					}
+			
+			This occurs when user gives any values in the search Panel. Not all the values but any values.
+					else if (!location.equalsIgnoreCase("") || searchDate != null || !timeStart.equals("") || !timeEnd.equals("")) 
+					{
+									
+						if (searchDate == null) {
+							// if user does not give any date then it will automatically get the date of 01/01/1990. 
+							//because we dont have any entry obviously before 1990
+							SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+							searchDate = dateFormat.parse("01/01/1990");
+			//				dateS = dateFormat.parse("01/01/1990");
+						}
+			
+						if (timeStart.equalsIgnoreCase("")) {//when user dont give any start time it gets the 00hh 00mm and 00ss
+							timeStart = "00:00:00";
+						}
+			
+						if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
+							timeEnd = "00:00:00";
+						}
+						
+						seekHelpPost = MatePostTable
+								.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+										searchDate, '%'+location+'%',
+										java.sql.Time.valueOf(timeStart),
+										java.sql.Time.valueOf(timeEnd)).fetch();
+						render(seekHelpPost);
+					}
+				This works automatically when all cases fail then it will fetch all the messages post from the table.	
+					else {
+						seekHelpPost = MatePostTable.findAll();						
+						render(seekHelpPost);
+					}
+			
+				}*/
+
 }
