@@ -121,7 +121,7 @@
     
     <p>
         <label for="author">Your name: </label>
-        <a href="@{ProfileController.profileView(session.get('_id'))}">${session.get("userName")}</a>
+        <a href="@{ProfileController.profileView(session.get('user_id'))}">${session.get("userName")}</a>
         
     </p>
      

@@ -51,7 +51,7 @@ public class LogInController extends Controller {
 				session.put("id", user.get(0).seeker.id);
 				session.put("user_id", user.get(0).id);
 				session.put("notification", notificationCounter());
-				SeekHelpController.seekHelpRedir();
+				SeekHelpController.seekHelpRedir(null,null,null,null);
 			}
 			if(user.get(0).type.equals("mate"))
 			{

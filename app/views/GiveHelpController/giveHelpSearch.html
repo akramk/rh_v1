@@ -85,37 +85,7 @@
 		</table>
 </div>
 
-<!-- 
-<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
-  
-    <div id='giveHelpSearchForm_location_errorloc1' style="color: red;" class='error_strings'>
-    </div>
-    Location:<br>
-    <input type="text" name="location"/>
-    <br>
-    
-    <div id='giveHelpSearchForm_searchDate_errorloc1' style="color: red;" class='error_strings'>    
-    </div>
-    Date:<br>
-    <input type="text" id="datepicker_" name="searchDate" value=""/>
-    <br>
-    
-    <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
-    </div>
-    Start Time:<br>
-    <input type="text" name="timeStart"/>
-    <br>
 
-    <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
-    </div>  
-    End Time:<br>
-    <input type="text" name="timeEnd"/>
-    <br>    
-
-    <input class="frm-btn" type="submit" value="Submit!" />
-</form>
-
--->
 
 
 
@@ -127,7 +97,7 @@
     Location:<br>
     <!-- <input type="text" name="location" value=""/> -->    
     <select name = "location">
-	        <option value="0" selected>Select </option>
+	        <option value="" selected>Select </option>
 	        <option value="Dhaka">Dhaka</option>							
 			<option value="Chittagong">Chittagong</option>										
 			<option value="Rajshahi">Rajshahi</option>										
@@ -204,13 +174,13 @@
     <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Start Time:<br>
-    <input type="text" id="Record_Start_Time"  name="timeStart"/>
+    <input type="text"   name="timeStart"/>
     <br>
 
     <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
     </div>  
     End Time:<br>
-    <input type="text" id="Record_End_Time"  name="timeEnd"/>
+    <input type="text"   name="timeEnd"/>
     <br>    
 
     <input class="frm-btn" type="submit" value="Search!" />
@@ -218,7 +188,7 @@
 
 
 
-<script language="JavaScript" type="text/javascript">
+<!-- <script language="JavaScript" type="text/javascript">
 
   var frmvalidator  = new Validator("giveHelpSearchForm");
   frmvalidator.EnableOnPageErrorDisplay();
@@ -233,7 +203,7 @@
   frmvalidator.addValidation("timeEnd","Please enter end time");
  
     
-</script>
+</script> -->
 
 
 <!-- Form where mate can post when he can help -->
