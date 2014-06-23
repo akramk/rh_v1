@@ -137,13 +137,13 @@
     <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Start Time:<br>
-    <input type="text" name="timeStart"/>
+    <input type="text" name="timeStart" id="timeStart"/>
     <br>
 
     <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
     </div>  
     End Time:<br>
-    <input type="text" name="timeEnd"/>
+    <input type="text" name="timeEnd" id="timeEnd"/>
     <br>    
 
     <input class="frm-btn" type="submit" value="Search!" />
@@ -152,6 +152,19 @@
 
 
 <script language="JavaScript" type="text/javascript">
+  $('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
+  $('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
+  
+  $('#giveHelpSearchForm').submit(function(event){
+		 var strtTm=$('#timeStart').val();
+		 var endTm=$('#timeEnd').val();
+		 if(endTm<=strtTm){
+		 	alert("End time should be greater than Start time");
+		 	event.preventDefault();
+			return false;
+		 }
+		 
+	});
 
   var frmvalidator  = new Validator("giveHelpSearchForm");
   frmvalidator.EnableOnPageErrorDisplay();
@@ -187,14 +200,14 @@
   <div id='matePostForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
   </div>
   <label for="timeStart">Start time:</label>
-  <input class="form-control"  type="text" name="timeStart" value="" />
+  <input class="form-control"  type="text" name="timeStart" id="timeStartMatePost" value="" />
   <br>
   
  <div id='matePostForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
  </div>  
   
   <label for="timeEnd">End time:</label>
-  <input class="form-control"  type="text" name="timeEnd" value="" />
+  <input class="form-control"  type="text" name="timeEnd" id="timeEndMatePost" value="" />
   <br>
    
  <div id='matePostForm_location_errorloc' style="color: red;" class='error_strings'>
@@ -240,6 +253,19 @@
 
 
 <script language="JavaScript" type="text/javascript">
+	$('#timeStartMatePost').timepicker({ 'timeFormat': 'H:i:s' });
+	$('#timeEndMatePost').timepicker({ 'timeFormat': 'H:i:s' });
+	
+	$('#matePostForm').submit(function(event){
+		 var strtTm=$('#timeStartMatePost').val();
+		 var endTm=$('#timeEndMatePost').val();
+		 if(endTm<=strtTm){
+		 	alert("End time should be greater than Start time");
+		 	event.preventDefault();
+			return false;
+		 }
+		 
+	});
 
   var frmvalidator  = new Validator("matePostForm");
   frmvalidator.EnableOnPageErrorDisplay();

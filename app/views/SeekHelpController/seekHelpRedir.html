@@ -56,14 +56,14 @@
   <div id='seekHelpRedirForm_timeStart_errorloc' style="color: red;" class='error_strings'>    
   </div>
   <label for="timeStart">Start time:</label>
-  <input class="form-control"  type="text" name="timeStart" value="" />
+  <input class="form-control"  type="text" name="timeStart" id="timeStart" value="" />
   <br>
   
  <div id='seekHelpRedirForm_timeEnd_errorloc' style="color: red;" class='error_strings'>   
  </div>  
   
   <label for="timeEnd">End time:</label>
-  <input class="form-control"  type="text" name="timeEnd" value="" />
+  <input class="form-control"  type="text" name="timeEnd" id="timeEnd" value="" />
   <br>
    
  <div id='seekHelpRedirForm_location_errorloc' style="color: red;" class='error_strings'>
@@ -108,7 +108,25 @@
 
 
 <script language="JavaScript" type="text/javascript">
-
+$('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
+$('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
+// $('#timeEnd').on('changeTime', function() {
+//     var strtTm=$('#timeStart').val();
+//     var endTm=$('#timeEnd').val();
+//     if(endTm<=strtTm){
+//     	alert("End time should be greater than Start time");
+//     }
+// });
+$('#seekHelpRedirForm').submit(function(event){
+	 var strtTm=$('#timeStart').val();
+	 var endTm=$('#timeEnd').val();
+	 if(endTm<=strtTm){
+	 	alert("End time should be greater than Start time");
+	 	event.preventDefault();
+		return false;
+	 }
+	 
+});
   var frmvalidator  = new Validator("seekHelpRedirForm");
   frmvalidator.EnableOnPageErrorDisplay();
   frmvalidator.EnableMsgsTogether();
