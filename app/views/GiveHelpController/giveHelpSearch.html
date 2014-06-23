@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'GiveHelp' /}
 
 <!-- This is the singular search values which is clickable search like amazon -->
 <!-- 
@@ -42,7 +42,33 @@
 
 <!-- End of singular click search -->
 
+<div>
+#{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
+     || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
+     || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
+<h4 style="color:red; display: inline;">You Have Searched for: 
+  <h5 style= "display: inline;">
+  #{if location != null && location != ""}
+  Location: ${location}
+  #{/if}
 
+  #{if searchDateS != null && searchDateS != ""}
+  Date: ${searchDateS}
+  #{/if}
+
+  #{if timeStart != null && timeStart != "" && timeStart != "00:00:00"}
+  Start Time: ${timeStart}
+  #{/if}
+  
+  #{if timeEnd != null && timeEnd != "" && timeEnd != "23:59:00"}
+  End Time: ${timeEnd}
+  #{/if}   
+  </h5>  
+</h4>
+#{/if}
+</div>	
+
+	
 
 <div class="container">
 		<table class="table table-hover">
@@ -51,12 +77,12 @@
 		      <th>Title</th>     
 		      <th>Date</th>
 		      <th>location</th>
-		      <th>mateApplied</th>
-		      <th>matesRequired</th>		      
+		      <th>Mate Applied</th>
+		      <th>Mates Required</th>		      
 		      <th>post</th> 
 		      <th>seeker</th>
-		      <th>timeEnd</th>
-		      <th>timeStart</th>
+		      <th>Start Time</th>
+		      <th>End Time</th>
 		    
 		      
 		    </tr>
@@ -71,8 +97,9 @@
 		      <td>${p.matesRequired}</td>		      
 		      <td>${p.post}</td>
 		      <td><a href="@{ProfileController.profileView(p.seekerWhoPosted.userSeeker.id)}">${p.seeker}</a></td>
-		      <td>${p.timeEnd}</td>
 		      <td>${p.timeStart}</td>
+		      <td>${p.timeEnd}</td>
+
 		      <td>
 <!-- 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
 		      <input type="hidden"  value ='${p.seeker}' name = "seeker"/>
@@ -90,7 +117,7 @@
 
 
 
-<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
+<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" method="post"  enctype="multipart/form-data" >    
   
     <div id='giveHelpSearchForm_location_errorloc1'  style="color: red;" class='error_strings'>
     </div>

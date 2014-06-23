@@ -125,7 +125,8 @@ timeStart and timeEnd string to Time variable.*/
 		{
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition 3");
-			render(giveHelpPost);
+			System.out.println(location.length());
+			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
 		}
 
         /*This occurs when user gives any values in the search Panel. Not all the values but any values.*/
@@ -151,13 +152,25 @@ timeStart and timeEnd string to Time variable.*/
 				System.out.println("No time time End"+java.sql.Time.valueOf(timeEnd));
 			}
 			
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable
-					.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ?",
-							searchDate, '%'+location+'%',
-							java.sql.Time.valueOf(timeStart),
-							java.sql.Time.valueOf(timeEnd)).fetch();
-			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
-			render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
+			if(searchDate == null || searchDateS.equals(""))
+			{
+				List<SeekerPostTable> giveHelpPost = SeekerPostTable
+						.find("postdate >= ?  and location like ? and timeStart >= ? and timeEnd <= ?",
+								searchDate, '%'+location+'%',
+								java.sql.Time.valueOf(timeStart),
+								java.sql.Time.valueOf(timeEnd)).fetch();
+				render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
+			}
+			else
+			{
+				List<SeekerPostTable> giveHelpPost = SeekerPostTable
+						.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ?",
+								searchDate, '%'+location+'%',
+								java.sql.Time.valueOf(timeStart),
+								java.sql.Time.valueOf(timeEnd)).fetch();
+				render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
+			}
+
 		}
 	    /*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
