@@ -377,6 +377,13 @@
 	$('#timeEndMatePost').timepicker({ 'timeFormat': 'H:i:s' });
 	
 	$('#matePostForm').submit(function(event){
+		 var nowDate=new Date();
+		 var inputDate= new Date($('#datepicker_1').val());
+		 if(inputDate<nowDate){
+			 alert("Can not insert previous date");
+			 event.preventDefault();
+			 return false;
+		 }
 		 var strtTm=$('#timeStartMatePost').val();
 		 var endTm=$('#timeEndMatePost').val();
 		 if(endTm<=strtTm){

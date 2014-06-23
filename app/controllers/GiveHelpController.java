@@ -156,7 +156,7 @@ timeStart and timeEnd string to Time variable.*/
 							searchDate, '%'+location+'%',
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
-			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
+//			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 			render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 		}
 	    /*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
@@ -300,7 +300,7 @@ timeStart and timeEnd string to Time variable.*/
 					giveHelpPostObj.create();
 //				System.out.println(giveHelpPostObj.location + giveHelpPostObj.seeker+giveHelpPostObj.id +seekerObj.userSeeker.firstName);
 					mateObj.addPost(giveHelpPostObj);
-					GiveHelpController.giveHelpSearch(null, null, null, null);
+					SeekHelpController.seekHelpRedir(null, null, null, null);// .giveHelpSearch(null, null, null, null);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println(e.getMessage());
