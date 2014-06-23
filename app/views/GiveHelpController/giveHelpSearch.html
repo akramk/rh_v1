@@ -357,6 +357,22 @@
 
 
 <script language="JavaScript" type="text/javascript">
+	$('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
+	$('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
+	
+	$('#giveHelpSearchForm').submit(function(event){
+		 var strtTm=$('#timeStart').val();
+		 var endTm=$('#timeEnd').val();
+		 // you can search with only end time or start time, but if you give both start time and end time, then end time
+		 //should be greater than start time
+		 if(endTm!="" && strtTm!="" && endTm<=strtTm){
+		 	alert("End time should be greater than Start time");
+		 	event.preventDefault();
+			return false;
+		 }
+		 
+	});
+
 	$('#timeStartMatePost').timepicker({ 'timeFormat': 'H:i:s' });
 	$('#timeEndMatePost').timepicker({ 'timeFormat': 'H:i:s' });
 	

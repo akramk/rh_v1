@@ -121,12 +121,12 @@
     
     
     Start Time:<br>
-    <input type="text"  name="timeStart"/>
+    <input type="text"  name="timeStart" id="timeStartSearch"/>
     <br>
 
       
     End Time:<br>
-    <input type="text"  name="timeEnd"/>
+    <input type="text"  name="timeEnd" id="timeEndSearch"/>
     <br>    
 
     <input class="frm-btn" type="submit" value="Search!" />
@@ -273,6 +273,22 @@
 
 
 <script language="JavaScript" type="text/javascript">
+$('#timeStartSearch').timepicker({ 'timeFormat': 'H:i:s' });
+$('#timeEndSearch').timepicker({ 'timeFormat': 'H:i:s' });
+//start time and end time validation for search form starts
+$('#seekHelpRedirForm1').submit(function(event){
+	 var strtTm=$('#timeStartSearch').val();
+	 var endTm=$('#timeEndSearch').val();
+	// you can search with only end time or start time, but if you give both start time and end time, then end time
+	 //should be greater than start time 
+	 if(endTm!="" && strtTm!="" && endTm<=strtTm){
+	 	alert("End time should be greater than Start time");
+	 	event.preventDefault();
+		return false;
+	 }
+	 
+});
+//start time and end time validation for search form ends
 $('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
 $('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
 // $('#timeEnd').on('changeTime', function() {
