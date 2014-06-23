@@ -84,10 +84,7 @@ This function searches on these parameter basis. And there are different criteri
 		if (searchDateS != null && !searchDateS.equals("")) {
 			searchDate = dateFormatS.parse(searchDateS);
 		}
-		System.out.println(searchDate);
-		System.out.println("DATE: "+searchDateS);
 		
-		System.out.println(timeStart + "----" + timeEnd + "Location"+ location + "Date" + searchDate);
 		
 		//System.out.println(session.get("type"));
 		
@@ -102,7 +99,8 @@ no outputs but null.
 			// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
 			String status ="open";
 			giveHelpPost = SeekerPostTable.find("status like ?", status).fetch();
-			System.out.println("ALL NULL and status is OPEN");
+			/*System.out.println("ALL NULL and status is OPEN");
+			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);*/
 			render(giveHelpPost);
 		} 
 		
@@ -117,11 +115,11 @@ timeStart and timeEnd string to Time variable.*/
 							searchDate, location,
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
-			System.out.println("ALL NOT NULL");
+			
 			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
 		}
 
-/*This check occurs when user does not give any values in the search panel and press the submit button.	*/	
+        /*This check occurs when user does not give any values in the search panel and press the submit button.	*/	
 		else if ((location == null || location.equalsIgnoreCase("")) && (searchDate == null || searchDate.equals(""))
 				&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
 		{
@@ -130,7 +128,7 @@ timeStart and timeEnd string to Time variable.*/
 			render(giveHelpPost);
 		}
 
-/*This occurs when user gives any values in the search Panel. Not all the values but any values.*/
+        /*This occurs when user gives any values in the search Panel. Not all the values but any values.*/
 		else if (!location.equalsIgnoreCase("") || searchDate != null || !timeStart.equals("") || !timeEnd.equals("")) 
 		{
 			System.out.println("Last Else IF Value Found: " + timeStart + "----" + timeEnd + "Location" 
@@ -139,7 +137,7 @@ timeStart and timeEnd string to Time variable.*/
 			if (searchDate == null || searchDateS.equals("")) {
 				// if user does not give any date then it will automatically get the date of 01/01/1990. 
 				//because we dont have any entry obviously before 1990
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				searchDate = dateFormat.parse("01/01/1990");
 //				dateS = dateFormat.parse("01/01/1990");
 			}
@@ -158,9 +156,10 @@ timeStart and timeEnd string to Time variable.*/
 							searchDate, '%'+location+'%',
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd)).fetch();
+			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 			render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 		}
-	/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
+	    /*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
 			System.out.println("Condition Final");
@@ -168,9 +167,9 @@ timeStart and timeEnd string to Time variable.*/
 		}
 
 	}
-/*
- * This function increments the number of mateApplied of that specific Seeker. And reload the page of the post.	
- */
+	/*
+	 * This function increments the number of mateApplied of that specific Seeker. And reload the page of the post.	
+	 */
 	public static void mateIncrementer(String seeker) throws ParseException{
 		System.out.println("Ready to Help button is being clicked to help: "+seeker);
 		//fetch the specific seeker object from the table.

@@ -62,9 +62,18 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
+		userseeker = new User("Martha2", "Martha", "Robert", date, "mar@gmail.com", "seeker3", "seeker", "applied");
+		address = new Address("sda", "fggf", "43dsa", "Dhaka", "Bangladesh");
+		address.userAddress = userseeker;
+		userseeker.address = address;
+		userseeker.create();
+		seeker = new Seeker();
+		seeker.userSeeker = userseeker;
+		seeker.create();
+		seeker.save();
 		
 		// User Admin created
-		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "admin");
+		User useradmin = new User("25s4sk","Mahabub", "Akram", date, "mak@gmail.com", "admin", "admin", "accepted");
 		address = new Address("90", "Felsen", "5ds", "Dhaka", "Bangladesh");
 		address.userAddress = useradmin;
 		useradmin.address = address;
