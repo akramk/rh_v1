@@ -19,12 +19,12 @@
     #{/if}
     
     #{if post.status == "open" && session.get("userType") == "mate" && mateFound == true}
-     #{form @GiveHelpController.mateRevokeHelp(), enctype:'multipart/form-data'}
+     #{form @GiveHelpController.mateRevokeHelp(), id: "revokeHelpForm", enctype:'multipart/form-data'}
     <input type="hidden"  value ='${post.id}' name = "postId"/>
-    <input type="submit" value="I want to Revoke Help" />
+    <input type="button" id="revokeHelp" onclick="$('#dialog-revokeConfirm').dialog('open')" value="I want to Revoke Help" />
+<!-- When user clicks this button, show a confirmation mesg box. if he confirms then submit the form -->
     #{/form}
     #{/if}
-    
     
  <!-- This div will show when the seeker logged In and will click the button to update
  his post. -->  
@@ -164,8 +164,35 @@
          #{/list}
         
     </div>
-    
+
+<div id="dialog-revokeConfirm" title="Verify your action">
+<p>Are you sure to revoke help?.</p>
+</div> 
 <script language="JavaScript" type="text/javascript">  
+$(function(){        
+    // jQuery UI Dialog    
+            
+    $('#dialog-revokeConfirm').dialog({
+        autoOpen: false,
+        width: 400,
+        modal: true,
+        resizable: false,
+        buttons: {
+            "Yes": function() {
+            	$('#revokeHelpForm').submit();
+				$(this).dialog("close");
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+});
+
+	$('#revokeHelpBttn').click(function(){
+		$('#dialog-revokeConfirm').dialog('open');
+	})
 function showDiv() {
 	
 	if (document.getElementById('updateDiv').style.display !== 'none') {
