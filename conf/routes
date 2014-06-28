@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET      /                                       LogInController.logIn 
+GET      /                                       LogInController.logIn
 
 #GET     /logIn                                  GiveHelpController.giveHelp
 #GiveHelpController.giveHelp                                      
