@@ -44,6 +44,7 @@
 
 
 
+<div class="section">
 <div class="container">
 		<table class="table table-hover">
 		  <thead>
@@ -84,12 +85,13 @@
 		  </tbody>
 		</table>
 </div>
+</div>
 
 
 
 
-
-
+<div class="section">
+<div class="container">
 <form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
   
     <div id='giveHelpSearchForm_location_errorloc1'  style="color: red;" class='error_strings'>
@@ -185,7 +187,7 @@
 
     <input class="frm-btn" type="submit" value="Search!" />
 </form>
-
+</div></div>
 
 
 <!-- <script language="JavaScript" type="text/javascript">
@@ -219,7 +221,10 @@
 </script> -->
 
 
+
 <!-- Form where mate can post when he can help -->
+<div class="section">
+<div class="container">
 #{if session.get("userType") == "mate"}
 <form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" > 
   <div id='matePostForm_seeker_errorloc' style="color: red;" class='error_strings'>    
@@ -344,7 +349,7 @@
     <input type="submit" class="btn btn-default"  value="save" />
   </div>
   
-</form>
+</form></div></div>
 
 #{/if}
 
