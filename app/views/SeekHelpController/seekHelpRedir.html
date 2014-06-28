@@ -39,8 +39,7 @@
 		      <th>Post</th> 
 		      <th>Mate</th>
 		      <th>End Time </th>
-		      
-		    
+      
 		    </tr>
 		  </thead>
 		  <tbody id="seekHelpPostTable">
@@ -60,8 +59,11 @@
 		    #{/list}
 		  </tbody>
 		</table>
-</div>
+</div></div>
 
+<div class="section">
+<div class="container">
+<form id="seekHelpRedirForm1" action="/SeekHelpController/seekHelpRedir" enctype="multipart/form-data" >    
   
     <div id='seekHelpRedirForm_location_errorloc1'  style="color: red;" class='error_strings'>
     </div>
@@ -153,11 +155,12 @@
 
     <input class="frm-btn" type="submit" value="Search!" />
 </form>
+</div></div>
 
 
 
-
-
+<div class="section">
+<div class="container">
 #{if session.get("userType") == "seeker"}
 <form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
 
@@ -292,6 +295,7 @@
 <h2 style="color:red;">Posting for Seeker only.</h2>
 </form>
 #{/else}
+</div></div>
 
 
 <script language="JavaScript" type="text/javascript">
