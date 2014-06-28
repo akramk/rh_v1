@@ -281,6 +281,34 @@ public class SeekHelpController extends Controller {
 		
 	}
 
+	
+	/*
+	 * This function will remove the post of the Seeker
+	 */
+	public static void removePost(Long postId) throws java.text.ParseException{
+		SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+		System.out.println("REMOVE REMOVE BY SEEKER: "+seekerPost.title);
+		seekerPost.status = "removed";
+		seekerPost.save();
+		
+		List <Mate> matelists = seekerPost.matesWantToHelp;
+		for(Mate m: matelists){
+			
+			Notification notify = new Notification();
+			notify.notificationMessage = seekerPost.title + " has been Removed";
+			notify.notificationDate = new Date();
+			notify.notifyThisMate=m;
+			notify.seekerPostTable=seekerPost;
+			notify.viewed = "false";
+			notify.create();
+			notify.save();	
+		}
+		GiveHelpController.giveHelp();
+		
+		
+	}
+	
+	
 	/*
 	@param location
 	@param searchDate

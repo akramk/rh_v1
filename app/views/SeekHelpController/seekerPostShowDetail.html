@@ -100,8 +100,17 @@
 #{/if}
 <!-- End of Update Div -->
 
+
+<!--Start of Div where user will found a button which will show whether he want to Remove Post or Not  -->
+#{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString()}
+#{form @SeekHelpController.removePost(post.id), enctype:'multipart/form-data'}
+<input id="button_remove" type="submit" name="remove" value="Remove your post" />
+#{/form}
+#{/if}
+<!-- End of Remove Div -->
+
     
-    <div class="post-metadata">
+ <div class="post-metadata">
         <span class="post-author">by <a href="@{ProfileController.profileView(post.seekerWhoPosted.userSeeker.id)}">${post.seeker}</a></span>,
         <span class="post-date">${post.postdate.format('dd MMM yyyy')}</span>
          <span class="post-location">,  Event location: ${post.location}</span>

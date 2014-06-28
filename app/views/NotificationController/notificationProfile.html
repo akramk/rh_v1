@@ -6,7 +6,12 @@
 #{list NewnotificationofPost, as:'newnotificationPost'}
 
 #{if session.get("userType") == "mate" &&  NewnotificationofPost.size() > 0 }
+#{if newnotificationPost.seekerPostTable.status != "removed"}
 <a href="@{SeekHelpController.seekerPostShowDetail(newnotificationPost.seekerPostTable.id)}">${newnotificationPost.seekerPostTable.title}</a>
+#{/if}
+#{else}
+${newnotificationPost.seekerPostTable.title}
+#{/else}
 ${newnotificationPost.notificationDate}
 ${newnotificationPost.notificationMessage}
 #{/if}
@@ -27,7 +32,12 @@ ${newnotificationPost.notificationMessage}
 <div> <h3>Old Notification: </h3>
 #{list OldnotificationofPost, as:'oldnotificationPost'}
 #{if session.get("userType") == "mate" &&  OldnotificationofPost.size() > 0 }
+#{if oldnotificationPost.seekerPostTable.status != "removed"}
 <a href="@{SeekHelpController.seekerPostShowDetail(oldnotificationPost.seekerPostTable.id)}">${oldnotificationPost.seekerPostTable.title}</a>
+#{/if}
+#{else}
+${oldnotificationPost.seekerPostTable.title}
+#{/else}
 ${oldnotificationPost.notificationDate}
 ${oldnotificationPost.notificationMessage}
 #{/if}
