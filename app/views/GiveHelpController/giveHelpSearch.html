@@ -77,10 +77,12 @@
 		      <th>Title</th>     
 		      <th>Date</th>
 		      <th>location</th>
-		      <th>mateApplied</th>
-		      <th>matesRequired</th>		      
+		      <th>Mate Applied</th>
+		      <th>Mates Required</th>		      
 		      <th>post</th> 
 		      <th>seeker</th>
+		      <th>Start Time</th>
+		      <th>End Time</th>
 		    
 		      
 		    </tr>
@@ -95,6 +97,7 @@
 		      <td>${p.matesRequired}</td>		      
 		      <td>${p.post}</td>
 		      <td><a href="@{ProfileController.profileView(p.seekerWhoPosted.userSeeker.id)}">${p.seeker}</a></td>
+		      <td>${p.timeStart}</td>
 		      <td>${p.timeEnd}</td>
 		      <td>
 <!-- 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}

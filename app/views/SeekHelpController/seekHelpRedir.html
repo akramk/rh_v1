@@ -36,8 +36,10 @@
 		      <th>Date</th>
 		      <th>Location</th>
 		      <th>Seeker Applied</th>
+		      <th>Seekers Required</th> 
 		      <th>Post</th> 
 		      <th>Mate</th>
+		      <th>Start Time</th>
 		      <th>End Time </th>
       
 		    </tr>
@@ -52,6 +54,7 @@
 		      <td>${p.seekersRequired}</td>		      
 		      <td>${p.post}</td>
 			  <td><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></td>	
+		      <td>${p.timeStart}</td>
 		      <td>${p.timeEnd}</td>
 		      <td>
 		      </td>
