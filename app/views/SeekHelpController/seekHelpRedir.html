@@ -36,14 +36,11 @@
 		      <th>Date</th>
 		      <th>Location</th>
 		      <th>Seeker Applied</th>
-		      <th>Seeker Required</th>		      
 		      <th>Post</th> 
 		      <th>Mate</th>
-		      <th>Start Time</th>
 		      <th>End Time </th>
 		      
 		    
-		      
 		    </tr>
 		  </thead>
 		  <tbody id="seekHelpPostTable">
@@ -56,9 +53,7 @@
 		      <td>${p.seekersRequired}</td>		      
 		      <td>${p.post}</td>
 			  <td><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></td>	
-		      <td>${p.timeStart}</td>
 		      <td>${p.timeEnd}</td>
-
 		      <td>
 		      </td>
 		    </tr>
@@ -67,7 +62,6 @@
 		</table>
 </div>
 
-<form id="seekHelpRedirForm1" action="/SeekHelpController/seekHelpRedir" method="post"  enctype="multipart/form-data" >    
   
     <div id='seekHelpRedirForm_location_errorloc1'  style="color: red;" class='error_strings'>
     </div>

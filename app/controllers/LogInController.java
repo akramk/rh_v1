@@ -23,6 +23,10 @@ import play.mvc.Controller;
 
 public class LogInController extends Controller {
 
+	/* public static void logInHome() {
+		render();
+	} */
+	
 	/*
 	 * Log in via email,password and user type. Also session put in the session variable with user type key and his name
 	 */
