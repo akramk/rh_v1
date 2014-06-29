@@ -78,7 +78,7 @@ This function searches on these parameter basis. And there are different criteri
 	 */
 	public static void giveHelpSearch(String location, String searchDateS, String timeStart, String timeEnd) 
 			throws java.text.ParseException {
-		
+		System.out.println("IN givehelpsearch");
 		SimpleDateFormat dateFormatS = new SimpleDateFormat("MM/dd/yyyy");
 		Date searchDate = null;
 		if (searchDateS != null && !searchDateS.equals("")) {
@@ -99,8 +99,8 @@ no outputs but null.
 			// Find those posts which have status = open. We don't need to fetch the whole dataset of GiveHelpBody 
 			String status ="open";
 			giveHelpPost = SeekerPostTable.find("status like ?", status).fetch();
-			/*System.out.println("ALL NULL and status is OPEN");
-			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);*/
+			System.out.println("ALL NULL and status is OPEN");
+			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 			render(giveHelpPost);
 		} 
 		
