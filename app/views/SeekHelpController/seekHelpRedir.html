@@ -244,22 +244,22 @@
 		    <thead><th colspan="6"><h3>Help Available For:</h3></th></thead>
 
 		    <tr>
-		      <td width="120"><h4>Title:</h4></td><td colspan="5"><h4><a href="@{GiveHelpController.matePostShowDetail(p.id)}">${p.title}</a></h4></td>
+		      <td width="90"><h4>Title:</h4></td><td colspan="5"><h4><a href="@{GiveHelpController.matePostShowDetail(p.id)}">${p.title}</a></h4></td>
 		    </tr>
 		    <tr>  		        
 		      <td>Seeker Applied:</td><td colspan="2" width="100"><b>${p.seekersApplied}</b></td>
-		      <td width="120">Seeker Required:</td><td colspan="2" width="200"><b>${p.seekersRequired}</b></td>
+		      <td width="90">Seeker Required:</td><td colspan="2" width="200"><b>${p.seekersRequired}</b></td>
 		    </tr>
 		    <tr>
 		      <td colspan="3" align="right"><h4>Date:</h4></td><td colspan="3"><h4>${p.postdate.format('MM/dd/yyyy')}</h4></td>
 		    </tr>
 		    <tr>
-		      <td>Start Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="120"><b>${p.timeEnd}</b></td>
-		      <td width="100">Location:</td><td width="100"><b>${p.location}</b></td>
+		      <td>Start Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="90"><b>${p.timeEnd}</b></td>
+		      <td width="100" align="right">Location:</td><td width="100"><b>${p.location}</b></td>
 		    </tr>
 		    <tr>
 		      <td><b>Post:</b></td><td colspan="3">${p.post}</td>
-		      <td width="100">Posted By:</td><td width="100"><b>${p.postedBy.userMate.id}<a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></b></td>
+		      <td width="100" align="right">Posted By:</td><td width="100"><b>${p.postedBy.userMate.id}<a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></b></td>
 		    </tr>
 		    
 		  </table>
