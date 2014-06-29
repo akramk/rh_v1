@@ -5,6 +5,7 @@
 <div> <h3>New Notification: </h3>
 #{list NewnotificationofPost, as:'newnotificationPost'}
 
+<!-- New Notification for Mate -->
 #{if session.get("userType") == "mate" &&  NewnotificationofPost.size() > 0 }
 #{if newnotificationPost.seekerPostTable.status != "removed"}
 <a href="@{SeekHelpController.seekerPostShowDetail(newnotificationPost.seekerPostTable.id)}">${newnotificationPost.seekerPostTable.title}</a>
@@ -16,8 +17,14 @@ ${newnotificationPost.notificationDate}
 ${newnotificationPost.notificationMessage}
 #{/if}
 
+<!-- New Notification for Seeker -->
 #{if session.get("userType") == "seeker" &&  NewnotificationofPost.size() > 0 }
+#{if newnotificationPost.matePostTable.status != "removed"}
 <a href="@{GiveHelpController.matePostShowDetail(newnotificationPost.matePostTable.id)}">${newnotificationPost.matePostTable.title}</a>
+#{/if}
+#{else}
+${newnotificationPost.matePostTable.title}
+#{/else}
 ${newnotificationPost.notificationDate}
 ${newnotificationPost.notificationMessage}
 #{/if}
@@ -31,6 +38,7 @@ ${newnotificationPost.notificationMessage}
 
 <div> <h3>Old Notification: </h3>
 #{list OldnotificationofPost, as:'oldnotificationPost'}
+<!-- New Notification for Mate -->
 #{if session.get("userType") == "mate" &&  OldnotificationofPost.size() > 0 }
 #{if oldnotificationPost.seekerPostTable.status != "removed"}
 <a href="@{SeekHelpController.seekerPostShowDetail(oldnotificationPost.seekerPostTable.id)}">${oldnotificationPost.seekerPostTable.title}</a>
@@ -42,9 +50,14 @@ ${oldnotificationPost.notificationDate}
 ${oldnotificationPost.notificationMessage}
 #{/if}
 
-
+<!-- New Notification for Seeker -->
 #{if session.get("userType") == "seeker" &&  OldnotificationofPost.size() > 0 }	
+#{if oldnotificationPost.matePostTable.status != "removed"}
 <a href="@{GiveHelpController.matePostShowDetail(oldnotificationPost.matePostTable.id)}">${oldnotificationPost.matePostTable.title}</a>
+#{/if}
+#{else}
+${oldnotificationPost.matePostTable.title}
+#{/else}
 ${oldnotificationPost.notificationDate}
 ${oldnotificationPost.notificationMessage}
 #{/if}

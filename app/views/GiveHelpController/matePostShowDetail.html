@@ -100,7 +100,14 @@
 #{/if}
 <!-- End of Update Div -->    
     
-    
+
+<!--Start of Div where user will found a button which will show whether he want to Remove Post or Not  -->
+#{if session.get("userType") == "mate" && session.get("id") == post.postedBy.id.toString()}
+#{form @GiveHelpController.removePost(post.id), enctype:'multipart/form-data'}
+<input id="button_remove" type="submit" name="remove" value="Remove your post" />
+#{/form}
+#{/if}
+<!-- End of Remove Div -->
     
     
     

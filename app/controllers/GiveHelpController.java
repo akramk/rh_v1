@@ -447,6 +447,33 @@ timeStart and timeEnd string to Time variable.*/
 		
 	}
 	
+
+	/*
+	 * This function will remove the post of the Mate
+	 */
+	public static void removePost(Long postId) throws java.text.ParseException{
+		MatePostTable matePost = MatePostTable.findById(postId);
+		System.out.println("REMOVE REMOVE BY SEEKER: "+matePost.title);
+		matePost.status = "removed";
+		matePost.save();
+		
+		List <Seeker> seekerlists = matePost.seekersWantHelp;
+		for(Seeker s: seekerlists){
+			
+			Notification notify = new Notification();
+			notify.notificationMessage = matePost.title + " has been Removed";
+			notify.notificationDate = new Date();
+			notify.notifyThisSeeker=s;
+			notify.matePostTable=matePost;
+			notify.viewed = "false";
+			notify.create();
+			notify.save();	
+		}
+		SeekHelpController.seekHelpRedir(null, null, null, null);
+		
+		
+	}	
+	
 	
 	//this will show the detail of a seeker's post
 	public static void matePostShowDetail(Long id){
