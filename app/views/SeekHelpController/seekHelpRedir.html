@@ -1,71 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'SeekHelp' /}
 
-<div>
-#{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
-     || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
-     || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
-<h4 style="color:red; display: inline;">You Have Searched for: 
-  <h5 style= "display: inline;">
-  #{if location != null && location != ""}
-  Location: ${location}
-  #{/if}
-
-  #{if searchDateS != null && searchDateS != ""}
-  Date: ${searchDateS}
-  #{/if}
-
-  #{if timeStart != null && timeStart != "" && timeStart != "00:00:00"}
-  Start Time: ${timeStart}
-  #{/if}
-  
-  #{if timeEnd != null && timeEnd != "" && timeEnd != "23:59:00"}
-  End Time: ${timeEnd}
-  #{/if}   
-  </h5>  
-</h4>
-#{/if}
-</div>	
-
-
-<div class="container">
-		<table class="table table-hover">
-		  <thead>
-		    <tr>  	
-		      <th>Title</th>     
-		      <th>Date</th>
-		      <th>Location</th>
-		      <th>Seeker Applied</th>
-		      <th>Seekers Required</th> 
-		      <th>Post</th> 
-		      <th>Mate</th>
-		      <th>Start Time</th>
-		      <th>End Time </th>
-      
-		    </tr>
-		  </thead>
-		  <tbody id="seekHelpPostTable">
-		    #{list items:seekHelpPost, as:'p'}
-		    <tr>
-		      <td><a href="@{GiveHelpController.matePostShowDetail(p.id)}">${p.title}</a></td>  		        
-		      <td>${p.postdate.format('MM/dd/yyyy')}</td>
-		      <td>${p.location}</td>
-		      <td>${p.seekersApplied}</td>
-		      <td>${p.seekersRequired}</td>		      
-		      <td>${p.post}</td>
-			  <td><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></td>	
-		      <td>${p.timeStart}</td>
-		      <td>${p.timeEnd}</td>
-		      <td>
-		      </td>
-		    </tr>
-		    #{/list}
-		  </tbody>
-		</table>
-</div></div>
 
 <div class="section">
 <div class="container">
+<div class="login" style="width:300px;">
 <form id="seekHelpRedirForm1" action="/SeekHelpController/seekHelpRedir" enctype="multipart/form-data" >    
   
     <div id='seekHelpRedirForm_location_errorloc1'  style="color: red;" class='error_strings'>
@@ -143,27 +82,24 @@
     
     
     Date:<br>
-    <input type="text" id="datepicker" name="searchDateS" value=""/>
+    <input type="text" id="datepicker" name="searchDateS" value="" class="form-control"/>
     <br>
     
     
     Start Time:<br>
-    <input type="text"  name="timeStart" id="timeStartSearch"/>
+    <input type="text"  name="timeStart" id="timeStartSearch" class="form-control"/>
     <br>
 
       
     End Time:<br>
-    <input type="text"  name="timeEnd" id="timeEndSearch"/>
+    <input type="text"  name="timeEnd" id="timeEndSearch" class="form-control"/>
     <br>    
 
-    <input class="frm-btn" type="submit" value="Search!" />
+    <input class="form-control"" type="submit" value="Search!" />
 </form>
-</div></div>
+</div>
 
-
-
-<div class="section">
-<div class="container">
+<div class="login" style="width:300px;clear:right;">
 #{if session.get("userType") == "seeker"}
 <form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
 
@@ -281,12 +217,12 @@
   <div id='seekHelpRedirForm_post_errorloc' style="color: red;" class='error_strings'>  
   </div>  
   <label for="post">Message:</label>
-  <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
+  <textarea class="form-control"  name="post"  style="height: 81px; width: 260px; ">    
   </textarea>
   <br> 
   
   <div class="form-group">
-    <input type="submit" class="btn btn-default"  value="save" />
+    <input type="submit" class="form-control"  value="Save" />
   </div>
   
 </form>
@@ -298,6 +234,40 @@
 <h2 style="color:red;">Posting for Seeker only.</h2>
 </form>
 #{/else}
+</div>
+
+
+#{list items:seekHelpPost, as:'p'}
+	<div class="container seek">
+		<div class="post">	  
+		  <table id="seekHelpPostTable" class="table table-hover" width="600">
+		    
+		    <thead><th colspan="6"><h3>Help Available For:</h3></th></thead>
+
+		    <tr>
+		      <td width="90"><h4>Title:</h4></td><td colspan="5"><h4><a href="@{GiveHelpController.matePostShowDetail(p.id)}">${p.title}</a></h4></td>
+		    </tr>
+		    <tr>  		        
+		      <td>Seeker Applied:</td><td colspan="2" width="100"><b>${p.seekersApplied}</b></td>
+		      <td width="90">Seeker Required:</td><td colspan="2" width="200"><b>${p.seekersRequired}</b></td>
+		    </tr>
+		    <tr>
+		      <td colspan="3" align="right"><h4>Date:</h4></td><td colspan="3"><h4>${p.postdate.format('MM/dd/yyyy')}</h4></td>
+		    </tr>
+		    <tr>
+		      <td>Start Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="90"><b>${p.timeEnd}</b></td>
+		      <td width="100" align="right">Location:</td><td width="100"><b>${p.location}</b></td>
+		    </tr>
+		    <tr>
+		      <td><b>Post:</b></td><td colspan="3">${p.post}</td>
+		      <td width="100" align="right">Posted By:</td><td width="100"><b><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></b></td>
+		    </tr>
+		    
+		  </table>
+		</div>
+		#{/list}
+	  </div>	  
+
 </div></div>
 
 

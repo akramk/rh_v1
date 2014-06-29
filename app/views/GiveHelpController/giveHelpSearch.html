@@ -42,82 +42,13 @@
 
 <!-- End of singular click search -->
 
-<div>
-#{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
-     || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
-     || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
-<h4 style="color:red; display: inline;">You Have Searched for: 
-  <h5 style= "display: inline;">
-  #{if location != null && location != ""}
-  Location: ${location}
-  #{/if}
-
-  #{if searchDateS != null && searchDateS != ""}
-  Date: ${searchDateS}
-  #{/if}
-
-  #{if timeStart != null && timeStart != "" && timeStart != "00:00:00"}
-  Start Time: ${timeStart}
-  #{/if}
-  
-  #{if timeEnd != null && timeEnd != "" && timeEnd != "23:59:00"}
-  End Time: ${timeEnd}
-  #{/if}   
-  </h5>  
-</h4>
-#{/if}
-</div>	
-
-	
-
-<div class="container">
-		<table class="table table-hover">
-		  <thead>
-		    <tr>  	
-		      <th>Title</th>     
-		      <th>Date</th>
-		      <th>location</th>
-		      <th>Mate Applied</th>
-		      <th>Mates Required</th>		      
-		      <th>post</th> 
-		      <th>seeker</th>
-		      <th>Start Time</th>
-		      <th>End Time</th>
-		    
-		      
-		    </tr>
-		  </thead>
-		  <tbody id="giveHelpPostTable">
-		    #{list items:giveHelpPost, as:'p'}
-		    <tr>
-		      <td><a href="@{SeekHelpController.seekerPostShowDetail(p.id)}">${p.title}</a></td>  		        
-		      <td>${p.postdate.format('dd/MM/yyyy')}</td>
-		      <td>${p.location}</td>
-		      <td>${p.mateApplied}</td>
-		      <td>${p.matesRequired}</td>		      
-		      <td>${p.post}</td>
-		      <td><a href="@{ProfileController.profileView(p.seekerWhoPosted.userSeeker.id)}">${p.seeker}</a></td>
-		      <td>${p.timeStart}</td>
-		      <td>${p.timeEnd}</td>
-		      <td>
-<!-- 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
-		      <input type="hidden"  value ='${p.seeker}' name = "seeker"/>
-		      <input type="submit" value="Ready To Help" />
-		      #{/form} -->
-		      </td>
-		    </tr>
-		    #{/list}
-		  </tbody>
-		</table>
-</div>
-</div>
-
-
-
 
 <div class="section">
 <div class="container">
-  <form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" method="post"  enctype="multipart/form-data" > 
+<div class="login" style="width:300px;">
+
+<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" enctype="multipart/form-data" >    
+  
     <div id='giveHelpSearchForm_location_errorloc1'  style="color: red;" class='error_strings'>
     </div>
     Location:<br>
@@ -194,61 +125,30 @@
     <div id='giveHelpSearchForm_searchDateS_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Date:<br>
-    <input type="text" id="datepicker" name="searchDateS" value=""/>
+    <input type="text" id="datepicker" name="searchDateS" value="" class="form-control"/>
     <br>
     
     <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Start Time:<br>
-    <input type="text" name="timeStart" id="timeStart"/>
+    <input type="text" name="timeStart" id="timeStart" class="form-control"/>
     <br>
 
     <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
     </div>  
     End Time:<br>
-    <input type="text" name="timeEnd" id="timeEnd"/>
+    <input type="text" name="timeEnd" id="timeEnd" class="form-control"/>
     <br>    
 
-    <input class="frm-btn" type="submit" value="Search!" />
+    <input class="form-control" type="submit" value="Search!" />
 </form>
-</div></div>
 
-
-<!-- <script language="JavaScript" type="text/javascript">
-  $('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
-  $('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
-  
-  $('#giveHelpSearchForm').submit(function(event){
-		 var strtTm=$('#timeStart').val();
-		 var endTm=$('#timeEnd').val();
-		 if(endTm<=strtTm){
-		 	alert("End time should be greater than Start time");
-		 	event.preventDefault();
-			return false;
-		 }
-		 
-	});
-
-  var frmvalidator  = new Validator("giveHelpSearchForm");
-  frmvalidator.EnableOnPageErrorDisplay();
-  frmvalidator.EnableMsgsTogether();
- 
-  /* frmvalidator.addValidation("location","Please enter location"); */
-  frmvalidator.addValidation("location","dontselect=0");
-  frmvalidator.addValidation("searchDate","Please enter Date");
-  
-  frmvalidator.addValidation("timeStart","Please enter start time");
-  
-  frmvalidator.addValidation("timeEnd","Please enter end time");
- 
-    
-</script> -->
+</div>
 
 
 
 <!-- Form where mate can post when he can help -->
-<div class="section">
-<div class="container">
+<div class="login" style="width:300px;clear:right;">
 #{if session.get("userType") == "mate"}
 <form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" > 
   <div id='matePostForm_seeker_errorloc' style="color: red;" class='error_strings'>    
@@ -365,15 +265,15 @@
   <div id='matePostForm_post_errorloc' style="color: red;" class='error_strings'>  
   </div>  
   <label for="post">Message:</label>
-  <textarea class="form-control"  name="post"  style="height: 81px; width: 251px; ">    
+  <textarea class="form-control"  name="post"  style="height: 81px; width: 260px; ">    
   </textarea>
   <br> 
   
   <div class="form-group">
-    <input type="submit" class="btn btn-default"  value="save" />
+    <input type="submit" class="form-control"  value="Save" />
   </div>
   
-</form></div></div>
+</form>
 
 #{/if}
 
@@ -381,8 +281,105 @@
 #{else}
 <form id="matePostForm" action="/GiveHelpController/giveHelpPost" enctype="multipart/form-data" > 
 <h2 style="color:red;">Advertise for seeker</h2>
+
 </form>
 #{/else}
+</div>
+
+
+
+		<!--  <table class="table table-hover">
+		  <thead>
+		    <tr>  	
+		      <th>Title</th>     
+		      <th>Date</th>
+		      <th>location</th>
+		      <th>mateApplied</th>
+		      <th>matesRequired</th>		      
+		      <th>post</th> 
+		      <th>seeker</th>
+		      <th>timeEnd</th>
+		      <th>timeStart</th>
+		    
+		      
+		    </tr>
+		  </thead>
+		  <tbody id="giveHelpPostTable"> -->
+
+
+#{list items:giveHelpPost, as:'p'}
+	<div class="container seek">
+		<div class="post">
+		   <table id="giveHelpPostTable" class="table table-hover" width="600">
+		   
+		   	 <thead><th colspan="6"><h3>Give Help For:</h3></th></thead>
+		   	  
+		   	 <tr>
+		      <td width="90"><h4>Title:</h4></td><td colspan="5"><h4><a href="@{SeekHelpController.seekerPostShowDetail(p.id)}">${p.title}</a></h4></td>
+		     </tr>
+		     <tr>
+		      <td>Mate Applied:</td><td colspan="2" width="100"><b>${p.mateApplied}</b></td>
+		      <td width="90">Make Required:</td><td colspan="2" width="200"><b>${p.matesRequired}</b></td>
+		     </tr>
+		     <tr>  		        
+		      <td colspan="3" align="right"><h4>Date:</h4></td><td colspan="3"><h4>${p.postdate.format('dd/MM/yyyy')}</h4></td>
+		     </tr>
+		     <tr>
+		      <td>Start Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="90"><b>${p.timeEnd}</b></td>
+		      <td width="100" align="right">Location:</td><td width="100"><b>${p.location}</b></td>
+		     </tr>
+		     <tr>
+		      <td><b>Post:</b></td><td colspan="3">${p.post}</td>
+		      <td width="100" align="right">Posted By:</td><td width="100"><b><a href="@{ProfileController.profileView(p.seekerWhoPosted.userSeeker.id)}">${p.seeker}</a></b></td>
+		     </tr>
+<!-- 		      #{form @GiveHelpController.mateIncrementer(), enctype:'multipart/form-data'}
+		      <input type="hidden"  value ='${p.seeker}' name = "seeker"/>
+		      <input type="submit" value="Ready To Help" />
+		      #{/form} -->
+		      </td>
+		    </tr>
+		    
+		    </table>
+		    </div>
+		    #{/list}
+		  </div>
+	
+	</div></div>
+
+
+
+
+<!-- <script language="JavaScript" type="text/javascript">
+  $('#timeStart').timepicker({ 'timeFormat': 'H:i:s' });
+  $('#timeEnd').timepicker({ 'timeFormat': 'H:i:s' });
+  
+  $('#giveHelpSearchForm').submit(function(event){
+		 var strtTm=$('#timeStart').val();
+		 var endTm=$('#timeEnd').val();
+		 if(endTm<=strtTm){
+		 	alert("End time should be greater than Start time");
+		 	event.preventDefault();
+			return false;
+		 }
+		 
+	});
+
+  var frmvalidator  = new Validator("giveHelpSearchForm");
+  frmvalidator.EnableOnPageErrorDisplay();
+  frmvalidator.EnableMsgsTogether();
+ 
+  /* frmvalidator.addValidation("location","Please enter location"); */
+  frmvalidator.addValidation("location","dontselect=0");
+  frmvalidator.addValidation("searchDate","Please enter Date");
+  
+  frmvalidator.addValidation("timeStart","Please enter start time");
+  
+  frmvalidator.addValidation("timeEnd","Please enter end time");
+ 
+    
+</script> -->
+
+
 
 
 <script language="JavaScript" type="text/javascript">
