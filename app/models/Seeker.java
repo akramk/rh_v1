@@ -19,7 +19,7 @@ public class Seeker extends Model{
 	@OneToOne
 	public User userSeeker;
 	
-	@OneToMany 
+	@OneToMany (cascade=CascadeType.ALL)
     public List<SeekerPostTable> posts = new LinkedList<>();
     
     @ManyToMany

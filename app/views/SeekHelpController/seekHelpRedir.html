@@ -1,5 +1,32 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'SeekHelp' /}
+
+<div>
+#{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
+     || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
+     || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
+<h4 style="color:red; display: inline;">You Have Searched for: 
+  <h5 style= "display: inline;">
+  #{if location != null && location != ""}
+  Location: ${location}
+  #{/if}
+
+  #{if searchDateS != null && searchDateS != ""}
+  Date: ${searchDateS}
+  #{/if}
+
+  #{if timeStart != null && timeStart != "" && timeStart != "00:00:00"}
+  Start Time: ${timeStart}
+  #{/if}
+  
+  #{if timeEnd != null && timeEnd != "" && timeEnd != "23:59:00"}
+  End Time: ${timeEnd}
+  #{/if}   
+  </h5>  
+</h4>
+#{/if}
+</div>	
+
 
 <div class="container">
 		<table class="table table-hover">
@@ -9,13 +36,12 @@
 		      <th>Date</th>
 		      <th>Location</th>
 		      <th>Seeker Applied</th>
-		      <th>seeker Required</th>		      
+		      <th>Seekers Required</th> 
 		      <th>Post</th> 
 		      <th>Mate</th>
-		      <th>End Time </th>
 		      <th>Start Time</th>
-		    
-		      
+		      <th>End Time </th>
+      
 		    </tr>
 		  </thead>
 		  <tbody id="seekHelpPostTable">
@@ -27,18 +53,19 @@
 		      <td>${p.seekersApplied}</td>
 		      <td>${p.seekersRequired}</td>		      
 		      <td>${p.post}</td>
-		      ${p.postedBy.userMate.id}
 			  <td><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></td>	
-		      <td>${p.timeEnd}</td>
 		      <td>${p.timeStart}</td>
+		      <td>${p.timeEnd}</td>
 		      <td>
 		      </td>
 		    </tr>
 		    #{/list}
 		  </tbody>
 		</table>
-</div>
+</div></div>
 
+<div class="section">
+<div class="container">
 <form id="seekHelpRedirForm1" action="/SeekHelpController/seekHelpRedir" enctype="multipart/form-data" >    
   
     <div id='seekHelpRedirForm_location_errorloc1'  style="color: red;" class='error_strings'>
@@ -131,11 +158,12 @@
 
     <input class="frm-btn" type="submit" value="Search!" />
 </form>
+</div></div>
 
 
 
-
-
+<div class="section">
+<div class="container">
 #{if session.get("userType") == "seeker"}
 <form id="seekHelpRedirForm" action="/SeekHelpController/seekHelp" enctype="multipart/form-data" >
 
@@ -270,6 +298,7 @@
 <h2 style="color:red;">Posting for Seeker only.</h2>
 </form>
 #{/else}
+</div></div>
 
 
 <script language="JavaScript" type="text/javascript">

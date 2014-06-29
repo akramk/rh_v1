@@ -1,17 +1,22 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Registration' /}
 
- <form id="RegisterForm" action="/RegistrationController/register" enctype="multipart/form-data" >
+
+<div class="section">
+<div class="container">
+ 	<div class="login">
+
+ 	<form id="RegisterForm" action="/RegistrationController/register" enctype="multipart/form-data" >
     
     
     <div id='RegisterForm_ssID_errorloc' style="color: red;" class='error_strings'>    
     </div>
     <div>
 	    
-	    <label for="ssID">Social Security ID:</label>
+	    <label for="ssID"><h4>Social Security ID:</h4></label>
 	    <br style="clear: both;">
 	    <div style="float: left;">
-	    <input class="form-control"  type="text" name="ssID" id="socialSecurityId" value="" />
+	    <input class="form-control"  type="text" name="ssID" id="socialSecurityId" value="" size="25" />
 	    </div>
 	    <div id="assetLoading" style="float: left;"></div>
     </div>
@@ -20,54 +25,68 @@
     <div id='RegisterForm_userName_errorloc' style="color: red;" class='error_strings'>    
     </div>
     <div>
-    <label for="userName" style="width: 100px;">Name:</label>
+    <label for="userName" style="width: 120px;"><h4>Name:</h4></label>
     <label name="userName" id="userName"></label>
     </div>
-    <br>
     
     <div id='RegisterForm_birthDate_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="birthDate" style="width: 100px;">Date of Birth :</label>
+    <label for="birthDate" style="width: 120px;"><h4>Date of Birth:</h4></label>
     
     <label name="birthDate" id="birthDate" ></label>
     <br>
     
     <div id='RegisterForm_address_errorloc' style="color: red;" class='error_strings'>    
     </div>
-    <label for="address" style="width: 100px;">Address:</label>
+    <label for="address" style="width: 120px;"><h4>Address:</h4></label>
     <label name="address" id="address"></label>
     <br>
     
     <div id='RegisterForm_email_errorloc' style="color: red;" class='error_strings'>
     </div>    
-    User ID:<br>
-    <input type="text" name="email" />    
+    <h4>User ID:</h4>
+    <input class="form-control" type="text" name="email" size="25" />    
     <br>
      
     <div id='RegisterForm_pwd_errorloc' style="color: red;" class='error_strings'>
     </div>  
-    Password:<br>
-    <input type="password" id="pawd" size="25" name="pwd" />
+    <h4>Password:</h4>
+    <input class="form-control" type="password" id="pawd" size="25" name="pwd" />
     <br> 
     
     <div id='RegisterForm_rePwd_errorloc' style="color: red;" class='error_strings'>
     </div>  
-    Repassword:<br>
-    <input type="password" id="rePassword" size="25" name="rePwd" />
+    <h4>Repeat the password:</h4>
+    <input class="form-control" type="password" id="rePassword" size="25" name="rePwd" />
     <br> 
     
     <div id='RegisterForm_type_errorloc' style="color: red;" class='error_strings'>
     </div>
-      User Type:<br>
+    <h4>User Type:</h4>
       <select name = "type">
           <option value="0" selected>Select
           <option value="seeker" >Seeker
           <option value="mate">Helpmate
       </select>
-    <input type="submit" class="btn btn-lg btn-primary pull-right" onclick="passMatchFunction()"  value="Register" />
+      <br><br><br>
+    <div class="col-lg-5"><input type="submit" class="btn btn-lg btn-primary pull-right" onclick="passMatchFunction()"  value="Register" /></div>
      <label for="male">${errorMessage}</label>
     
-</form> 
+	</form>
+	</div>
+	
+	<div class="container home">
+
+	<h2>We are serving the Humanity...............</h2> <br>
+	<h4>People who are not able to do physical work and have their works to be done, such as collecting papers from office and bank they can post regarding help on "Restore Humanity".<br><br>
+	Young people who have time to invest for Humanity and eager to serve the society can schedule here their of availability.</h4><br><br>
+	<div class="container img"><img src="@{'/public/images/help-home.jpg'}" width="350" /></div><br><br><br><br><br><br>
+	<div><i>A help mate is helping an old woman to go to visit doctor.....</i></div><br>
+	<div class="container home" style="position:relative;float:left;"><br><h4>Help mate has to be registered to ask for help. If he fails to found any of the respective mates from the lists then he will press the <a href="@{SeekHelpController.SeekHelp}"><b>&ldquo;Seek Help&rdquo;</b></a> button to ask for help providing necessary information. To narrow the lists of the mates&rsquo; posts seekers can use the search button filling and choosing various criterion.</h4></div>
+
+	</div>
+	
+</div></div>
 
 
 

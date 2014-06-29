@@ -25,13 +25,13 @@ public class SeekHelpController extends Controller {
 			{
 				System.out.println("Entered in first if cond.");
 				List<MatePostTable> seekHelpPost=seekHelpSearch(null, null, null, null);
-				render(seekHelpPost);
+				render(seekHelpPost, location,searchDateS, timeStart, timeEnd);
 			}
 			else
 			{
 				System.out.println("Entered in first else cond.");
 				List<MatePostTable> seekHelpPost=seekHelpSearch(location, searchDateS, timeStart, timeEnd);
-				render(seekHelpPost);
+				render(seekHelpPost, location,searchDateS, timeStart, timeEnd);
 			}
 		
 	}
@@ -281,6 +281,34 @@ public class SeekHelpController extends Controller {
 		
 	}
 
+	
+	/*
+	 * This function will remove the post of the Seeker
+	 */
+	public static void removePost(Long postId) throws java.text.ParseException{
+		SeekerPostTable seekerPost=SeekerPostTable.findById(postId);
+		System.out.println("REMOVE REMOVE BY SEEKER: "+seekerPost.title);
+		seekerPost.status = "removed";
+		seekerPost.save();
+		
+		List <Mate> matelists = seekerPost.matesWantToHelp;
+		for(Mate m: matelists){
+			
+			Notification notify = new Notification();
+			notify.notificationMessage = seekerPost.title + " has been Removed";
+			notify.notificationDate = new Date();
+			notify.notifyThisMate=m;
+			notify.seekerPostTable=seekerPost;
+			notify.viewed = "false";
+			notify.create();
+			notify.save();	
+		}
+		GiveHelpController.giveHelp();
+		
+		
+	}
+	
+	
 	/*
 	@param location
 	@param searchDate
@@ -364,7 +392,7 @@ public class SeekHelpController extends Controller {
 				System.out.println("Last Else IF Value Found: " + timeStart + "----" + timeEnd + "Location" 
 			      + location + "Date" + searchDate);
 	
-				if (searchDate == null) {
+				if (searchDate == null || searchDateS.equals("")) {
 					// if user does not give any date then it will automatically get the date of 01/01/1990. 
 					//because we dont have any entry obviously before 1990
 					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -379,13 +407,28 @@ public class SeekHelpController extends Controller {
 				if (timeEnd.equalsIgnoreCase("")) {//when user dont give any end time it gets the 00hh 00mm and 00ss
 					timeEnd = "23:59:00";
 				}
-				
-				seekHelpPost = MatePostTable
+				if(searchDate == null || searchDateS.equals(""))
+					{
+					seekHelpPost = MatePostTable
 						.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ?",
 								searchDate, '%'+location+'%',
 								java.sql.Time.valueOf(timeStart),
 								java.sql.Time.valueOf(timeEnd)).fetch();
-				return seekHelpPost;
+					System.out.println("IF:"+seekHelpPost.size());
+					return seekHelpPost;
+					}
+				else{
+					seekHelpPost = MatePostTable
+							.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ?",
+									searchDate, '%'+location+'%',
+									java.sql.Time.valueOf(timeStart),
+									java.sql.Time.valueOf(timeEnd)).fetch();
+					System.out.println("ELSE:"+seekHelpPost.size());
+						return seekHelpPost;
+					
+				}
+				
+				//return seekHelpPost;
 			}
 		/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 			else {
