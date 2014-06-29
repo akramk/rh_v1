@@ -19,9 +19,9 @@
     #{/if}
     
     #{if post.status == "open" && session.get("userType") == "seeker" && mateFound == true}
-     #{form @SeekHelpController.seekerRevokeHelpNeeded(), enctype:'multipart/form-data'}
+     #{form @SeekHelpController.seekerRevokeHelpNeeded(), id: "revokeHelpReqForm", enctype:'multipart/form-data'}
     <input type="hidden"  value ='${post.id}' name = "postId"/>
-    <input type="submit" value="I want to Revoke My Request" />
+    <input type="button" id="revokeHelpReqBttn" onclick="$('#dialog-revokeHelpReq').dialog('open')" value="I want to Revoke My Request" />
     #{/form}
     #{/if}
     
@@ -167,9 +167,31 @@
          #{/list}
         
     </div>
-    
+ <div id="dialog-revokeHelpReq" title="Verify your action">
+<p>Are you sure to revoke your help request?.</p>
+</div>   
     
 <script language="JavaScript" type="text/javascript">  
+$(function(){        
+    // jQuery UI Dialog    
+            
+    $('#dialog-revokeHelpReq').dialog({
+        autoOpen: false,
+        width: 400,
+        modal: true,
+        resizable: false,
+        buttons: {
+            "Yes": function() {
+            	$('#revokeHelpReqForm').submit();
+				$(this).dialog("close");
+            },
+            "Cancel": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+    
+});
 function showDiv() {
 	
 	if (document.getElementById('updateDiv').style.display !== 'none') {
