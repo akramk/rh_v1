@@ -241,6 +241,7 @@
 	<div class="container seek">
 		<div class="post">	  
 		  <table id="seekHelpPostTable" class="table table-hover" width="600">
+		    
 		    <thead><th colspan="6"><h3>Help Available For:</h3></th></thead>
 
 		    <tr>
@@ -259,7 +260,7 @@
 		    </tr>
 		    <tr>
 		      <td><b>Post:</b></td><td colspan="3">${p.post}</td>
-		      <td width="100" align="right">Posted By:</td><td width="100"><b>${p.postedBy.userMate.id}<a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></b></td>
+		      <td width="100" align="right">Posted By:</td><td width="100"><b><a href="@{ProfileController.profileView(p.postedBy.userMate.id)}">${p.postedBy.userMate.firstName}</a></b></td>
 		    </tr>
 		    
 		  </table>
