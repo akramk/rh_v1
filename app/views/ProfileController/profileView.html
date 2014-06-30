@@ -2,23 +2,15 @@
 #{set title:'Profile' /}
 
 
-#{if session.get("user_id") == user.id.toString()}
-<p>Hello! <b>${user.type}</b>, ${user.firstName} Welcome to your profile</p>
-#{/if}
-
-
-Details:
-<div>
-<p>Name: ${user.firstName + " "+ user.lastName}</p>
-<p>Email: ${user.email}</p>
-<p>Date of Birth: ${user.dateofBirth.cut('00:00:00.0')}</p>
-<p>Address: House: ${user.address.houseNumber}, Street: ${user.address.street}</p>
-<P>${user.address.zipCode}, ${user.address.city}, ${user.address.country}</P>
-</div>
+<div class="section">
+<div class="container">
+<div class="post">
 
 
 
 <!-- This div is for the posts opened by Seeker -->
+
+<div class="login" style="width:450px;">
 <h2>Events from Seekers side:</h2>
 <div>
 #{if openedEvents.size() > 0}
@@ -58,10 +50,11 @@ Details:
 <h4>No Completed Events.</h4>
 #{/else}
 </div>
-
+</div>
 
 <!-- This div is for the posts opened by Mate -->
 
+<div class="login" style="width:450px;clear:right;">
 <h2>Events opened from Mates side:</h2>
 <div>
 #{if openedEventsofMatePost.size() > 0}
@@ -101,3 +94,23 @@ Details:
 <h4>No Completed Events from Mate.</h4>
 #{/else}
 </div>
+</div>
+
+
+#{if session.get("user_id") == user.id.toString()}
+<p><h2>Hello!</h2> <h3>${user.type}, <b>${user.firstName}</b> Welcome to your profile</h3></p>
+#{/if}
+<br><br>
+
+<h4>Details:</h4><br>
+<div>
+<p><b>Name:</b> ${user.firstName + " "+ user.lastName}</p>
+<p><b>Email:</b> ${user.email}</p>
+<p><b>Date of Birth:</b> ${user.dateofBirth.cut('00:00:00.0')}</p>
+<p><b>Address:</b><br> House: ${user.address.houseNumber}, Street: ${user.address.street}</p>
+<P>${user.address.zipCode}, ${user.address.city}, ${user.address.country}</P>
+<br><br><br><br><br><br><br><br><br>
+</div>
+
+
+</div></div></div>

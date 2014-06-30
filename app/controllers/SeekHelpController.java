@@ -369,10 +369,11 @@ public class SeekHelpController extends Controller {
 			else if ((!location.equalsIgnoreCase("")) && (searchDate != null)&& (!timeStart.equals("")) 
 					&& (!timeEnd.equals(""))) 
 			{
-				seekHelpPost = MatePostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+				seekHelpPost = MatePostTable.
+						find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ? and status=?",
 								searchDate, location,
 								java.sql.Time.valueOf(timeStart),
-								java.sql.Time.valueOf(timeEnd)).fetch();
+								java.sql.Time.valueOf(timeEnd), "open").fetch();
 				System.out.println("ALL NOT NULL");
 				return seekHelpPost;
 			}
@@ -381,7 +382,7 @@ public class SeekHelpController extends Controller {
 			else if ((location == null || location.equalsIgnoreCase("")) && (searchDate == null || searchDate.equals(""))
 					&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
 			{
-				seekHelpPost= MatePostTable.findAll();
+				seekHelpPost= MatePostTable.find("status like ?", "open").fetch();
 				/*System.out.println("Condition 3");*/
 				return seekHelpPost;
 			}
@@ -410,19 +411,19 @@ public class SeekHelpController extends Controller {
 				if(searchDate == null || searchDateS.equals(""))
 					{
 					seekHelpPost = MatePostTable
-						.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ?",
+						.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ? and status=?",
 								searchDate, '%'+location+'%',
 								java.sql.Time.valueOf(timeStart),
-								java.sql.Time.valueOf(timeEnd)).fetch();
+								java.sql.Time.valueOf(timeEnd), "open").fetch();
 					System.out.println("IF:"+seekHelpPost.size());
 					return seekHelpPost;
 					}
 				else{
 					seekHelpPost = MatePostTable
-							.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ?",
+							.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ? and status = ?",
 									searchDate, '%'+location+'%',
 									java.sql.Time.valueOf(timeStart),
-									java.sql.Time.valueOf(timeEnd)).fetch();
+									java.sql.Time.valueOf(timeEnd), "open").fetch();
 					System.out.println("ELSE:"+seekHelpPost.size());
 						return seekHelpPost;
 					
@@ -432,7 +433,7 @@ public class SeekHelpController extends Controller {
 			}
 		/*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 			else {
-				seekHelpPost = MatePostTable.findAll();
+				seekHelpPost = MatePostTable.find("status like ?", "open").fetch();
 				System.out.println("Condition Final");
 				return seekHelpPost;
 			}
