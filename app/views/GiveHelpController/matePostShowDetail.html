@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Mate detail' /}
-
+<div style="margin-left: 200px;">
     <h2 class="post-title">
         <a href="@{GiveHelpController.matePostShowDetail(post.id)}">${post.title}</a>
     </h2>
@@ -173,6 +173,7 @@
             </div>
          #{/list}
         
+    </div>
     </div>
  <div id="dialog-revokeHelpReq" title="Verify your action">
 <p>Are you sure to revoke your help request?.</p>

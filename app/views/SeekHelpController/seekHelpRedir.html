@@ -275,13 +275,13 @@
 		    </tr>
 		    <tr>  		        
 		      <td>Seeker Applied:</td><td colspan="2" width="100"><b>${p.seekersApplied}</b></td>
-		      <td width="90">Seeker Required:</td><td colspan="2" width="200"><b>${p.seekersRequired}</b></td>
+		      <td width="90">Can help:</td><td colspan="2" width="200"><b>${p.seekersRequired}</b> seeker${p.seekersRequired.pluralize()}</td>
 		    </tr>
 		    <tr>
 		      <td colspan="3" align="right"><h4>Date:</h4></td><td colspan="3"><h4>${p.postdate.format('MM/dd/yyyy')}</h4></td>
 		    </tr>
 		    <tr>
-		      <td>Start Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="90"><b>${p.timeEnd}</b></td>
+		      <td>Time:</td><td width="100"><b>${p.timeStart}</b></td><td width="50">to</td><td width="90"><b>${p.timeEnd}</b></td>
 		      <td width="100" align="right">Location:</td><td width="100"><b>${p.location}</b></td>
 		    </tr>
 		    <tr>

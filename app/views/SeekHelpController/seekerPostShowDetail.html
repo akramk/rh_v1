@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Seeker Detail' /}
-
+<div style="margin-left: 200px;">
     <h2 class="post-title">
         <a href="@{SeekHelpController.seekerPostShowDetail(post.id)}">${post.title}</a>
     </h2>
@@ -173,7 +173,7 @@
          #{/list}
         
     </div>
-
+</div>
 <div id="dialog-revokeConfirm" title="Verify your action">
 <p>Are you sure to revoke help?.</p>
 </div> 
