@@ -36,7 +36,7 @@ public class LogInController extends Controller {
 			System.out.println("Null or blank found all");
 //			DataFill dt = new DataFill();
 //			dt.dataFiller();
-			session.clear();
+//			session.clear();
 			render();
 
 		}
@@ -103,6 +103,11 @@ public class LogInController extends Controller {
 		return 0;
 	
 		
+		
+	}
+	public static void logOut() throws ParseException, java.text.ParseException{
+		session.clear();
+		LogInController.logIn(null, null, null);
 		
 	}
 	

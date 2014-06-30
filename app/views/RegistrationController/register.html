@@ -6,7 +6,7 @@
 <div class="container">
  	<div class="login">
 
- 	<form id="RegisterForm" action="/RegistrationController/register" enctype="multipart/form-data" >
+ 	<form method="post" id="RegisterForm" action="/RegistrationController/register" enctype="multipart/form-data" >
     
     
     <div id='RegisterForm_ssID_errorloc' style="color: red;" class='error_strings'>    
@@ -44,7 +44,7 @@
     
     <div id='RegisterForm_email_errorloc' style="color: red;" class='error_strings'>
     </div>    
-    <h4>User ID:</h4>
+    <h4>Email ID:</h4>
     <input class="form-control" type="text" name="email" size="25" />    
     <br>
      
@@ -70,7 +70,7 @@
       </select>
       <br><br><br>
     <div class="col-lg-5"><input type="submit" class="btn btn-lg btn-primary pull-right" onclick="passMatchFunction()"  value="Register" /></div>
-     <label for="male">${errorMessage}</label>
+     <label style="color: red;" for="male">${errorMessage}</label>
     
 	</form>
 	</div>
@@ -96,7 +96,7 @@
 		$.get(url({ssID: $('#socialSecurityId').val()}), function(data) {
 			var json=data;
 	         if (json[3] != null) {
-	             $('#assetLoading').html('<label>'+json[3]+'</label>');
+	             $('#assetLoading').html('<label style="color: red;">'+json[3]+'</label>');
 	             $('#userName').text('N/A');
 	             $('#birthDate').text('N/A');
 	             $('#address').text('N/A');
@@ -131,7 +131,7 @@
 </script>
 
 <script>
-    function passMatchFunction() {
+    function passMatchFunction(e) {
         var pass1 = document.getElementById("pawd").value;
         var pass2 = document.getElementById("rePassword").value;
         if (pass1 != pass2) {
@@ -139,7 +139,7 @@
             document.getElementById("pawd").style.borderColor = "#E34234";
             document.getElementById("rePassword").style.borderColor = "#E34234";
             alert("Passwords missmatch!!!");
-            
+            e.preventdefault();
             return false;
         }
     }

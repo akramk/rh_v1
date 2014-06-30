@@ -42,11 +42,11 @@
 
 <!-- End of singular click search -->
 
-<div>
+<div style="text-align: center;margin-top: 20px;">
 #{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
      || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
      || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
-<h4 style="color:red; display: inline;">You Have Searched for: 
+<h4 style="display: inline;">You Have Searched for: 
   <h5 style= "display: inline;">
   #{if location != null && location != ""}
   Location: ${location}
@@ -118,6 +118,7 @@
 <div class="section">
 <div class="container">
   
+<form id="giveHelpSearchForm" action="/GiveHelpController/giveHelpSearch" method="post"  enctype="multipart/form-data" >
     <div id='giveHelpSearchForm_location_errorloc1'  style="color: red;" class='error_strings'>
     </div>
     Location:<br>
