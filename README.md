@@ -17,3 +17,5 @@ Install:
 1. mysql-5.1.73-winx64
 2. mysql-workbench-community-6.1.6-win32
 
+
+For the login please check the rh_v2 and user table for email and password information of specific user.
