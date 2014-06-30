@@ -111,10 +111,11 @@ timeStart and timeEnd string to Time variable.*/
 				&& (!timeEnd.equals(""))) 
 		{
 			System.out.println(searchDate);
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ?",
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.
+					find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ? and status = ?",
 							searchDate, location,
 							java.sql.Time.valueOf(timeStart),
-							java.sql.Time.valueOf(timeEnd)).fetch();
+							java.sql.Time.valueOf(timeEnd), "open").fetch();
 			
 			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
 		}
@@ -123,7 +124,7 @@ timeStart and timeEnd string to Time variable.*/
 		else if ((location == null || location.equalsIgnoreCase("")) && (searchDate == null || searchDate.equals(""))
 				&& (timeStart == null || timeStart.equals("")) && (timeEnd == null || timeEnd.equals(""))) 
 		{
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("status = ?", "open").fetch();
 			System.out.println("Condition 3");
 			System.out.println(location.length());
 			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
@@ -155,27 +156,27 @@ timeStart and timeEnd string to Time variable.*/
 			if(searchDate == null || searchDateS.equals(""))
 			{
 				List<SeekerPostTable> giveHelpPost = SeekerPostTable
-						.find("postdate >= ?  and location like ? and timeStart >= ? and timeEnd <= ?",
+						.find("postdate >= ?  and location like ? and timeStart >= ? and timeEnd <= ? and status = ?",
 								searchDate, '%'+location+'%',
 								java.sql.Time.valueOf(timeStart),
-								java.sql.Time.valueOf(timeEnd)).fetch();
+								java.sql.Time.valueOf(timeEnd), "open").fetch();
 //			System.out.println("SEEKER WHO POSTED ID: "+giveHelpPost.get(0).seekerWhoPosted.userSeeker.id);
 				render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 			}
 			else
 			{
 				List<SeekerPostTable> giveHelpPost = SeekerPostTable
-						.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ?",
+						.find("postdate = ? and location like ? and timeStart >= ? and timeEnd <= ? and status = ?",
 								searchDate, '%'+location+'%',
 								java.sql.Time.valueOf(timeStart),
-								java.sql.Time.valueOf(timeEnd)).fetch();
+								java.sql.Time.valueOf(timeEnd), "open").fetch();
 				render(giveHelpPost, location,searchDateS, timeStart, timeEnd);
 			}
 
 		}
 	    /*This works automatically when all cases fail then it will fetch all the messages post from the table.*/	
 		else {
-			List<SeekerPostTable> giveHelpPost = SeekerPostTable.findAll();
+			List<SeekerPostTable> giveHelpPost = SeekerPostTable.find("status like ?", "open").fetch();
 			System.out.println("Condition Final");
 			render(giveHelpPost);
 		}

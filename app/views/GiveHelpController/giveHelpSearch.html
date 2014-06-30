@@ -43,6 +43,36 @@
 <!-- End of singular click search -->
 
 
+<div class = "container" style = "margin-bottom: -30px; margin-top: 10px">
+#{if (location != null && location != "") || (searchDateS != null && searchDateS != "") 
+     || (timeStart != null && timeStart != "" && timeStart != "00:00:00")
+     || (timeEnd != null && timeEnd != "" && timeEnd != "23:59:00")}
+<h4 style="color:#2c3e50; display: inline;">You Have Searched for: 
+  <h5 style= "display: inline;">
+  #{if location != null && location != ""}
+  <label style="font-weight:600;">Location:</label> ${location}
+  #{/if}
+
+  #{if searchDateS != null && searchDateS != ""}
+  &nbsp <label style="font-weight:600;">Date:</label> ${searchDateS}
+  #{/if}
+
+  #{if timeStart != null && timeStart != "" && timeStart != "00:00:00"}
+  &nbsp <label style="font-weight:600;">Start Time:</label> ${timeStart}
+  #{/if}
+  
+  #{if timeEnd != null && timeEnd != "" && timeEnd != "23:59:00"}
+  &nbsp <label style="font-weight:600;">End Time:</label> ${timeEnd}
+  #{/if}   
+  </h5>  
+</h4>
+#{/if}
+</div>	
+
+
+
+
+
 <div class="section">
 <div class="container">
 <div class="login" style="width:300px;">
