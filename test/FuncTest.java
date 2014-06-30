@@ -1,3 +1,4 @@
+/*
 import org.junit.*;
 
 import java.sql.Time;
@@ -89,3 +90,4 @@ public class FuncTest extends FunctionalTest {
 	}
 
 }
+*/
