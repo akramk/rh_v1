@@ -16,11 +16,11 @@ public class DataFill {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		//insert data in user info
 		Date dateOfBirth =  dateFormat.parse("25/05/1965");
-		UserInfo userInfo= new UserInfo("DE1024", "Richard", "John", "male", dateOfBirth, "15", "Dulferstrasse", "80937", "Munich", "Germany");
+		UserInfo userInfo= new UserInfo("DE1024", "Asgar", "Ali", "male", dateOfBirth, "15", "Mirpur", "1240", "Dhaka", "Bangladesh");
 		userInfo.create();
 		
-		Date date =  dateFormat.parse("25/05/1965");
-		User userseeker = new User("12345ks","Mask", "Rip", date, "mask@gmail.com", "seeker1", "seeker", "accepted");
+		Date date =  dateFormat.parse("25/05/1975");
+		User userseeker = new User("12345ks","Ahmed", "Rabbi", date, "rabbi@gmail.com", "seeker1", "seeker", "accepted");
 		Address address = new Address("21", "ABC", "sadhj", "Rajshahi", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
@@ -32,7 +32,7 @@ public class DataFill {
 		
 		
 		userseeker = new User("25546s", "Riz", "Bon", date, "riz@gmail.com", "seeker2", "seeker", "applied");
-		address = new Address("42", "3sd", "43dsa", "Rajshahi", "Bangladesh");
+		address = new Address("42", "3sd", "43dsa", "Netrokona", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
 		userseeker.create();
@@ -52,7 +52,7 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
-		usermate = new User("254s6e", "Alex", "Rass",date, "alex@gmail.com", "mate2", "mate", "applied");
+		usermate = new User("254s6e", "Abir", "Rasel",date, "rasel@gmail.com", "mate2", "mate", "applied");
 		address = new Address("das", "re", "re", "Rajshahi", "Bangladesh");
 		address.userAddress = usermate;
 		usermate.address = address;
@@ -62,7 +62,7 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
-		userseeker = new User("Martha2", "Martha", "Robert", date, "mar@gmail.com", "seeker3", "seeker", "applied");
+		userseeker = new User("Martha2", "Ahmed", "Azfar", date, "mar@gmail.com", "seeker3", "seeker", "applied");
 		address = new Address("sda", "fggf", "43dsa", "Dhaka", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
