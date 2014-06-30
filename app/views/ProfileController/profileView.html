@@ -2,6 +2,8 @@
 #{set title:'Profile' /}
 
 
+<div class="section">
+<div class="container">
 #{if session.get("user_id") == user.id.toString()}
 <p>Hello! <b>${user.type}</b>, ${user.firstName} Welcome to your profile</p>
 #{/if}
@@ -101,3 +103,5 @@ Details:
 <h4>No Completed Events from Mate.</h4>
 #{/else}
 </div>
+
+</div></div>
