@@ -28,6 +28,11 @@
     
  <!-- This div will show when the seeker logged In and will click the button to update
  his post. -->  
+<div>
+<table>
+<tr>
+
+ 
  #{if session.get("userType") == "mate" && session.get("id") == post.postedBy.id.toString()} 
 <div id="updateDiv"  style="display:none;" class="answer_list" > 
 #{form @GiveHelpController.updatePost(post.id), enctype:'multipart/form-data'}
@@ -96,7 +101,9 @@
 #{/form}
     
  </div>
+<th>
 <input id="button_event" type="button" name="update" value="Update your post" onclick="showDiv()" />
+</th>
 #{/if}
 <!-- End of Update Div -->    
     
@@ -104,9 +111,16 @@
 <!--Start of Div where user will found a button which will show whether he want to Remove Post or Not  -->
 #{if session.get("userType") == "mate" && session.get("id") == post.postedBy.id.toString()}
 #{form @GiveHelpController.removePost(post.id), enctype:'multipart/form-data'}
+<th>
 <input id="button_remove" type="submit" name="remove" value="Remove your post" />
+</th>
 #{/form}
 #{/if}
+
+
+</tr>
+</table>
+</div> 
 <!-- End of Remove Div -->
     
     
@@ -129,7 +143,8 @@
 			All fields required!
 		</p>
 	#{/ifErrors}
-    
+    <br>
+    <br>
     <p>
         <label for="author">Your name: </label>
         ${session.get("userName")}
@@ -150,25 +165,31 @@
             { ${post.comments.size() ?: 'no'}
             comment${post.comments.size().pluralize()}}
         </h3>
-        
+        <br>
         #{list items:post.comments, as:'comment'}
-            <div class="comment">
+            <div class="comment">            
+                <div class="modal-content" style="padding: 5px; width: 15%; margin-bottom: 5px;">
                 <div class="comment-metadata">
                     <span class="comment-author">
                     #{if comment.who=="seeker"}
-                    	by  ${comment.authorSeeker.userSeeker.firstName} ,	
+                    	by  <a href="@{ProfileController.profileView(comment.authorSeeker.userSeeker.id)}">${comment.authorSeeker.userSeeker.firstName}</a> ,	
                     #{/if}
                     #{if comment.who=="mate"}
-                    	by  ${comment.authorMate.userMate.firstName} ,	
+                    	by  <a href="@{ProfileController.profileView(comment.authorMate.userMate.id)}"> ${comment.authorMate.userMate.firstName}</a> ,	
                     #{/if}
                     </span>
                     <span class="comment-date">
-                         ${comment.postedAt.format('dd MMM yy')} 
+                         ${comment.postedAt.format('dd MMM yyyy')} 
                     </span>
                 </div>
+                </div>
+                
                 <div class="comment-content">
+                <div class="post" style="width: 30%">
                     <div class="about">Detail: </div>
                      ${comment.content.escape().nl2br()}
+                </div>
+                <br>
                 </div>
             </div>
          #{/list}

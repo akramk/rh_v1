@@ -38,6 +38,7 @@
     Location:<br>
     <!-- <input type="text" name="location" value=""/> -->    
     <select name = "location">
+    		<option value="${location}" selected> ${location} </option>
 	        <option value="" selected>Select </option>
 	        <option value="Dhaka">Dhaka</option>							
 			<option value="Chittagong">Chittagong</option>										
@@ -108,17 +109,27 @@
     
     
     Date:<br>
-    <input type="text" id="datepicker" name="searchDateS" value="" class="form-control"/>
+    <input type="text" id="datepicker" name="searchDateS" value="${searchDateS}" class="form-control"/>
     <br>
     
     
     Start Time:<br>
+    #{if timeStart != "00:00:00"}
+    <input type="text"  name="timeStart" id="timeStartSearch" class="form-control" value="${timeStart}"/>
+    #{/if}
+    #{else}
     <input type="text"  name="timeStart" id="timeStartSearch" class="form-control"/>
+    #{/else}
     <br>
 
       
     End Time:<br>
+    #{if timeEnd != "23:59:00"}
+    <input type="text"  name="timeEnd" id="timeEndSearch" class="form-control" value="${timeEnd}"/>
+    #{/if}
+    #{else}
     <input type="text"  name="timeEnd" id="timeEndSearch" class="form-control"/>
+    #{/else}
     <br>    
 
     <input class="form-control"" type="submit" value="Search!" />
@@ -262,6 +273,12 @@
 #{/else}
 </div>
 
+#{if seekHelpPost.size() == 0}
+<h3>No search result found</h3>
+#{/if}
+#{else}
+<h3>Posts of HelpSeekers:</h3>
+#{/else}
 
 #{list items:seekHelpPost, as:'p'}
 	<div class="container seek">

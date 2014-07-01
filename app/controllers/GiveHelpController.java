@@ -112,11 +112,11 @@ timeStart and timeEnd string to Time variable.*/
 		{
 			System.out.println(searchDate);
 			List<SeekerPostTable> giveHelpPost = SeekerPostTable.
-					find("postdate >= ? and location like ? and timeStart >= ? and timeEnd >= ? and status = ?",
+					find("postdate >= ? and location like ? and timeStart >= ? and timeEnd <= ? and status = ?",
 							searchDate, location,
 							java.sql.Time.valueOf(timeStart),
 							java.sql.Time.valueOf(timeEnd), "open").fetch();
-			
+			System.out.println(giveHelpPost.size() + " "+ timeStart+" "+ timeEnd);
 			render(giveHelpPost,location,searchDateS, timeStart, timeEnd);
 		}
 

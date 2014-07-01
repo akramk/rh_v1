@@ -85,8 +85,9 @@
     </div>
     Location:<br>
     <!-- <input type="text" name="location" value=""/> -->    
-    <select name = "location">
-	        <option value="" selected>Select </option>
+    <select name = "location" >
+	        <option value="${location}" selected> ${location} </option>
+	        <option value=""></option>
 	        <option value="Dhaka">Dhaka</option>							
 			<option value="Chittagong">Chittagong</option>										
 			<option value="Rajshahi">Rajshahi</option>										
@@ -157,19 +158,29 @@
     <div id='giveHelpSearchForm_searchDateS_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Date:<br>
-    <input type="text" id="datepicker" name="searchDateS" value="" class="form-control"/>
+    <input type="text" id="datepicker" name="searchDateS" value="${searchDateS}" class="form-control"/>
     <br>
     
     <div id='giveHelpSearchForm_timeStart_errorloc1' style="color: red;" class='error_strings'>    
     </div>
     Start Time:<br>
-    <input type="text" name="timeStart" id="timeStart" class="form-control"/>
+    #{if timeStart != "00:00:00"}
+    <input type="text" name="timeStart" id="timeStart" class="form-control" value="${timeStart}"/>
+    #{/if}
+    #{else}
+    <input type="text" name="timeStart" id="timeStart" class="form-control" value=""/>
+    #{/else}
     <br>
 
     <div id='giveHelpSearchForm_timeEnd_errorloc1' style="color: red;" class='error_strings'>   
     </div>  
     End Time:<br>
-    <input type="text" name="timeEnd" id="timeEnd" class="form-control"/>
+    #{if timeEnd != "23:59:00"}
+    <input type="text" name="timeEnd" id="timeEnd" class="form-control" value="${timeEnd}"/>
+    #{/if}
+    #{else}
+    <input type="text" name="timeEnd" id="timeEnd" class="form-control" value=""/>
+    #{/else}
     <br>    
 
     <input class="form-control" type="submit" value="Search!" />
@@ -338,7 +349,12 @@
 		  </thead>
 		  <tbody id="giveHelpPostTable"> -->
 
-
+#{if giveHelpPost.size() == 0}
+<h3>No search result found</h3>
+#{/if}
+#{else}
+<h3>Posts of HelpMates:</h3>
+#{/else}
 #{list items:giveHelpPost, as:'p'}
 	<div class="container seek">
 		<div class="post">

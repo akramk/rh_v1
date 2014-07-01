@@ -28,7 +28,11 @@
     
  <!-- This div will show when the seeker logged In and will click the button to update
  his post. -->  
- #{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString()} 
+<div class="container">
+<table>
+<tr>
+
+#{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString()} 
 <div id="updateDiv"  style="display:none;" class="answer_list" > 
 #{form @SeekHelpController.updatePost(post.id), enctype:'multipart/form-data'}
 
@@ -93,10 +97,11 @@
     <input type="submit" class="btn btn-default"  value="save your Update" />
   </div>
 
- #{/form}   
-    
- </div>
+ #{/form}       
+</div>
+<th>
 <input id="button_event" type="button" name="update" value="Update your post" onclick="showDiv()" />
+</th>
 #{/if}
 <!-- End of Update Div -->
 
@@ -104,9 +109,14 @@
 <!--Start of Div where user will found a button which will show whether he want to Remove Post or Not  -->
 #{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString()}
 #{form @SeekHelpController.removePost(post.id), enctype:'multipart/form-data'}
+<th>
 <input id="button_remove" type="submit" name="remove" value="Remove your post" />
+</th>
 #{/form}
 #{/if}
+</tr>
+</table>
+</div>
 <!-- End of Remove Div -->
 
     
@@ -152,6 +162,7 @@
         
         #{list items:post.comments, as:'comment'}
             <div class="comment">
+            <div class="modal-content" style="padding: 5px; width: 15%; margin-bottom: 5px;">
                 <div class="comment-metadata">
                     <span class="comment-author">
                     #{if comment.who=="seeker"}
@@ -165,9 +176,14 @@
                          ${comment.postedAt.format('dd MMM yy')} 
                     </span>
                 </div>
+                </div>
+                
+                
                 <div class="comment-content">
+                <div class="post" style="width: 30%">
                     <div class="about">Detail: </div>
                      ${comment.content.escape().nl2br()}
+                </div>
                 </div>
             </div>
          #{/list}
