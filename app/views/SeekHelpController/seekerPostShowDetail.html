@@ -25,7 +25,32 @@
 <!-- When user clicks this button, show a confirmation mesg box. if he confirms then submit the form -->
     #{/form}
     #{/if}
-    
+           
+           
+<!-- Give the list of mates applied -->
+<div class="container">
+#{if session.get("userType") == "seeker" && session.get("id") == post.seekerWhoPosted.id.toString() 
+  && matesWantedtoHelp.size() > 0} 
+<div id = "updateDivMate" style="display: none;">
+
+#{list items:matesWantedtoHelp, as:'m'}
+<div class="modal-content" style="padding: 5px; width: 25%; margin-bottom: 5px;">
+<table>
+<tr> <a href="@{ProfileController.profileView(m.userMate.id)}">${m.userMate.firstName}</a></tr>
+</table>
+</div>
+#{/list}
+</div>
+<input id="button_eventMate" type="button" name="update" value="Applied Candidates" onclick="showDivMate()" />
+
+
+
+#{/if} 
+</div>
+<!-- End of div -->            
+           
+           
+           
  <!-- This div will show when the seeker logged In and will click the button to update
  his post. -->  
 <div class="container">
@@ -118,7 +143,7 @@
 </table>
 </div>
 <!-- End of Remove Div -->
-
+    
     
  <div class="post-metadata">
         <span class="post-author">by <a href="@{ProfileController.profileView(post.seekerWhoPosted.userSeeker.id)}">${post.seeker}</a></span>,
@@ -223,6 +248,19 @@ function showDiv() {
     else {
     	document.getElementById('updateDiv').style.display = 'block';
     	document.getElementById('button_event').value = "Close Update"
+    }
+	
+}
+
+function showDivMate() {
+	
+	if (document.getElementById('updateDivMate').style.display !== 'none') {
+		document.getElementById('updateDivMate').style.display = 'none';
+		
+    }
+    else {
+    	document.getElementById('updateDivMate').style.display = 'block';
+    	document.getElementById('button_eventMate').value = "Close List"
     }
 	
 }

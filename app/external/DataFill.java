@@ -16,12 +16,12 @@ public class DataFill {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		//insert data in user info
 		Date dateOfBirth =  dateFormat.parse("25/05/1965");
-		UserInfo userInfo= new UserInfo("DE1024", "Asgar", "Ali", "male", dateOfBirth, "15", "Mirpur", "1240", "Dhaka", "Bangladesh");
+		UserInfo userInfo= new UserInfo("BD1024", "Asgar", "Ali", "male", dateOfBirth, "15", "Mirpur", "1240", "Dhaka", "Bangladesh");
 		userInfo.create();
 		
 		Date date =  dateFormat.parse("25/05/1975");
-		User userseeker = new User("12345ks","Ahmed", "Rabbi", date, "rabbi@gmail.com", "seeker1", "seeker", "accepted");
-		Address address = new Address("21", "ABC", "sadhj", "Rajshahi", "Bangladesh");
+		User userseeker = new User("12345ks","Ahmed", "Rabbi", date, "rab@gmail.com", "seeker1", "seeker", "accepted");
+		Address address = new Address("21", "ABC", "87/A", "Rajshahi", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
 		userseeker.create();
@@ -32,7 +32,7 @@ public class DataFill {
 		
 		
 		userseeker = new User("25546s", "Riz", "Bon", date, "riz@gmail.com", "seeker2", "seeker", "applied");
-		address = new Address("42", "3sd", "43dsa", "Netrokona", "Bangladesh");
+		address = new Address("42", "Selim street", "43d", "Netrokona", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
 		userseeker.create();
@@ -42,8 +42,8 @@ public class DataFill {
 		seeker.save();
 		
 		
-		User usermate = new User("25s4sk","John", "Fred", date, "jeff@gmail.com", "mate1", "mate", "accepted");
-		address = new Address("3", "dasds", "5ds", "Dhaka", "Bangladesh");
+		User usermate = new User("25s4sk","Rashed", "Amir", date, "jeff@gmail.com", "mate1", "mate", "accepted");
+		address = new Address("3", "Gulshan", "5A", "Dhaka", "Bangladesh");
 		address.userAddress = usermate;
 		usermate.address = address;
 		usermate.create();
@@ -53,7 +53,7 @@ public class DataFill {
 		mate.save();
 		
 		usermate = new User("254s6e", "Abir", "Rasel",date, "rasel@gmail.com", "mate2", "mate", "applied");
-		address = new Address("das", "re", "re", "Rajshahi", "Bangladesh");
+		address = new Address("Court", "3B", "Park Street", "Rajshahi", "Bangladesh");
 		address.userAddress = usermate;
 		usermate.address = address;
 		usermate.create();
@@ -62,8 +62,8 @@ public class DataFill {
 		mate.create();
 		mate.save();
 		
-		userseeker = new User("Martha2", "Ahmed", "Azfar", date, "mar@gmail.com", "seeker3", "seeker", "applied");
-		address = new Address("sda", "fggf", "43dsa", "Dhaka", "Bangladesh");
+		userseeker = new User("Martha", "Ahmed", "Azfar", date, "mar@gmail.com", "seeker3", "seeker", "applied");
+		address = new Address("Dhanmondi", "27", "43D", "Dhaka", "Bangladesh");
 		address.userAddress = userseeker;
 		userseeker.address = address;
 		userseeker.create();
@@ -81,14 +81,7 @@ public class DataFill {
 		Admin admin = new Admin();
 		admin.userAdmin = useradmin;
 		admin.create();
-		admin.save();
-		
-		
-		
-		
-		
-		
-		
+		admin.save();		
 	}
 
 }

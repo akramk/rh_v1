@@ -125,7 +125,8 @@ public class SeekHelpController extends Controller {
 				mateFound = true;
 			}
 		}
-		render(post, mateFound);
+		System.out.println("mateApplied: "+matesWantedtoHelp.size());
+		render(post, mateFound, matesWantedtoHelp);
 	}
 	
 	public static void postComment(Long postId, @Required String content){

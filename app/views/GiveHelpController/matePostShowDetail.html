@@ -25,6 +25,32 @@
     #{/form}
     #{/if}
     
+
+<!-- Give the list of mates applied -->
+<div class="container">
+#{if session.get("userType") == "mate" && session.get("id") == post.postedBy.id.toString()
+  && seekersWantHelp.size() > 0} 
+<div id = "updateDivMate" style="display: none;">
+
+#{list items:seekersWantHelp, as:'m'}
+<div class="modal-content" style="padding: 5px; width: 25%; margin-bottom: 5px;">
+<table>
+<tr> <a href="@{ProfileController.profileView(m.userSeeker.id)}">${m.userSeeker.firstName}</a></tr>
+</table>
+</div>
+#{/list}
+</div>
+<input id="button_eventMate" type="button" name="update" value="Applied Candidates" onclick="showDivMate()" />
+
+
+
+#{/if} 
+</div>
+<!-- End of div --> 
+
+
+
+
     
  <!-- This div will show when the seeker logged In and will click the button to update
  his post. -->  
@@ -233,5 +259,19 @@ function showDiv() {
     }
 	
 }
+
+function showDivMate() {
+	
+	if (document.getElementById('updateDivMate').style.display !== 'none') {
+		document.getElementById('updateDivMate').style.display = 'none';
+		
+    }
+    else {
+    	document.getElementById('updateDivMate').style.display = 'block';
+    	document.getElementById('button_eventMate').value = "Close List"
+    }
+	
+}
+
 </script>    
      

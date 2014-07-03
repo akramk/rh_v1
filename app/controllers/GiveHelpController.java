@@ -489,7 +489,7 @@ timeStart and timeEnd string to Time variable.*/
 			}
 		}
 		
-		render(post, mateFound);
+		render(post, mateFound, seekersWantHelp);
 	}
 
 	public static void postComment(Long postId, @Required String content){
